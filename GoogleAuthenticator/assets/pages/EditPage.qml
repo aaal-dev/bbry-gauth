@@ -10,12 +10,12 @@ Page {
         acceptAction: ActionItem {
             title: qsTr("Create") + Retranslate.onLocaleOrLanguageChanged
             onTriggered: {
-                database.title = title.text;
-                database.authLogin = authLogin.text;
-                database.secretCode = secretKeyPart1.text + secretKeyPart2.text + secretKeyPart3.text + secretKeyPart4.text;
-                database.keyLenght = keyLenght.selectedOption.value;
-                database.authType = authType.selectedOption.value;
-                database.writeData();
+                //_database.title = title.text;
+                //_database.authLogin = authLogin.text;
+                //_database.secretCode = secretKeyPart1.text + secretKeyPart2.text + secretKeyPart3.text + secretKeyPart4.text;
+                //_database.keyLenght = keyLenght.selectedOption.value;
+                //_database.authType = authType.selectedOption.value;
+                //_database.writeData();
                 addManualyPage.done();
             }
             enabled: false

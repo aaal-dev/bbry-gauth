@@ -18,18 +18,17 @@ import bb.cascades 1.4
 
 NavigationPane {
     id: navigationPane
-    Page {
-        id: mainPage
-
-        Menu.definition: MenuDefinition {
-            settingsAction: SettingsActionItem {
-                onTriggered: {
-                    settingsSheet.open();
-                }
-            }
-            helpAction: HelpActionItem {
+    Menu.definition: MenuDefinition {
+        settingsAction: SettingsActionItem {
+            onTriggered: {
+                settingsSheet.open();
             }
         }
+        helpAction: HelpActionItem {
+        }
+    }
+    Page {
+        id: mainPage
 
         content: Container {
             layout: DockLayout {
@@ -186,18 +185,7 @@ NavigationPane {
                     source: "ScanQRCodePage.qml"
                 }
             },
-            ActionItem {
-                id: addCodeButton
-                title: qsTr("Add manualy") + Retranslate.onLocaleOrLanguageChanged
-                imageSource: "asset:///images/icons/ic_rename.png"
-                ActionBar.placement: ActionBarPlacement.OnBar
-                shortcuts: SystemShortcut {
-                    type: SystemShortcuts.CreateNew
-                }
-                onTriggered: {
-                    addManualySheet.open()
-                }
-            },
+            
             MultiSelectActionItem {}
         ]
 
@@ -209,18 +197,6 @@ NavigationPane {
                         settingsSheet.close();
                     }
                 }
-            },
-            Sheet {
-                id: addManualySheet
-                content: AddManualyPage {
-                    onDone: {
-                        addManualySheet.close();
-                    }
-                }
-                onOpened: {
-                    content.reset()
-                }
-
             }
         ]
     }
@@ -229,5 +205,8 @@ NavigationPane {
         backButton: ActionItem {
             onTriggered: { navigationPane.pop(); }
         }
+    }
+    onCreationCompleted: {
+        //Application.themeSupport.setVisualStyle(_settings.visualStyle);
     }
 }

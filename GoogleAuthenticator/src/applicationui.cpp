@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-#include "applicationui.hpp"
-
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 
-#include <QtDeclarative>
+#include "applicationui.hpp"
+//#include "settings.hpp"
+//#include "database.hpp"
 
 using namespace bb::cascades;
 
@@ -52,8 +52,10 @@ ApplicationUI::ApplicationUI() :
     // Set created root object as the application scene
     Application::instance()->setScene(root);
 
-    Database *databaseObject = new Database(this);
-    qml->setContextProperty("database", databaseObject);
+    //Database *databaseObject = new Database(this);
+    //qml->setContextProperty("_database", databaseObject);
+    //Settings *settingsObject = new Settings(this);
+    //qml->setContextProperty("_settings", settingsObject);
 }
 
 void ApplicationUI::onSystemLanguageChanged()

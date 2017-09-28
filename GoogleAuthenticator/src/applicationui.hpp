@@ -17,8 +17,6 @@
 #ifndef ApplicationUI_HPP_
 #define ApplicationUI_HPP_
 
-#include "database.hpp"
-
 #include <QObject>
 
 namespace bb
@@ -30,7 +28,6 @@ namespace bb
 }
 
 class QTranslator;
-class Database;
 
 /*!
  * @brief Application UI object

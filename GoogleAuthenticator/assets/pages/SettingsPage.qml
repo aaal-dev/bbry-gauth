@@ -45,10 +45,10 @@ Page {
                 onCheckedChanged: {
                     
                     if (checked) {
-                        Application.themeSupport.setVisualStyle(VisualStyle.Dark);
+                        //_settings.visualStyle = VisualStyle.Dark;
                     }       
                     else {
-                        Application.themeSupport.setVisualStyle(VisualStyle.Bright);
+                        //_settings.visualStyle = VisualStyle.Bright;
                     }
                 }
             }

@@ -21,6 +21,8 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/LocaleHandler>
 
+#include <QtDeclarative>
+
 using namespace bb::cascades;
 
 ApplicationUI::ApplicationUI() :
@@ -49,6 +51,9 @@ ApplicationUI::ApplicationUI() :
 
     // Set created root object as the application scene
     Application::instance()->setScene(root);
+
+    Database *databaseObject = new Database(this);
+    qml->setContextProperty("database", databaseObject);
 }
 
 void ApplicationUI::onSystemLanguageChanged()

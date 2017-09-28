@@ -2,7 +2,7 @@
  * database.cpp
  *
  *  Created on: 08 нояб. 2016 г.
- *      Author: ArAkinin
+ *      Author: AnimeSlave
  */
 
 #include "database.hpp"
@@ -13,14 +13,22 @@
 
 
 Database :: Database (QObject *parent) : QObject(parent), DB_NAME("./data/gauth.db") {
-
+    m_id = 0;
+    m_title = "";
+    m_authLogin = "";
+    m_secretCode = "";
+    m_keyLenght = 6;
+    m_authType = 0;
+    m_counter = 0;
+    m_publishDate = "";
+    m_editDate = "";
 }
 
 Database :: ~Database () {
 
 }
 
-bool Database :: initialization(){
+bool Database :: init(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(DB_NAME);
 
@@ -80,11 +88,11 @@ bool Database :: writeData(){
             "VALUES (:title, :auth_login, :secret_code, :key_lenght, :auth_type, :publish_date)"
     );
 
-    //query.bindValue(":title", title);
-    //query.bindValue(":auth_login", auth_login);
-    //query.bindValue(":secret_code", secret_code);
-    //query.bindValue(":key_lenght", key_lenght);
-    //query.bindValue(":auth_type", auth_type);
+    query.bindValue(":title", m_title);
+    query.bindValue(":auth_login", m_authLogin);
+    query.bindValue(":secret_code", m_secretCode);
+    query.bindValue(":key_lenght", m_keyLenght);
+    query.bindValue(":auth_type", m_authType);
     query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
     bool success = query.exec();
@@ -108,12 +116,12 @@ bool Database :: updateData(){
             "WHERE id=:id"
     );
 
-    //query.bindValue(":id", id);
-    //query.bindValue(":auth_login", auth_login);
-    //query.bindValue(":secret_code", secret_code);
-    //query.bindValue(":key_lenght", key_lenght);
-    //query.bindValue(":auth_type", auth_type);
-    //query.bindValue(":publish_date", publish_date);
+    query.bindValue(":id", m_id);
+    query.bindValue(":auth_login", m_authLogin);
+    query.bindValue(":secret_code", m_secretCode);
+    query.bindValue(":key_lenght", m_keyLenght);
+    query.bindValue(":auth_type", m_authType);
+    query.bindValue(":publish_date", m_publishDate);
     query.bindValue(":edit_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
     bool success = query.exec();
@@ -124,8 +132,110 @@ bool Database :: deleteData(){
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
     query.prepare("DELETE FROM accounts WHERE id=:id");
-    //query.bindValue(":id", id);
+    query.bindValue(":id", m_id);
     bool success = query.exec();
     db.close();
     return success;
 }
+
+
+
+int Database :: getId(){
+    return m_id;
+}
+
+void Database :: setId(int id){
+    m_id = id;
+    emit idValueChanged(m_id);
+}
+
+
+
+QString Database :: getTitle(){
+    return m_title;
+}
+
+void Database :: setTitle(QString title){
+    m_title = title;
+    emit titleValueChanged(m_title);
+}
+
+
+
+QString Database :: getAuthLogin(){
+    return m_authLogin;
+}
+
+void Database :: setAuthLogin(QString authLogin){
+    m_authLogin = authLogin;
+    emit authLoginValueChanged(m_authLogin);
+}
+
+
+
+QString Database :: getSecretCode(){
+    return m_secretCode;
+}
+
+void Database :: setSecretCode(QString secretCode){
+    m_secretCode = secretCode;
+    emit secretCodeValueChanged(m_secretCode);
+}
+
+
+
+int Database :: getKeyLenght(){
+    return m_keyLenght;
+}
+
+void Database :: setKeyLenght(int keyLenght){
+    m_keyLenght = keyLenght;
+    emit keyLenghtValueChanged(m_keyLenght);
+}
+
+
+
+int Database :: getAuthType(){
+    return m_authType;
+}
+
+void Database :: setAuthType(int authType){
+    m_authType = authType;
+    emit authTypeValueChanged(m_authType);
+}
+
+
+
+int Database :: getCounter(){
+    return m_counter;
+}
+
+void Database :: setCounter(int counter){
+    m_counter = counter;
+    emit counterValueChanged(m_counter);
+}
+
+
+
+QString Database :: getPublishDate(){
+    return m_publishDate;
+}
+
+void Database :: setPublishDate(QString publishDate){
+    m_publishDate = publishDate;
+    emit publishDateValueChanged(m_publishDate);
+}
+
+
+
+QString Database :: getEditDate(){
+    return m_editDate;
+}
+
+void Database :: setEditDate(QString editDate){
+    m_editDate = editDate;
+    emit editDateValueChanged(m_editDate);
+}
+
+
+

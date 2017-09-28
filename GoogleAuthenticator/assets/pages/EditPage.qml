@@ -11,11 +11,11 @@ Page {
             title: qsTr("Create") + Retranslate.onLocaleOrLanguageChanged
             onTriggered: {
                 database.title = title.text;
-                database.auth_login = auth_login.text;
-                database.secret_code = secret_code_part1.text + secret_code_part2.text + secret_code_part3.text + secret_code_part4.text;
-                database.key_lenght = key_lenght.selectedOption;
-                database.auth_type = auth_type.selectedOption;
-                database.WriteData();
+                database.authLogin = authLogin.text;
+                database.secretCode = secretKeyPart1.text + secretKeyPart2.text + secretKeyPart3.text + secretKeyPart4.text;
+                database.keyLenght = keyLenght.selectedOption.value;
+                database.authType = authType.selectedOption.value;
+                database.writeData();
                 addManualyPage.done();
             }
         }
@@ -49,7 +49,7 @@ Page {
                 hintText: qsTr("Title")
             }
             TextField {
-                id: auth_login
+                id: authLogin
                 inputMode: TextFieldInputMode.EmailAddress
                 input.submitKey: SubmitKey.Next
                 hintText: qsTr("Your login")
@@ -68,7 +68,7 @@ Page {
                     horizontalAlignment: HorizontalAlignment.Center
                 }
                 Container {
-                    id: secret_key
+                    id: secretKey
                     layout: StackLayout {
                         orientation: LayoutOrientation.LeftToRight
                     
@@ -78,7 +78,7 @@ Page {
                     }
                     
                     TextField {
-                        id: secret_key_part1
+                        id: secretKeyPart1
                         hintText: qsTr("")
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -86,7 +86,7 @@ Page {
                         maximumLength: 4
                     }
                     TextField {
-                        id: secret_key_part2
+                        id: secretKeyPart2
                         hintText: qsTr("")
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -94,7 +94,7 @@ Page {
                         maximumLength: 4
                     }
                     TextField {
-                        id: secret_key_part3
+                        id: secretKeyPart3
                         hintText: qsTr("")
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -102,7 +102,7 @@ Page {
                         maximumLength: 4
                     }
                     TextField {
-                        id: secret_key_part4
+                        id: secretKeyPart4
                         hintText: qsTr("")
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -119,7 +119,7 @@ Page {
                 multiline: true
             }
             DropDown {
-                id: key_lenght
+                id: keyLenght
                 title: qsTr("Key Length:")
                 options: [
                     Option {
@@ -142,7 +142,7 @@ Page {
                 ]
             }
             DropDown {
-                id: auth_type
+                id: authType
                 title: qsTr("Type:")
                 horizontalAlignment: HorizontalAlignment.Center
                 options: [

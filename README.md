@@ -1,2 +1,2 @@
 # bbauth
-Google Authenticator for Blackberry 10
+My home self learning project of Google Authenticator as native app for Blackberry 10

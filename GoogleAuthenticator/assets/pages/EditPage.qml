@@ -18,6 +18,7 @@ Page {
                 database.writeData();
                 addManualyPage.done();
             }
+            enabled: false
         }
         dismissAction: ActionItem {
             title: qsTr("Cancel") + Retranslate.onLocaleOrLanguageChanged
@@ -47,12 +48,32 @@ Page {
                 inputMode: TextFieldInputMode.Text
                 input.submitKey: SubmitKey.Next
                 hintText: qsTr("Title")
+                validator: Validator {
+                    mode: ValidationMode.Immediate
+                    errorMessage: "Name title"
+                    onValidate: {
+                        if (title.text.length < 1)
+                            state = ValidationState.Valid;
+                        else
+                            state = ValidationState.Invalid;
+                    }
+                }
             }
             TextField {
                 id: authLogin
                 inputMode: TextFieldInputMode.EmailAddress
                 input.submitKey: SubmitKey.Next
                 hintText: qsTr("Your login")
+                validator: Validator {
+                    mode: ValidationMode.Immediate
+                    errorMessage: "Enter your login"
+                    onValidate: {
+                        if (authLogin.text.length < 1)
+                            state = ValidationState.Valid;
+                        else
+                            state = ValidationState.Invalid;
+                    }
+                }
             }
             Label {}
             

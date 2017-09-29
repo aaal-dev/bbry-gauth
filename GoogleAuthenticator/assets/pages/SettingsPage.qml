@@ -6,75 +6,53 @@ Page {
     
     titleBar: TitleBar {
         title: qsTr("Settings") + Retranslate.onLocaleOrLanguageChanged
-        kind: TitleBarKind.Default
-        acceptAction: ActionItem {
-            title: qsTr("OK") + Retranslate.onLocaleOrLanguageChanged
-            onTriggered: {
-                settingsPage.done()
-            }
-        }
-        dismissAction: ActionItem {
-            title: qsTr("Cancel") + Retranslate.onLocaleOrLanguageChanged
-            onTriggered: {
-                settingsPage.done()
-            }
-        }
-        
     }
-    Container {
+    ScrollView {
         Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            
+            Header {
+                title: qsTr("Theme") + Retranslate.onLocaleOrLanguageChanged
             }
-            topPadding: 10.0
-            leftPadding: 10.0
-            rightPadding: 10.0
-            bottomPadding: 10.0
-            Label {
-                horizontalAlignment: HorizontalAlignment.Center
-                text: qsTr("Dark theme") + Retranslate.onLocaleOrLanguageChanged
-                verticalAlignment: VerticalAlignment.Center
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 1.0
+            
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
                 
                 }
-                textStyle.fontSize: FontSize.Medium
-            }
-            ToggleButton {
-                onCheckedChanged: {
+                topPadding: ui.du(2)
+                leftPadding: topPadding
+                rightPadding: leftPadding
+                bottomPadding: rightPadding
+                Label {
+                    horizontalAlignment: HorizontalAlignment.Center
+                    text: qsTr("Dark theme") + Retranslate.onLocaleOrLanguageChanged
+                    verticalAlignment: VerticalAlignment.Center
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1.0
                     
-                    if (checked) {
-                        //_settings.visualStyle = VisualStyle.Dark;
-                    }       
-                    else {
-                        //_settings.visualStyle = VisualStyle.Bright;
+                    }
+                    textStyle.fontSize: FontSize.Medium
+                }
+                ToggleButton {
+                    onCheckedChanged: {
+                        if (checked) {
+                            _settings.visualStyle = VisualStyle.Dark;
+                        }       
+                        else {
+                            _settings.visualStyle = VisualStyle.Bright;
+                        }
                     }
                 }
             }
-        }
-        Container {
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
             
-            }
-            topPadding: 10.0
-            leftPadding: 10.0
-            rightPadding: 10.0
-            bottomPadding: 10.0
-            Label {
-                horizontalAlignment: HorizontalAlignment.Center
-                text: qsTr("Secure connection") + Retranslate.onLocaleOrLanguageChanged
-                verticalAlignment: VerticalAlignment.Center
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 1.0
+            Container {
+                topPadding: ui.du(0)
+                leftPadding: ui.du(2)
+                rightPadding: leftPadding
+                bottomPadding: rightPadding
                 
-                }
-                textStyle.fontSize: FontSize.Medium
-            }
-            ToggleButton {
-                onCheckedChanged: {
-
+                DropDown {
+                    title: qsTr("Color") + Retranslate.onLocaleOrLanguageChanged
+                    
                 }
             }
         }

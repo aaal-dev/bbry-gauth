@@ -20,7 +20,7 @@
 #include <bb/cascades/LocaleHandler>
 
 #include "applicationui.hpp"
-//#include "settings.hpp"
+#include "settings.hpp"
 //#include "database.hpp"
 
 using namespace bb::cascades;
@@ -54,8 +54,8 @@ ApplicationUI::ApplicationUI() :
 
     //Database *databaseObject = new Database(this);
     //qml->setContextProperty("_database", databaseObject);
-    //Settings *settingsObject = new Settings(this);
-    //qml->setContextProperty("_settings", settingsObject);
+    Settings *settingsObject = new Settings(this);
+    qml->setContextProperty("_settings", settingsObject);
 }
 
 void ApplicationUI::onSystemLanguageChanged()

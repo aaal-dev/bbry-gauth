@@ -36,13 +36,13 @@ bool Database :: createDatabase () {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_NAME);
     if (database.open()) {
-        alert(tr("Database created/registered."));
+        //alert(tr("Database created/registered."));
         success = true;
     } else {
         // If the database fails to open, error information can be accessed via
         // the lastError function.
         const QSqlError error = database.lastError();
-        alert(tr("Error opening connection to the database: %1").arg(error.text()));
+        //alert(tr("Error opening connection to the database: %1").arg(error.text()));
     }
     database.close();
     return success;
@@ -54,10 +54,10 @@ bool Database :: deleteDatabase () {
     QString connectionName=database.connectionName();
     if(database.open()){
         database.removeDatabase(connectionName);
-        alert(tr("Database deleted"));
+        //alert(tr("Database deleted"));
         success = true;
     }else{
-        alert(tr("Sql database might not yet created or it is already deleted"));
+        //alert(tr("Sql database might not yet created or it is already deleted"));
     }
     database.close();
     return success;
@@ -88,11 +88,11 @@ bool Database :: createTable () {
         "   edit_date TEXT)"
     );
     if (query.exec()) {
-        alert(tr("Table creation query execute successfully"));
+        //alert(tr("Table creation query execute successfully"));
         success = true;
     } else {
         const QSqlError error = query.lastError();
-        alert(tr("Create table error: %1").arg(error.text()));
+        //alert(tr("Create table error: %1").arg(error.text()));
     }
     database.close();
     return success;
@@ -112,11 +112,11 @@ bool Database :: dropTable () {
     QSqlQuery query(database);
     query.prepare("DROP TABLE IF EXISTS accounts");
     if (query.exec()) {
-        alert(tr("Table drop query execute successfully"));
+        //alert(tr("Table drop query execute successfully"));
         success = true;
     } else {
         const QSqlError error = query.lastError();
-        alert(tr("Drop table error: %1").arg(error.text()));
+        //alert(tr("Drop table error: %1").arg(error.text()));
     }
     database.close();
     return success;
@@ -126,7 +126,7 @@ bool Database :: createRecord () {
     bool success = false;
     QSqlDatabase database = QSqlDatabase::database();
     if (!database.tables().contains("customers")) {
-        alert(tr("Create record error: customers table does not exist."));
+        //alert(tr("Create record error: customers table does not exist."));
         return success;
     }
     QSqlQuery query(database);
@@ -142,11 +142,11 @@ bool Database :: createRecord () {
     query.bindValue(":auth_type", m_authType);
     query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
     if (query.exec()) {
-        alert(tr("Record created"));
+        //alert(tr("Record created"));
         success = true;
     } else {
         const QSqlError error = query.lastError();
-        alert(tr("Create record error: %1").arg(error.text()));
+        //alert(tr("Create record error: %1").arg(error.text()));
     }
     database.close();
     return success;

@@ -10,29 +10,6 @@
     </message>
 </context>
 <context>
-    <name>Database</name>
-    <message>
-        <location filename="../src/database.cpp" line="39"/>
-        <source>Database created/registered.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="45"/>
-        <source>Error opening connection to the database: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="57"/>
-        <source>Database deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="60"/>
-        <source>Sql database might not yet created or it is already deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EditPage</name>
     <message>
         <location filename="../assets/pages/EditPage.qml" line="8"/>
@@ -138,23 +115,18 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="11"/>
-        <source>OK</source>
+        <location filename="../assets/pages/SettingsPage.qml" line="13"/>
+        <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="17"/>
-        <source>Cancel</source>
+        <location filename="../assets/pages/SettingsPage.qml" line="54"/>
+        <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="36"/>
+        <location filename="../assets/pages/SettingsPage.qml" line="27"/>
         <source>Dark theme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="67"/>
-        <source>Secure connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

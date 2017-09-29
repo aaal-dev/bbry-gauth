@@ -21,11 +21,17 @@ NavigationPane {
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
             onTriggered: {
-                settingsSheet.open();
+                navigationPane.push(settingsPageDefinition.createObject());
             }
         }
         helpAction: HelpActionItem {
         }
+        attachedObjects: [
+            ComponentDefinition {
+                id: settingsPageDefinition
+                source: "asset:///pages/SettingsPage.qml"
+            }
+        ]
     }
     Page {
         id: mainPage
@@ -187,17 +193,6 @@ NavigationPane {
             },
             
             MultiSelectActionItem {}
-        ]
-
-        attachedObjects: [
-            Sheet {
-                id: settingsSheet
-                content: SettingsPage {
-                    onDone: {
-                        settingsSheet.close();
-                    }
-                }
-            }
         ]
     }
     

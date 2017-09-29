@@ -22,8 +22,8 @@ static const uint qt_meta_data_Database[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
-       9,   79, // properties
+      16,   14, // methods
+       9,   94, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
@@ -42,20 +42,23 @@ static const uint qt_meta_data_Database[] = {
 
  // methods: signature, parameters, type, tag, flags
      266,    9,  261,    9, 0x02,
-     277,    9,  261,    9, 0x02,
-     289,    9,  261,    9, 0x02,
-     302,    9,  261,    9, 0x02,
+     283,    9,  261,    9, 0x02,
+     300,    9,  261,    9, 0x02,
+     315,    9,  261,    9, 0x02,
+     326,    9,  261,    9, 0x02,
+     338,    9,  261,    9, 0x02,
+     351,    9,  261,    9, 0x02,
 
  // properties: name, type, flags
-     319,  315, 0x02495103,
-     330,  322, 0x0a495103,
-     336,  322, 0x0a495103,
-     346,  322, 0x0a495103,
-     357,  315, 0x02495103,
-     367,  315, 0x02495103,
-     376,  315, 0x02495103,
-     384,  322, 0x0a495103,
-     396,  322, 0x0a495103,
+     368,  364, 0x02495103,
+     379,  371, 0x0a495103,
+     385,  371, 0x0a495103,
+     395,  371, 0x0a495103,
+     406,  364, 0x02495103,
+     416,  364, 0x02495103,
+     425,  364, 0x02495103,
+     433,  371, 0x0a495103,
+     445,  371, 0x0a495103,
 
  // properties: notify_signal_id
        0,
@@ -81,10 +84,12 @@ static const char qt_meta_stringdata_Database[] = {
     "counterValueChanged(int)\0"
     "publishDateValueChanged(QString)\0"
     "editDateValueChanged(QString)\0bool\0"
-    "readData()\0writeData()\0updateData()\0"
-    "deleteData()\0int\0id\0QString\0title\0"
-    "authLogin\0secretCode\0keyLenght\0authType\0"
-    "counter\0publishDate\0editDate\0"
+    "createDatabase()\0deleteDatabase()\0"
+    "initDatabase()\0readData()\0writeData()\0"
+    "updateData()\0deleteData()\0int\0id\0"
+    "QString\0title\0authLogin\0secretCode\0"
+    "keyLenght\0authType\0counter\0publishDate\0"
+    "editDate\0"
 };
 
 void Database::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -102,13 +107,19 @@ void Database::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 6: _t->counterValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 7: _t->publishDateValueChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 8: _t->editDateValueChanged((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 9: { bool _r = _t->readData();
+        case 9: { bool _r = _t->createDatabase();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 10: { bool _r = _t->writeData();
+        case 10: { bool _r = _t->deleteDatabase();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 11: { bool _r = _t->updateData();
+        case 11: { bool _r = _t->initDatabase();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 12: { bool _r = _t->deleteData();
+        case 12: { bool _r = _t->readData();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 13: { bool _r = _t->writeData();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 14: { bool _r = _t->updateData();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
+        case 15: { bool _r = _t->deleteData();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
         default: ;
         }
@@ -147,9 +158,9 @@ int Database::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 16;
     }
 #ifndef QT_NO_PROPERTIES
       else if (_c == QMetaObject::ReadProperty) {

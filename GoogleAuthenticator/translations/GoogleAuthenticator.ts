@@ -10,6 +10,29 @@
     </message>
 </context>
 <context>
+    <name>Database</name>
+    <message>
+        <location filename="../src/database.cpp" line="39"/>
+        <source>Database created/registered.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/database.cpp" line="45"/>
+        <source>Error opening connection to the database: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/database.cpp" line="57"/>
+        <source>Database deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/database.cpp" line="60"/>
+        <source>Sql database might not yet created or it is already deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditPage</name>
     <message>
         <location filename="../assets/pages/EditPage.qml" line="8"/>

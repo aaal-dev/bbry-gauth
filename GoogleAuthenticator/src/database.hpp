@@ -26,11 +26,17 @@ class Database : public QObject {
 public:
     Database(QObject *parent);
     virtual ~Database();
-    bool init();
-    Q_INVOKABLE bool readData();
-    Q_INVOKABLE bool writeData();
+
+    Q_INVOKABLE bool createDatabase();
+    Q_INVOKABLE bool deleteDatabase();
+
+    Q_INVOKABLE bool createTable();
+    Q_INVOKABLE bool dropTable();
+
+    Q_INVOKABLE bool createRecord();
     Q_INVOKABLE bool updateData();
     Q_INVOKABLE bool deleteData();
+    Q_INVOKABLE bool readData();
 
     int getId();
     void setId(int id);

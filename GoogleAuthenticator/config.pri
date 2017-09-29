@@ -73,13 +73,11 @@ config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/database.cpp) \
-        $$quote($$BASEDIR/src/main.cpp) \
-        $$quote($$BASEDIR/src/settings.cpp)
+        $$quote($$BASEDIR/src/main.cpp)
 
     HEADERS += \
         $$quote($$BASEDIR/src/applicationui.hpp) \
-        $$quote($$BASEDIR/src/database.hpp) \
-        $$quote($$BASEDIR/src/settings.hpp)
+        $$quote($$BASEDIR/src/database.hpp)
 }
 
 CONFIG += precompile_header

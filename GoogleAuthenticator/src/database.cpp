@@ -6,10 +6,13 @@
  */
 
 #include "database.hpp"
+
+#include <bb/system/SystemDialog>
+
 #include <QDebug>
-#include <QSqlDatabase>
-#include <QSqlQuery>
+#include <QtSql>
 #include <QDateTime>
+
 
 
 Database :: Database (QObject *parent) : QObject(parent), DB_NAME("./data/gauth.db") {
@@ -28,24 +31,50 @@ Database :: ~Database () {
 
 }
 
-bool Database :: init(){
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(DB_NAME);
-
-    if (db.isValid() == false) {
-        qDebug() << db.isValid();
-        return false;
+bool Database :: createDatabase () {
+    bool success = false;
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName(DB_NAME);
+    if (database.open()) {
+        alert(tr("Database created/registered."));
+        success = true;
+    } else {
+        // If the database fails to open, error information can be accessed via
+        // the lastError function.
+        const QSqlError error = database.lastError();
+        alert(tr("Error opening connection to the database: %1").arg(error.text()));
     }
+    database.close();
+    return success;
+}
 
-    if (db.open() == false) {
+bool Database :: deleteDatabase () {
+    bool success = false;
+    QSqlDatabase database=QSqlDatabase::database();
+    QString connectionName=database.connectionName();
+    if(database.open()){
+        database.removeDatabase(connectionName);
+        alert(tr("Database deleted"));
+        success = true;
+    }else{
+        alert(tr("Sql database might not yet created or it is already deleted"));
+    }
+    database.close();
+    return success;
+}
+
+bool Database :: createTable () {
+    bool success = false;
+    QSqlDatabase database = QSqlDatabase::database();
+    if (!database.isValid()) {
+        qDebug() << database.isValid();
+        return success;
+    }
+    if (!database.open()) {
         qDebug() << "\nDatabase NOT opened." ;
-        return false;
+        return success;
     }
-
-    qDebug() << "Database created" << db.open();
-
-    QSqlQuery query(db);
-
+    QSqlQuery query(database);
     query.prepare(
         "CREATE TABLE IF NOT EXISTS accounts"
         "   (id INTEGER PRIMARY KEY, "
@@ -58,48 +87,72 @@ bool Database :: init(){
         "   publish_date TEXT NOT NULL, "
         "   edit_date TEXT)"
     );
-    bool success = query.exec();
+    if (query.exec()) {
+        alert(tr("Table creation query execute successfully"));
+        success = true;
+    } else {
+        const QSqlError error = query.lastError();
+        alert(tr("Create table error: %1").arg(error.text()));
+    }
+    database.close();
     return success;
 }
 
-bool Database :: readData(){
-    QSqlDatabase db = QSqlDatabase::database();
-    QSqlQuery query(db);
-
-    query.prepare("SELECT * FROM accounts");
-
-    if(query.exec()){
-        while(query.next()){
-
-        }
-        return true;
-    }else{
-        return false;
+bool Database :: dropTable () {
+    bool success = false;
+    QSqlDatabase database = QSqlDatabase::database();
+    if (!database.isValid()) {
+        qDebug() << database.isValid();
+        return success;
     }
+    if (!database.open()) {
+        qDebug() << "\nDatabase NOT opened." ;
+        return success;
+    }
+    QSqlQuery query(database);
+    query.prepare("DROP TABLE IF EXISTS accounts");
+    if (query.exec()) {
+        alert(tr("Table drop query execute successfully"));
+        success = true;
+    } else {
+        const QSqlError error = query.lastError();
+        alert(tr("Drop table error: %1").arg(error.text()));
+    }
+    database.close();
+    return success;
 }
 
-bool Database :: writeData(){
-    QSqlDatabase db = QSqlDatabase::database();
-    QSqlQuery query(db);
-
+bool Database :: createRecord () {
+    bool success = false;
+    QSqlDatabase database = QSqlDatabase::database();
+    if (!database.tables().contains("customers")) {
+        alert(tr("Create record error: customers table does not exist."));
+        return success;
+    }
+    QSqlQuery query(database);
     query.prepare(
             "INSERT INTO accounts "
             "(title, auth_login, secret_code, key_lenght, auth_type, publish_date) "
             "VALUES (:title, :auth_login, :secret_code, :key_lenght, :auth_type, :publish_date)"
     );
-
     query.bindValue(":title", m_title);
     query.bindValue(":auth_login", m_authLogin);
     query.bindValue(":secret_code", m_secretCode);
     query.bindValue(":key_lenght", m_keyLenght);
     query.bindValue(":auth_type", m_authType);
     query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-
-    bool success = query.exec();
+    if (query.exec()) {
+        alert(tr("Record created"));
+        success = true;
+    } else {
+        const QSqlError error = query.lastError();
+        alert(tr("Create record error: %1").arg(error.text()));
+    }
+    database.close();
     return success;
 }
 
-bool Database :: updateData(){
+bool Database :: updateData () {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
 
@@ -128,7 +181,7 @@ bool Database :: updateData(){
     return success;
 }
 
-bool Database :: deleteData(){
+bool Database :: deleteData () {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
     query.prepare("DELETE FROM accounts WHERE id=:id");
@@ -138,68 +191,84 @@ bool Database :: deleteData(){
     return success;
 }
 
+bool Database :: readData () {
+    QSqlDatabase database = QSqlDatabase::database();
+    QSqlQuery query(database);
+
+    query.prepare("SELECT * FROM accounts");
+
+    if(query.exec()){
+        while(query.next()){
+
+        }
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
-int Database :: getId(){
+
+int Database :: getId () {
     return m_id;
 }
 
-void Database :: setId(int id){
+void Database :: setId (int id) {
     m_id = id;
     emit idValueChanged(m_id);
 }
 
 
 
-QString Database :: getTitle(){
+QString Database :: getTitle () {
     return m_title;
 }
 
-void Database :: setTitle(QString title){
+void Database :: setTitle (QString title) {
     m_title = title;
     emit titleValueChanged(m_title);
 }
 
 
 
-QString Database :: getAuthLogin(){
+QString Database :: getAuthLogin () {
     return m_authLogin;
 }
 
-void Database :: setAuthLogin(QString authLogin){
+void Database :: setAuthLogin (QString authLogin) {
     m_authLogin = authLogin;
     emit authLoginValueChanged(m_authLogin);
 }
 
 
 
-QString Database :: getSecretCode(){
+QString Database :: getSecretCode () {
     return m_secretCode;
 }
 
-void Database :: setSecretCode(QString secretCode){
+void Database :: setSecretCode (QString secretCode) {
     m_secretCode = secretCode;
     emit secretCodeValueChanged(m_secretCode);
 }
 
 
 
-int Database :: getKeyLenght(){
+int Database :: getKeyLenght () {
     return m_keyLenght;
 }
 
-void Database :: setKeyLenght(int keyLenght){
+void Database :: setKeyLenght (int keyLenght) {
     m_keyLenght = keyLenght;
     emit keyLenghtValueChanged(m_keyLenght);
 }
 
 
 
-int Database :: getAuthType(){
+int Database :: getAuthType () {
     return m_authType;
 }
 
-void Database :: setAuthType(int authType){
+void Database :: setAuthType (int authType) {
     m_authType = authType;
     emit authTypeValueChanged(m_authType);
 }
@@ -210,29 +279,29 @@ int Database :: getCounter(){
     return m_counter;
 }
 
-void Database :: setCounter(int counter){
+void Database :: setCounter (int counter) {
     m_counter = counter;
     emit counterValueChanged(m_counter);
 }
 
 
 
-QString Database :: getPublishDate(){
+QString Database :: getPublishDate () {
     return m_publishDate;
 }
 
-void Database :: setPublishDate(QString publishDate){
+void Database :: setPublishDate (QString publishDate) {
     m_publishDate = publishDate;
     emit publishDateValueChanged(m_publishDate);
 }
 
 
 
-QString Database :: getEditDate(){
+QString Database :: getEditDate () {
     return m_editDate;
 }
 
-void Database :: setEditDate(QString editDate){
+void Database :: setEditDate (QString editDate) {
     m_editDate = editDate;
     emit editDateValueChanged(m_editDate);
 }

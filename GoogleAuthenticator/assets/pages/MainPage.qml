@@ -201,6 +201,11 @@ NavigationPane {
             onTriggered: { navigationPane.pop(); }
         }
     }
+    
+    onPopTransitionEnded: {
+        page.destroy();
+    }
+    
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);
     }

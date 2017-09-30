@@ -27,22 +27,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="42"/>
+        <location filename="../assets/pages/EditPage.qml" line="44"/>
         <source>Enter web-service title, auth login and secret key from the 2-step authentication setup page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="50"/>
+        <location filename="../assets/pages/EditPage.qml" line="60"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="66"/>
+        <location filename="../assets/pages/EditPage.qml" line="76"/>
         <source>Your login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="87"/>
+        <location filename="../assets/pages/EditPage.qml" line="97"/>
         <source>Two factor authentication code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -52,29 +52,29 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="139"/>
+        <location filename="../assets/pages/EditPage.qml" line="153"/>
         <source>Setup preferences for output key. If you don&apos;t know, leave it by default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="144"/>
+        <location filename="../assets/pages/EditPage.qml" line="164"/>
         <source>Key Length:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="167"/>
+        <location filename="../assets/pages/EditPage.qml" line="187"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="171"/>
-        <location filename="../assets/pages/EditPage.qml" line="172"/>
+        <location filename="../assets/pages/EditPage.qml" line="191"/>
+        <location filename="../assets/pages/EditPage.qml" line="192"/>
         <source>Time based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="176"/>
-        <location filename="../assets/pages/EditPage.qml" line="177"/>
+        <location filename="../assets/pages/EditPage.qml" line="196"/>
+        <location filename="../assets/pages/EditPage.qml" line="197"/>
         <source>Counter based OTP</source>
         <translation type="unfinished"></translation>
     </message>
@@ -82,19 +82,19 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="122"/>
-        <location filename="../assets/pages/MainPage.qml" line="155"/>
+        <location filename="../assets/pages/MainPage.qml" line="128"/>
+        <location filename="../assets/pages/MainPage.qml" line="161"/>
         <source>Authenticator Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="127"/>
-        <location filename="../assets/pages/MainPage.qml" line="160"/>
+        <location filename="../assets/pages/MainPage.qml" line="133"/>
+        <location filename="../assets/pages/MainPage.qml" line="166"/>
         <source>Delete This Entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="174"/>
+        <location filename="../assets/pages/MainPage.qml" line="180"/>
         <source>Scan QR</source>
         <translation type="unfinished"></translation>
     </message>

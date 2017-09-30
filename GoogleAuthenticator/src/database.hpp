@@ -34,9 +34,9 @@ public:
     Q_INVOKABLE bool dropTable();
 
     Q_INVOKABLE bool createRecord();
-    Q_INVOKABLE bool updateData();
-    Q_INVOKABLE bool deleteData();
-    Q_INVOKABLE bool readData();
+    Q_INVOKABLE bool updateRecord();
+    Q_INVOKABLE bool deleteRecord();
+    Q_INVOKABLE bool readRecord();
 
     int getId();
     void setId(int id);

@@ -29,60 +29,70 @@ Page {
     }
         
     content: Container {
-        leftPadding: 20.0
-        rightPadding: 20.0
-        topPadding: 20.0
-        bottomPadding: 20.0
+        
         layout: DockLayout {}
         
         Container {
             layout: StackLayout {}
-                        
-            Label {
-                text: qsTr("Enter web-service title, auth login and secret key from the 2-step authentication setup page")
-                multiline: true
+            
+            Container {
+                leftPadding: ui.du(2)
+                rightPadding: ui.du(2)
+                topPadding: ui.du(2)
+                bottomPadding: ui.du(0)
+                Label {
+                    text: qsTr("Enter web-service title, auth login and secret key from the 2-step authentication setup page")
+                    multiline: true
+                }
+            }            
+            Divider {
+
             }
-            Label {}
-            TextField {
-                id: title
-                inputMode: TextFieldInputMode.Text
-                input.submitKey: SubmitKey.Next
-                hintText: qsTr("Title")
-                validator: Validator {
-                    mode: ValidationMode.Immediate
-                    errorMessage: "Name title"
-                    onValidate: {
-                        if (title.text.length < 1)
-                            state = ValidationState.Valid;
-                        else
-                            state = ValidationState.Invalid;
+            Container {
+                leftPadding: ui.du(2)
+                rightPadding: ui.du(2)
+                topPadding: ui.du(0)
+                bottomPadding: ui.du(2)
+                TextField {
+                    id: title
+                    inputMode: TextFieldInputMode.Text
+                    input.submitKey: SubmitKey.Next
+                    hintText: qsTr("Title")
+                    validator: Validator {
+                        mode: ValidationMode.Immediate
+                        errorMessage: "Name title"
+                        onValidate: {
+                            if (title.text.length < 1)
+                                state = ValidationState.Valid;
+                            else
+                                state = ValidationState.Invalid;
+                        }
+                    }
+                }
+                TextField {
+                    id: authLogin
+                    inputMode: TextFieldInputMode.EmailAddress
+                    input.submitKey: SubmitKey.Next
+                    hintText: qsTr("Your login")
+                    validator: Validator {
+                        mode: ValidationMode.Immediate
+                        errorMessage: "Enter your login"
+                        onValidate: {
+                            if (authLogin.text.length < 1)
+                                state = ValidationState.Valid;
+                            else
+                                state = ValidationState.Invalid;
+                        }
                     }
                 }
             }
-            TextField {
-                id: authLogin
-                inputMode: TextFieldInputMode.EmailAddress
-                input.submitKey: SubmitKey.Next
-                hintText: qsTr("Your login")
-                validator: Validator {
-                    mode: ValidationMode.Immediate
-                    errorMessage: "Enter your login"
-                    onValidate: {
-                        if (authLogin.text.length < 1)
-                            state = ValidationState.Valid;
-                        else
-                            state = ValidationState.Invalid;
-                    }
-                }
-            }
-            Label {}
             
             Container {
                 background: Color.create("#ffa5dae4")
-                topPadding: 20.0
-                leftPadding: 20.0
-                rightPadding: 20.0
-                bottomPadding: 20.0
+                leftPadding: ui.du(2)
+                rightPadding: ui.du(2)
+                topPadding: ui.du(2)
+                bottomPadding: ui.du(2)
                 Label {
                     text: qsTr("Two factor authentication code")
                     textStyle.textAlign: TextAlign.Center
@@ -132,53 +142,63 @@ Page {
                     }
                 }                
             }       
-            Label {}
-            
+         
             Divider {}
-            Label {
-                text: qsTr("Setup preferences for output key. If you don't know, leave it by default")
-                multiline: true
+            Container {
+                leftPadding: ui.du(2)
+                rightPadding: ui.du(2)
+                topPadding: ui.du(0)
+                bottomPadding: ui.du(0)
+                Label {
+                    text: qsTr("Setup preferences for output key. If you don't know, leave it by default")
+                    multiline: true
+                }
             }
-            DropDown {
-                id: keyLenght
-                title: qsTr("Key Length:")
-                options: [
-                    Option {
-                        text: "6"
-                        value: 6
-                        selected: true
-                    },
-                    Option {
-                        text: "7"
-                        value: 7
-                    },
-                    Option {
-                        text: "8"
-                        value: 8
-                    },
-                    Option {
-                        text: "9"
-                        value: 9
-                    }
-                ]
-            }
-            DropDown {
-                id: authType
-                title: qsTr("Type:")
-                horizontalAlignment: HorizontalAlignment.Center
-                options: [
-                    Option {
-                        text: qsTr("Time based OTP")
-                        description: qsTr("Time based OTP")
-                        selected: true
-                    },
-                    Option {
-                        text: qsTr("Counter based OTP")
-                        description: qsTr("Counter based OTP")
-                    }
-                ]
+            Container {
+                leftPadding: ui.du(2)
+                rightPadding: ui.du(2)
+                topPadding: ui.du(2)
+                bottomPadding: ui.du(0)
+                DropDown {
+                    id: keyLenght
+                    title: qsTr("Key Length:")
+                    options: [
+                        Option {
+                            text: "6"
+                            value: 6
+                            selected: true
+                        },
+                        Option {
+                            text: "7"
+                            value: 7
+                        },
+                        Option {
+                            text: "8"
+                            value: 8
+                        },
+                        Option {
+                            text: "9"
+                            value: 9
+                        }
+                    ]
+                }
+                DropDown {
+                    id: authType
+                    title: qsTr("Type:")
+                    horizontalAlignment: HorizontalAlignment.Center
+                    options: [
+                        Option {
+                            text: qsTr("Time based OTP")
+                            description: qsTr("Time based OTP")
+                            selected: true
+                        },
+                        Option {
+                            text: qsTr("Counter based OTP")
+                            description: qsTr("Counter based OTP")
+                        }
+                    ]
+                }
             }
         }
-        
     }
 }

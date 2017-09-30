@@ -104,7 +104,10 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/icons/*.qs) \
         $$quote($$BASEDIR/../assets/pages/*.qml) \
         $$quote($$BASEDIR/../assets/pages/*.js) \
-        $$quote($$BASEDIR/../assets/pages/*.qs)
+        $$quote($$BASEDIR/../assets/pages/*.qs) \
+        $$quote($$BASEDIR/../assets/pages/help/*.qml) \
+        $$quote($$BASEDIR/../assets/pages/help/*.js) \
+        $$quote($$BASEDIR/../assets/pages/help/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \

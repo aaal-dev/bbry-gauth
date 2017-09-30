@@ -152,7 +152,7 @@ bool Database :: createRecord () {
     return success;
 }
 
-bool Database :: updateData () {
+bool Database :: updateRecord () {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
 
@@ -181,7 +181,7 @@ bool Database :: updateData () {
     return success;
 }
 
-bool Database :: deleteData () {
+bool Database :: deleteRecord () {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
     query.prepare("DELETE FROM accounts WHERE id=:id");
@@ -191,7 +191,7 @@ bool Database :: deleteData () {
     return success;
 }
 
-bool Database :: readData () {
+bool Database :: readRecord () {
     QSqlDatabase database = QSqlDatabase::database();
     QSqlQuery query(database);
 

@@ -39,6 +39,7 @@ Page {
             id: camera
             
             onCameraOpened: {
+                getSettings(cameraSettings)
                 applySettings(cameraSettings);
                 camera.startViewfinder();
             }
@@ -56,6 +57,7 @@ Page {
                             cameraVibration.start(100, 100);
                         }
                         cameraSound.play();
+                        scanQRCodePage.done();
                     }
                 },
                 SystemSound {
@@ -93,6 +95,8 @@ Page {
         barcodeDetector.camera = null
         camera.stopViewfinder()
     }
+    
+   
     
     attachedObjects: [
         SystemToast {

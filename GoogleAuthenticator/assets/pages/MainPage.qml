@@ -181,6 +181,19 @@ NavigationPane {
                     navigationPane.push(scanQRCodePageDef.createObject());
                 }
             },
+            ActionItem {
+                id: addCodeButton
+                title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
+                imageSource: "asset:///images/icons/ic_rename.png"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                shortcuts: Shortcut {
+                    key: "A"
+                }
+                onTriggered: {
+                    var page = addCodePageDef.createObject();
+                    page.open();
+                }
+            },
             
             MultiSelectActionItem {}
         ]
@@ -197,7 +210,11 @@ NavigationPane {
         },
         ComponentDefinition {
             id: addCodePageDef
-            source: "AddCodePage.qml"
+            content: Sheet {
+                id: addCodeSheet
+                AddCodePage {
+                }
+            }
         }
     ]
 

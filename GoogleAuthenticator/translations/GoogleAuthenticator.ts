@@ -2,6 +2,76 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>AddCodePage</name>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="11"/>
+        <source>Manual edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="14"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="27"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="47"/>
+        <source>Enter web-service title, auth login and secret key from the 2-step authentication setup page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="63"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="79"/>
+        <source>Your login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="100"/>
+        <source>Two factor authentication code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="114"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="156"/>
+        <source>Setup preferences for output key. If you don&apos;t know, leave it by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="167"/>
+        <source>Key Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="190"/>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="194"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="195"/>
+        <source>Time based OTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="199"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="200"/>
+        <source>Counter based OTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddManualyPage</name>
     <message>
         <location filename="../assets/pages/AddManualyPage.qml" line="76"/>
@@ -12,90 +82,33 @@
 <context>
     <name>EditPage</name>
     <message>
-        <location filename="../assets/pages/EditPage.qml" line="8"/>
-        <source>Manual edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="11"/>
-        <source>Create</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="24"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="44"/>
-        <source>Enter web-service title, auth login and secret key from the 2-step authentication setup page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="60"/>
-        <source>Title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="76"/>
-        <source>Your login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="97"/>
-        <source>Two factor authentication code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../assets/pages/EditPage.qml" line="82"/>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="153"/>
-        <source>Setup preferences for output key. If you don&apos;t know, leave it by default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="164"/>
-        <source>Key Length:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="187"/>
-        <source>Type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="191"/>
-        <location filename="../assets/pages/EditPage.qml" line="192"/>
-        <source>Time based OTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/EditPage.qml" line="196"/>
-        <location filename="../assets/pages/EditPage.qml" line="197"/>
-        <source>Counter based OTP</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="128"/>
-        <location filename="../assets/pages/MainPage.qml" line="161"/>
+        <location filename="../assets/pages/MainPage.qml" line="122"/>
+        <location filename="../assets/pages/MainPage.qml" line="155"/>
         <source>Authenticator Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="133"/>
-        <location filename="../assets/pages/MainPage.qml" line="166"/>
+        <location filename="../assets/pages/MainPage.qml" line="127"/>
+        <location filename="../assets/pages/MainPage.qml" line="160"/>
         <source>Delete This Entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="180"/>
+        <location filename="../assets/pages/MainPage.qml" line="174"/>
         <source>Scan QR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="186"/>
+        <source>Add code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

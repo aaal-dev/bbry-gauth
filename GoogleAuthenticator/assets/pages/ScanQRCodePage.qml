@@ -66,15 +66,16 @@ Page {
                     camera: camera
                     formats: BarcodeFormat.QrCode
                     onDetected: {
+                        camera.stopViewfinder();
                         if (cameraVibration.isSupported()){
                             cameraVibration.start(100, 100);
                         }
                         cameraSound.play();
-                        scanQRCodePage.done();
+                        //scanQRCodePage.done();
                         navigationPane.pop();
-                        var page = addCodePageDef.createObject()
-                        page.
-                        navigationPane.push(page);
+                        var page = addCodePageDef.createObject();
+                        page.url = data;
+                        page.open();
                     }
                 },
                 SystemSound {
@@ -87,7 +88,7 @@ Page {
                     cameraMode: CameraMode.Photo
                     sceneMode: CameraSceneMode.Auto
                     flashMode: CameraFlashMode.Light
-                    focusMode: CameraFocusMode.ContinuousAuto
+                    focusMode: CameraFocusMode.ContinuousMacro
                 },
                 VibrationController{
                     id: cameraVibration

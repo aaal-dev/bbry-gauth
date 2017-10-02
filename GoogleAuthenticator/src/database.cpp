@@ -306,5 +306,11 @@ void Database :: setEditDate (QString editDate) {
     emit editDateValueChanged(m_editDate);
 }
 
+bool Database :: getDatafromURLString (QString& url) {
+    bool success = false;
+
+    return success;
+}
+
 
 

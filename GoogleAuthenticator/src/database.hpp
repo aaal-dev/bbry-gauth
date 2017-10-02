@@ -65,6 +65,8 @@ public:
     QString getEditDate();
     void setEditDate(QString editDate);
 
+    Q_INVOKABLE bool getDatafromURLString(QString&);
+
 signals:
     void idValueChanged(int);
     void titleValueChanged(QString);

@@ -5,7 +5,7 @@ Page {
     
     signal done()
     
-    property alias 
+    property string url
     
     titleBar: TitleBar {
         title: qsTr("Manual edit") + Retranslate.onLocaleOrLanguageChanged
@@ -19,14 +19,14 @@ Page {
                 //_database.keyLenght = keyLenght.selectedOption.value;
                 //_database.authType = authType.selectedOption.value;
                 //_database.writeData();
-                addManualyPage.done();
+                addCodePage.done();
             }
             enabled: false
         }
         dismissAction: ActionItem {
             title: qsTr("Cancel") + Retranslate.onLocaleOrLanguageChanged
             onTriggered: {
-                addManualyPage.done()
+                addCodeSheet.done()
             }
         }
     }
@@ -202,6 +202,11 @@ Page {
                     ]
                 }
             }
+        }
+    }
+    onCreationCompleted: {
+        if (url) {
+            _database.getDatafromURLString(url)
         }
     }
 }

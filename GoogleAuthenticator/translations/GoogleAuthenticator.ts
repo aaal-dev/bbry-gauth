@@ -102,8 +102,13 @@
 <context>
     <name>ScanQRCodePage</name>
     <message>
-        <location filename="../assets/pages/ScanQRCodePage.qml" line="31"/>
+        <location filename="../assets/pages/ScanQRCodePage.qml" line="33"/>
         <source>Scan QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/ScanQRCodePage.qml" line="45"/>
+        <source>Move device until you get QR code on your visual site, then stand still until decoding</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

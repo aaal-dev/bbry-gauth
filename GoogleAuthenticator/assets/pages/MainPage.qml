@@ -21,17 +21,11 @@ NavigationPane {
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
             onTriggered: {
-                navigationPane.push(settingsPageDefinition.createObject());
+                navigationPane.push(settingsPageDef.createObject());
             }
         }
         helpAction: HelpActionItem {
         }
-        attachedObjects: [
-            ComponentDefinition {
-                id: settingsPageDefinition
-                source: "asset:///pages/SettingsPage.qml"
-            }
-        ]
     }
     Page {
         id: mainPage
@@ -184,11 +178,7 @@ NavigationPane {
                     key: "S"
                 }
                 onTriggered: {
-                    navigationPane.push(scanQRCodePage.createObject());
-                }
-                attachedObjects: ComponentDefinition {
-                    id: scanQRCodePage
-                    source: "ScanQRCodePage.qml"
+                    navigationPane.push(scanQRCodePageDef.createObject());
                 }
             },
             
@@ -196,16 +186,22 @@ NavigationPane {
         ]
     }
     
-    paneProperties: NavigationPaneProperties {
-        backButton: ActionItem {
-            onTriggered: { navigationPane.pop(); }
+    attachedObjects: [
+        ComponentDefinition {
+            id: settingsPageDef
+            source: "SettingsPage.qml"
+        },
+        ComponentDefinition {
+            id: scanQRCodePageDef
+            source: "ScanQRCodePage.qml"
+        },
+        ComponentDefinition {
+            id: addCodePageDef
+            source: "AddCodePage.qml"
         }
-    }
-    
-    onPopTransitionEnded: {
-        page.destroy();
-    }
-    
+    ]
+
+    onPopTransitionEnded: page.destroy();
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);
     }

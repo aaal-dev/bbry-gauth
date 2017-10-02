@@ -63,7 +63,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/icons/ic_rename.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.png) \
         $$quote($$BASEDIR/assets/model.xml) \
-        $$quote($$BASEDIR/assets/pages/EditPage.qml) \
+        $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/MainPage.qml) \
         $$quote($$BASEDIR/assets/pages/ScanQRCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/SettingsPage.qml)
@@ -104,10 +104,7 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/icons/*.qs) \
         $$quote($$BASEDIR/../assets/pages/*.qml) \
         $$quote($$BASEDIR/../assets/pages/*.js) \
-        $$quote($$BASEDIR/../assets/pages/*.qs) \
-        $$quote($$BASEDIR/../assets/pages/help/*.qml) \
-        $$quote($$BASEDIR/../assets/pages/help/*.js) \
-        $$quote($$BASEDIR/../assets/pages/help/*.qs)
+        $$quote($$BASEDIR/../assets/pages/*.qs)
 
     HEADERS += \
         $$quote($$BASEDIR/../src/*.h) \

@@ -4,10 +4,12 @@ import bb.multimedia 1.4
 import bb.system 1.2
 import bb.device 1.4
 
+
 Page {
-    id: scanQRCodePage;
-    signal done()
+    id: scanQRCodePage
     
+    signal done()
+
     function getCameraUnit(camUnitList) {
         if (camUnitList.length == 0 || camUnitList[0] == CameraUnit.None) {
             qmlToast.body = "No camera units are available";
@@ -34,7 +36,18 @@ Page {
     
     content: Container {
         background: Color.Black
-        
+        Container {
+            topPadding: ui.du(1)
+            bottomPadding: topPadding
+            leftPadding: ui.du(2)
+            rightPadding: leftPadding
+            Label {
+                text: qsTr("Move device until you get QR code on your visual site, then stand still until decoding")
+                textStyle.color: Color.White
+                multiline: true
+            }
+        }
+
         Camera {
             id: camera
             
@@ -58,6 +71,10 @@ Page {
                         }
                         cameraSound.play();
                         scanQRCodePage.done();
+                        navigationPane.pop();
+                        var page = addCodePageDef.createObject()
+                        page.
+                        navigationPane.push(page);
                     }
                 },
                 SystemSound {
@@ -76,6 +93,8 @@ Page {
                     id: cameraVibration
                 }
             ]
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
         }
         
         onCreationCompleted: {
@@ -95,13 +114,24 @@ Page {
         barcodeDetector.camera = null
         camera.stopViewfinder()
     }
-    
-   
-    
+ 
     attachedObjects: [
         SystemToast {
             id: qmlToast
+        },
+        ComponentDefinition {
+        id: addCodePageDef
+        source: "AddCodePage.qml"
         }
     ]
+    
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                scanQRCodePage.done()
+                navigationPane.pop()
+            }
+        }
+    }
 }
 

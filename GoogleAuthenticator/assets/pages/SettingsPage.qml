@@ -57,6 +57,13 @@ Page {
             }
         }
     }
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                navigationPane.pop()
+            }
+        }
+    }
 }
 
     

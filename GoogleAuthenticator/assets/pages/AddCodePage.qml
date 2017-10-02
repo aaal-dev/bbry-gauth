@@ -1,8 +1,11 @@
 import bb.cascades 1.4
 
 Page {
-    id: addManualyPage;
+    id: addCodePage;
+    
     signal done()
+    
+    property alias 
     
     titleBar: TitleBar {
         title: qsTr("Manual edit") + Retranslate.onLocaleOrLanguageChanged

@@ -8,7 +8,7 @@
 #include "settings.hpp"
 
 #include <QCoreApplication>
-#include <QSettings>
+
 
 #include <bb/cascades/Application>
 #include <bb/cascades/ColorTheme>
@@ -18,25 +18,21 @@
 
 const QString Settings::APP_NAME("BBAuth");
 const QString Settings::APP_ORGANIZATION("None");
+const QString Settings::FIRST_START("firstStart");
 const QString Settings::VISUALSTYLE_KEY("visualStyle");
 
 using namespace bb::cascades;
 
-Settings :: Settings (QObject *parent) : QObject(parent) {
+Settings :: Settings(QObject *parent) : QObject(parent) {
     QCoreApplication::setOrganizationName(APP_ORGANIZATION);
     QCoreApplication::setApplicationName(APP_NAME);
-    QSettings settings;
 
-    if (settings.value(VISUALSTYLE_KEY).isNull()) {
-        VisualStyle::Type appVisualStyle = Application::instance()->themeSupport()->theme()->colorTheme()->style();
-        setVisualStyle(appVisualStyle);
-    } else {
-        VisualStyle::Type storedStyle = static_cast<VisualStyle::Type>(settings.value(VISUALSTYLE_KEY).toUInt());
-        setVisualStyle(storedStyle);
+    if (settings.value(FIRST_START).isNull()) {
+        settings.setValue(FIRST_START, true);
     }
 }
 
-Settings :: ~Settings () {
+Settings :: ~Settings() {
 
 }
 
@@ -48,5 +44,21 @@ bb::cascades::VisualStyle::Type Settings :: getVisualStyle(){
 void Settings :: setVisualStyle(bb::cascades::VisualStyle::Type visualStyle){
     m_visualStyle = visualStyle;
     emit visualStyleValueChanged(m_visualStyle);
-    QSettings().setValue(VISUALSTYLE_KEY, QVariant((uint)m_visualStyle));
+    settings.setValue(VISUALSTYLE_KEY, QVariant((uint)m_visualStyle));
+}
+
+bool Settings :: isFirstStart() {
+    return settings.value(FIRST_START).toBool();
+}
+
+bool Settings :: initDefaultValues() {
+    if (settings.value(VISUALSTYLE_KEY).isNull()) {
+        VisualStyle::Type appVisualStyle = Application::instance()->themeSupport()->theme()->colorTheme()->style();
+        setVisualStyle(appVisualStyle);
+    } else {
+        VisualStyle::Type storedStyle = static_cast<VisualStyle::Type>(settings.value(VISUALSTYLE_KEY).toUInt());
+        setVisualStyle(storedStyle);
+    }
+    settings.setValue(FIRST_START, false);
+    return false;
 }

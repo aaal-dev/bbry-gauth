@@ -15,7 +15,7 @@
 
 
 
-Database :: Database (QObject *parent) : QObject(parent), DB_NAME("./data/gauth.db") {
+Database :: Database (QObject *parent) : QObject(parent), DB_NAME("./data/bbauth.db") {
     m_id = 0;
     m_title = "";
     m_authLogin = "";
@@ -32,30 +32,27 @@ Database :: ~Database () {
 }
 
 bool Database :: createDatabase () {
-    bool success = false;
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_NAME);
-    if (database.open()) {
+    bool success = database.open();
+    if (success) {
         //alert(tr("Database created/registered."));
-        success = true;
     } else {
-        // If the database fails to open, error information can be accessed via
-        // the lastError function.
         const QSqlError error = database.lastError();
         //alert(tr("Error opening connection to the database: %1").arg(error.text()));
+        qDebug() << "\nDatabase NOT opened.";
     }
     database.close();
     return success;
 }
 
 bool Database :: deleteDatabase () {
-    bool success = false;
-    QSqlDatabase database=QSqlDatabase::database();
+    QSqlDatabase database = QSqlDatabase::database();
     QString connectionName=database.connectionName();
-    if(database.open()){
+    bool success = database.open();
+    if(success){
         database.removeDatabase(connectionName);
         //alert(tr("Database deleted"));
-        success = true;
     }else{
         //alert(tr("Sql database might not yet created or it is already deleted"));
     }
@@ -123,11 +120,10 @@ bool Database :: dropTable () {
 }
 
 bool Database :: createRecord () {
-    bool success = false;
     QSqlDatabase database = QSqlDatabase::database();
     if (!database.tables().contains("customers")) {
         //alert(tr("Create record error: customers table does not exist."));
-        return success;
+        return false;
     }
     QSqlQuery query(database);
     query.prepare(
@@ -141,9 +137,9 @@ bool Database :: createRecord () {
     query.bindValue(":key_lenght", m_keyLenght);
     query.bindValue(":auth_type", m_authType);
     query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-    if (query.exec()) {
+    bool success = query.exec();
+    if (success) {
         //alert(tr("Record created"));
-        success = true;
     } else {
         const QSqlError error = query.lastError();
         //alert(tr("Create record error: %1").arg(error.text()));
@@ -205,6 +201,17 @@ bool Database :: readRecord () {
     }else{
         return false;
     }
+}
+
+
+bool Database :: initDatabase() {
+    bool success = false;
+    if (createDatabase()) {
+        if (createTable()) {
+            success = true;
+        }
+    }
+    return success;
 }
 
 
@@ -308,7 +315,7 @@ void Database :: setEditDate (QString editDate) {
 
 bool Database :: getDatafromURLString (QString& url) {
     bool success = false;
-
+    QString s = url;
     return success;
 }
 

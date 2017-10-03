@@ -19,6 +19,7 @@
 
 #include <QObject>
 
+
 namespace bb
 {
     namespace cascades
@@ -28,6 +29,8 @@ namespace bb
 }
 
 class QTranslator;
+class Settings;
+class Database;
 
 /*!
  * @brief Application UI object
@@ -45,6 +48,11 @@ private slots:
 private:
     QTranslator* m_pTranslator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    Settings* settings;
+    Database* database;
+
+    bool isFirstStart();
+    bool initApplication();
 };
 
 #endif /* ApplicationUI_HPP_ */

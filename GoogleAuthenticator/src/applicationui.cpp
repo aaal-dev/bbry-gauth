@@ -23,14 +23,22 @@
 #include "settings.hpp"
 #include "database.hpp"
 
+
 using namespace bb::cascades;
 
-ApplicationUI::ApplicationUI() :
-        QObject()
-{
+ApplicationUI :: ApplicationUI() : QObject() {
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
+    settings = new Settings(this);
+    database = new Database(this);
+
+    if (isFirstStart())
+    {
+        initApplication();
+    }
+
+    loadSettings();
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -52,15 +60,12 @@ ApplicationUI::ApplicationUI() :
     // Set created root object as the application scene
     Application::instance()->setScene(root);
 
-    Database *databaseObject = new Database(this);
-    qml->setContextProperty("_database", databaseObject);
-    Settings *settingsObject = new Settings(this);
-    qml->setContextProperty("_settings", settingsObject);
+    qml->setContextProperty("_settings", settings);
+    qml->setContextProperty("_database", database);
     qml->setContextProperty("_app", this);
 }
 
-void ApplicationUI::onSystemLanguageChanged()
-{
+void ApplicationUI :: onSystemLanguageChanged() {
     QCoreApplication::instance()->removeTranslator(m_pTranslator);
     // Initiate, load and install the application translation files.
     QString locale_string = QLocale().name();
@@ -68,4 +73,18 @@ void ApplicationUI::onSystemLanguageChanged()
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
+}
+
+bool ApplicationUI :: isFirstStart() {
+    return settings->isFirstStart();
+}
+
+bool ApplicationUI :: initApplication() {
+    if (!database->initDatabase()){
+        return false;
+    }
+    if (!settings->initDefaultValues()){
+        return false;
+    }
+    return true;
 }

@@ -35,10 +35,10 @@ ApplicationUI :: ApplicationUI() : QObject() {
 
     if (isFirstStart())
     {
-        initApplication();
+        initializeApplication();
     }
 
-    loadSettings();
+    loadApplicationSettings();
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -79,12 +79,18 @@ bool ApplicationUI :: isFirstStart() {
     return settings->isFirstStart();
 }
 
-bool ApplicationUI :: initApplication() {
+bool ApplicationUI :: initializeApplication() {
     if (!database->initDatabase()){
         return false;
     }
     if (!settings->initDefaultValues()){
         return false;
     }
+    database->createRecord();
     return true;
+}
+
+bool ApplicationUI :: loadApplicationSettings() {
+    bool success = false;
+    return success;
 }

@@ -52,7 +52,8 @@ private:
     Database* database;
 
     bool isFirstStart();
-    bool initApplication();
+    bool initializeApplication();
+    bool loadApplicationSettings();
 };
 
 #endif /* ApplicationUI_HPP_ */

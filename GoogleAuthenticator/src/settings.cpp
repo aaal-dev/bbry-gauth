@@ -52,13 +52,7 @@ bool Settings :: isFirstStart() {
 }
 
 bool Settings :: initDefaultValues() {
-    if (settings.value(VISUALSTYLE_KEY).isNull()) {
-        VisualStyle::Type appVisualStyle = Application::instance()->themeSupport()->theme()->colorTheme()->style();
-        setVisualStyle(appVisualStyle);
-    } else {
-        VisualStyle::Type storedStyle = static_cast<VisualStyle::Type>(settings.value(VISUALSTYLE_KEY).toUInt());
-        setVisualStyle(storedStyle);
-    }
+    setVisualStyle(Application::instance()->themeSupport()->theme()->colorTheme()->style());
     settings.setValue(FIRST_START, false);
     return false;
 }

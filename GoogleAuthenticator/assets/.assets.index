@@ -1,9 +1,0 @@
-1
-7
-images/icons/ic_rename.png
-images/icons/ic_scan_barcode.png
-model.xml
-pages/AddCodePage.qml
-pages/MainPage.qml
-pages/ScanQRCodePage.qml
-pages/SettingsPage.qml

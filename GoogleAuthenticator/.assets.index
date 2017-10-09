@@ -1,8 +1,0 @@
-1
-6
-images/icons/ic_compose.png
-images/icons/ic_scan_barcode.png
-pages/AddManualyPage.qml
-pages/MainPage.qml
-pages/ScanQRCodePage.qml
-pages/SettingsPage.qml

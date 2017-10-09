@@ -1,4 +1,4 @@
-# bbauth
+# bbry-gauth
 Мой домашний проект для самообучения. Нативное приложение Google Authenticator для Blackberry 10. 
 Ничего многообещающего. 
 

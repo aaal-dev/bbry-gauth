@@ -3,6 +3,7 @@ import bb.cascades 1.4
 Page {
     id: settingsPage
     signal done()
+    signal visualStyleChanged(visualStyle visualStyle)
     
     titleBar: TitleBar {
         title: qsTr("Settings") + Retranslate.onLocaleOrLanguageChanged
@@ -35,10 +36,10 @@ Page {
                 ToggleButton {
                     onCheckedChanged: {
                         if (checked) {
-                            _settings.visualStyle = VisualStyle.Dark;
+                            visualStyleChanged(VisualStyle.Dark);
                         }       
                         else {
-                            _settings.visualStyle = VisualStyle.Bright;
+                            visualStyleChanged(VisualStyle.Bright);
                         }
                     }
                 }

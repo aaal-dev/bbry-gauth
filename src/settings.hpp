@@ -31,6 +31,9 @@ public:
 signals:
     void visualStyleValueChanged(bb::cascades::VisualStyle::Type);
 
+public slots:
+    void onVisualStyleChanged();
+
 private:
     static const QString APP_NAME;
     static const QString APP_ORGANIZATION;

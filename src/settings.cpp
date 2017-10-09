@@ -58,3 +58,10 @@ bool Settings :: initializeSettings() {
 
     return success;
 }
+
+
+void Settings :: onVisualStyleChanged(){
+
+}
+
+

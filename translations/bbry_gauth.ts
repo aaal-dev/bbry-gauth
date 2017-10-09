@@ -198,31 +198,23 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="8"/>
+        <location filename="../assets/pages/SettingsPage.qml" line="9"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="13"/>
+        <location filename="../assets/pages/SettingsPage.qml" line="14"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="27"/>
+        <location filename="../assets/pages/SettingsPage.qml" line="28"/>
         <source>Dark theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/SettingsPage.qml" line="54"/>
+        <location filename="../assets/pages/SettingsPage.qml" line="55"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>main</name>
-    <message>
-        <location filename="../assets/main.qml" line="23"/>
-        <source>Hello World</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

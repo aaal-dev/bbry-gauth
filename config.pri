@@ -38,7 +38,6 @@ config_pri_assets {
     OTHER_FILES += \
         $$quote($$BASEDIR/assets/images/icons/ic_rename.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.png) \
-        $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/model.xml) \
         $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/MainPage.qml) \

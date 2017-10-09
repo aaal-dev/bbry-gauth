@@ -171,6 +171,7 @@ NavigationPane {
             }
         }
     ]
+    
     onPopTransitionEnded: page.destroy();
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);

@@ -4,22 +4,10 @@ BASEDIR = $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         profile {
-            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            LIBS += -lQtCore
-
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
         } else {
-            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            LIBS += -lQtCore
-
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -29,12 +17,6 @@ device {
 
     CONFIG(release, debug|release) {
         !profile {
-            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            LIBS += -lQtCore
-
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -45,12 +27,6 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         !profile {
-            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtCore)
-
-            LIBS += -lQtCore
-
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -62,6 +38,7 @@ config_pri_assets {
     OTHER_FILES += \
         $$quote($$BASEDIR/assets/images/icons/ic_rename.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.png) \
+        $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/model.xml) \
         $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/MainPage.qml) \
@@ -114,5 +91,4 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.hxx)
 }
 
-TRANSLATIONS = $$quote($${TARGET}_ru.ts) \
-    $$quote($${TARGET}.ts)
+TRANSLATIONS = $$quote($${TARGET}.ts)

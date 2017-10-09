@@ -1,4 +1,4 @@
-QMAKE_TARGET  = GoogleAuthenticator
+QMAKE_TARGET  = bbry_gauth
 LUPDATE       = $(QNX_HOST)/usr/bin/lupdate
 LRELEASE      = $(QNX_HOST)/usr/bin/lrelease
 

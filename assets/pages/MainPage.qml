@@ -87,11 +87,11 @@ NavigationPane {
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
                                     }
-                                    leftPadding: ui.du(1)
+                                    leftPadding: ui.du(1.4)
                                     rightPadding: leftPadding
                                 }
                                 Container {
-                                    topPadding: ui.du(0.8)
+                                    topPadding: ui.du(0.6)
                                     Divider{
                                     }
                                 }

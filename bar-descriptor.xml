@@ -26,28 +26,28 @@
 
     <!-- A universally unique application identifier. Must be unique across all BlackBerry 10 applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>com.animeslave.bbry_gauth</id>
+    <id>com.example.bbry_gauth</id>
     <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7-g/GoogleAuthenticator" entry="true" type="Qnx/Elf">GoogleAuthenticator</asset>
+       <asset path="arm/o.le-v7-g/bbry_gauth" entry="true" type="Qnx/Elf">bbry_gauth</asset>
     </configuration>
     <configuration name="Device-Release">
        <entryPointType>Qnx/Cascades</entryPointType>
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7/GoogleAuthenticator.so" entry="true" type="Qnx/Elf">GoogleAuthenticator.so</asset>
+       <asset path="arm/o.le-v7/bbry_gauth.so" entry="true" type="Qnx/Elf">bbry_gauth.so</asset>
     </configuration>
     <configuration name="Device-Profile">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm-p/o.le-v7-g/GoogleAuthenticator" entry="true" type="Qnx/Elf">GoogleAuthenticator</asset>
+       <asset path="arm-p/o.le-v7-g/bbry_gauth" entry="true" type="Qnx/Elf">bbry_gauth</asset>
     </configuration>
     <configuration name="Simulator-Debug">
        <platformArchitecture>x86</platformArchitecture>
-       <asset path="x86/o-g/GoogleAuthenticator" entry="true" type="Qnx/Elf">GoogleAuthenticator</asset>
+       <asset path="x86/o-g/bbry_gauth" entry="true" type="Qnx/Elf">bbry_gauth</asset>
     </configuration>
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>BBAuth</name>
+    <name>bbry-gauth</name>
 
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade.
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
@@ -57,24 +57,19 @@
     <!-- Fourth digit segment of the package version. First three segments are taken from the
          <versionNumber> element.  Must be an integer from 0 to 2^16-1 -->
     <buildId>1</buildId>
-    <packageLocale>ru</packageLocale>
 
     <!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users. Optional. -->
     <!-- <versionLabel></versionLabel> -->
 
     <!-- Description, displayed in the BlackBerry 10 application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The GoogleAuthenticator application for BlackBerry 10 Native</description>
+    <description>The bbry-gauth application</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
-    <icon>
-       <image>ic_lock.png</image>
-    </icon>
-    <category>core.media</category>
-    <author>AnimeSlave</author>
+    <author>Example Inc.</author>
 
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
@@ -85,6 +80,9 @@
     </initialWindow>
 
     <!--  The icon for the application, which should be 114x114. -->
+    <icon>
+        <image>icon.png</image>
+    </icon>
 
     <asset path="icon.png">icon.png</asset>
     <asset path="assets">assets</asset>
@@ -93,7 +91,6 @@
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
-    <asset path="ic_lock.png">ic_lock.png</asset>
 
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>

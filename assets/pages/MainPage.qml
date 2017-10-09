@@ -29,127 +29,85 @@ NavigationPane {
     }
     Page {
         id: mainPage
-
         content: Container {
             layout: DockLayout {
-
             }
-
             ListView {
                 id: listView
-
                 verticalAlignment: VerticalAlignment.Fill
                 horizontalAlignment: HorizontalAlignment.Fill
-
-                //dataModel: GroupDataModel {
-                //    id: gAuthListModel
-                //    sortingKeys: ["title"]
-                //
-                //}
-
+                //dataModel: _app.dataModel
                 dataModel: XmlDataModel {
                     source: "asset:///model.xml"
                 }
-
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
-
                         content: Container {
-                            preferredHeight: 100.0
-                            
-                            Divider {}
                             Container {
-                                
-                                layout: StackLayout {
-                                    orientation: LayoutOrientation.LeftToRight
-                                }
-
-                                leftPadding: 20.0
-                                rightPadding: 20.0
                                 Container {
-                                    preferredHeight: 100.0
-                                    
-                                    layout: AbsoluteLayout {
-
-                                    }
-
-                                    layoutProperties: StackLayoutProperties {
-                                        spaceQuota: 4.0
-                                    
-                                    }
-                                    
-                                    Label {
-                                        text: ListItemData.title
-                                        textStyle.fontSize: FontSize.Medium
-                                    }
-                                    Label {
-                                        text: ListItemData.auth_login
-                                        textStyle.fontSize: FontSize.XSmall
-                                        textStyle.color: Color.LightGray
-                                        layoutProperties: AbsoluteLayoutProperties {
-                                            positionY: 40.0
+                                    Container {
+                                        layoutProperties: StackLayoutProperties {
+                                            spaceQuota: 1.0
 
                                         }
-                                    }
-                                
-                                }
-                                
-                                Container {
-                                    preferredHeight: 100.0
-                                    
-                                    layoutProperties: StackLayoutProperties {
-                                        spaceQuota: 3.0
-                                    
-                                    }
-
-                                    Label {
-                                        text: ListItemData.auth_code
-                                        textStyle.fontSize: FontSize.XLarge
-                                        onTouch: {
-                                            if (event.isUp()) {
-                                                //Qt.app.insertToClipboard(ListItemData.code)
+                                        verticalAlignment: VerticalAlignment.Center
+                                        Container {
+                                            Label {
+                                                text: ListItemData.title
+                                                textStyle.fontSize: FontSize.Medium
                                             }
                                         }
-                                        textFit.mode: LabelTextFitMode.FitToBounds
-                                        textStyle.textAlign: TextAlign.Center
+                                        Container {
+                                            Label {
+                                                text: ListItemData.auth_login
+                                                textStyle.fontSize: FontSize.XSmall
+                                                textStyle.color: Color.DarkGray
+                                                textStyle.fontWeight: FontWeight.W300
+                                            }
+                                        }
+                                    }
+                                    Container {
+                                        verticalAlignment: VerticalAlignment.Center
+                                        layout: StackLayout {
+
+                                        }
+                                        layoutProperties: StackLayoutProperties {
+                                            spaceQuota: 1.0
+
+                                        }
                                         horizontalAlignment: HorizontalAlignment.Right
+                                        Label {
+                                            text: ListItemData.auth_code
+                                            horizontalAlignment: HorizontalAlignment.Right
+                                            textStyle.fontSize: FontSize.XLarge
+
+                                        }
+                                    }
+                                    layout: StackLayout {
+                                        orientation: LayoutOrientation.LeftToRight
+                                    }
+                                    leftPadding: ui.du(1)
+                                    rightPadding: leftPadding
+                                }
+                                Container {
+                                    topPadding: ui.du(0.8)
+                                    Divider{
                                     }
                                 }
-                                
-                                contextActions: [
-                                    ActionSet {
-                                        title: qsTr("Authenticator Code")
-                                        subtitle: ListItemData.title
-                                        MultiSelectActionItem {
-                                        }
-                                        DeleteActionItem {
-                                            title: qsTr("Delete This Entry")
-                                            onTriggered: {
-                                                //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
-                                                //Qt.dlg.show()
-                                            }
-                                        }
-                                    }
-                                ]
                             }
                         }
                     }
                 ]
-
                 property variant activeItem: undefined
                 onActivationChanged: {
                     if (active) activeItem = indexPath; //[0]
                 }
                 snapMode: SnapMode.LeadingEdge
-
             }
-
             ProgressIndicator {
                 verticalAlignment: VerticalAlignment.Bottom
-
             }
-
             contextActions: [
                 ActionSet {
                     title: qsTr("Authenticator Code")
@@ -165,9 +123,7 @@ NavigationPane {
                     }
                 }
             ]
-
         }
-
         actions: [
             ActionItem {
                 id: scanQRCodeButton
@@ -194,11 +150,9 @@ NavigationPane {
                     page.open();
                 }
             },
-            
             MultiSelectActionItem {}
         ]
     }
-    
     attachedObjects: [
         ComponentDefinition {
             id: settingsPageDef
@@ -217,7 +171,6 @@ NavigationPane {
             }
         }
     ]
-
     onPopTransitionEnded: page.destroy();
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);

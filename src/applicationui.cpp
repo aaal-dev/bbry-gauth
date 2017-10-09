@@ -26,19 +26,17 @@
 
 using namespace bb::cascades;
 
-ApplicationUI :: ApplicationUI() : QObject() {
+ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     // prepare the localization
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
     settings = new Settings(this);
     database = new Database(this);
 
-    if (isFirstStart())
-    {
-        initializeApplication();
-    }
+    if (isFirstStart()) { initializeApplication(); }
 
-    loadApplicationSettings();
+    readApplicationSettings();
+    readCodeList();
 
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     // This is only available in Debug builds
@@ -80,17 +78,47 @@ bool ApplicationUI :: isFirstStart() {
 }
 
 bool ApplicationUI :: initializeApplication() {
-    if (!database->initDatabase()){
-        return false;
-    }
-    if (!settings->initDefaultValues()){
-        return false;
+    bool success = false;
+    if (database->initializeDatabase()){
+        if (settings->initializeSettings()){
+            success = true;
+        }
     }
     database->createRecord();
-    return true;
+    return success;
 }
 
-bool ApplicationUI :: loadApplicationSettings() {
+bool ApplicationUI :: readApplicationSettings() {
     bool success = false;
     return success;
+}
+
+void ApplicationUI :: initializeDataModel()
+{
+    m_dataModel = new GroupDataModel(this);
+    m_dataModel->setSortingKeys(QStringList() << "title");
+    m_dataModel->setGrouping(ItemGrouping::None);
+}
+
+bool ApplicationUI :: readCodeList() {
+    bool success = false;
+    initializeDataModel();
+    m_dataModel->clear();
+    QVariant result = database->readRecords();
+    if (!result.isNull()) {
+        QVariantList list = result.value<QVariantList>();
+        int recordsListSize = list.size();
+        for (int i = 0; i < recordsListSize; i++) {
+            QVariantMap map = list.at(i).value<QVariantMap>();
+            //CodeListItem *listItem = new CodeListItem();
+            //m_dataModel->insert(listItem);
+        }
+        success = true;
+    }
+    return success;
+}
+
+GroupDataModel* ApplicationUI :: getDataModel() const
+{
+    return m_dataModel;
 }

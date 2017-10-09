@@ -26,7 +26,7 @@ public:
     void setVisualStyle(bb::cascades::VisualStyle::Type visualStyle);
 
     bool isFirstStart();
-    bool initDefaultValues();
+    bool initializeSettings();
 
 signals:
     void visualStyleValueChanged(bb::cascades::VisualStyle::Type);

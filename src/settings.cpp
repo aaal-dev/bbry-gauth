@@ -43,16 +43,18 @@ bb::cascades::VisualStyle::Type Settings :: getVisualStyle(){
 
 void Settings :: setVisualStyle(bb::cascades::VisualStyle::Type visualStyle){
     m_visualStyle = visualStyle;
-    emit visualStyleValueChanged(m_visualStyle);
     settings.setValue(VISUALSTYLE_KEY, QVariant((uint)m_visualStyle));
+    emit visualStyleValueChanged(m_visualStyle);
 }
 
 bool Settings :: isFirstStart() {
     return settings.value(FIRST_START).toBool();
 }
 
-bool Settings :: initDefaultValues() {
-    setVisualStyle(Application::instance()->themeSupport()->theme()->colorTheme()->style());
+bool Settings :: initializeSettings() {
+    bool success = false;
     settings.setValue(FIRST_START, false);
-    return false;
+    setVisualStyle(Application::instance()->themeSupport()->theme()->colorTheme()->style());
+
+    return success;
 }

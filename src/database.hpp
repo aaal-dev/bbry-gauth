@@ -36,9 +36,9 @@ public:
     Q_INVOKABLE bool createRecord();
     Q_INVOKABLE bool updateRecord();
     Q_INVOKABLE bool deleteRecord();
-    Q_INVOKABLE bool readRecord();
+    Q_INVOKABLE QVariant readRecords();
 
-    bool initDatabase();
+    bool initializeDatabase();
 
     int getId();
     void setId(int id);
@@ -81,7 +81,7 @@ signals:
     void editDateValueChanged(QString);
 
 private:
-    QString DB_NAME;
+    QString DB_PATH;
     int m_id;
     QString m_title;
     QString m_authLogin;
@@ -91,6 +91,8 @@ private:
     int m_counter;
     QString m_publishDate;
     QString m_editDate;
+
+    void alert(const QString&);
 };
 
 #endif /* DATABASE_HPP_ */

@@ -26,6 +26,16 @@ NavigationPane {
         }
         helpAction: HelpActionItem {
         }
+        actions: [
+            ActionItem {
+                id: shareMenuItem
+                title: qsTr("Share")
+                imageSource: "asset:///images/icons/ic_share.png"
+                onTriggered: {
+                    
+                }
+            }
+        ]
     }
     Page {
         id: mainPage
@@ -48,7 +58,7 @@ NavigationPane {
                                 Container {
                                     Container {
                                         layoutProperties: StackLayoutProperties {
-                                            spaceQuota: 1.0
+                                            spaceQuota: 4.0
 
                                         }
                                         verticalAlignment: VerticalAlignment.Center
@@ -73,7 +83,7 @@ NavigationPane {
 
                                         }
                                         layoutProperties: StackLayoutProperties {
-                                            spaceQuota: 1.0
+                                            spaceQuota: 3.0
 
                                         }
                                         horizontalAlignment: HorizontalAlignment.Right
@@ -87,12 +97,15 @@ NavigationPane {
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
                                     }
-                                    leftPadding: ui.du(1.4)
+                                    leftPadding: ui.du(2)
                                     rightPadding: leftPadding
+                                    topPadding: ui.du(1.6)
                                 }
                                 Container {
-                                    topPadding: ui.du(0.6)
+                                    topPadding: ui.du(2)
+                                    
                                     Divider{
+                                        
                                     }
                                 }
                             }

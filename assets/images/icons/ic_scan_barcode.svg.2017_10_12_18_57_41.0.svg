@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="ic_scan_barcode.svg"
-   inkscape:export-filename="D:\src\+github\AnimeSlave\bbry-gauth\assets\images\icons\ic_scan_barcode.png"
+   inkscape:export-filename="D:\src\git\bbry-gauth\assets\images\icons\ic_scan_barcode.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="20.230517"
-     inkscape:cy="57.84428"
+     inkscape:zoom="8"
+     inkscape:cx="16.505968"
+     inkscape:cy="49.180199"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -39,11 +39,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1164"
-     inkscape:window-height="971"
-     inkscape:window-x="70"
-     inkscape:window-y="44"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="1858"
+     inkscape:window-height="1057"
+     inkscape:window-x="54"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -59,15 +59,14 @@
   <g
      inkscape:groupmode="layer"
      id="layer1"
-     inkscape:label="Layer 4"
-     style="display:none">
+     inkscape:label="Layer 4">
     <rect
-       style="fill:#000000;stroke:none"
+       style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="rect3492"
        width="96"
        height="96"
-       x="0.17677669"
-       y="0.18703118" />
+       x="-0.25"
+       y="1" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -979,6 +978,13 @@
        style="display:inline;fill:#ffffff" />
     <rect
        y="66.067329"
+       x="70.004517"
+       height="4"
+       width="4"
+       id="rect96313"
+       style="display:inline;fill:#ffffff" />
+    <rect
+       y="66.067329"
        x="62.004517"
        height="4"
        width="4"
@@ -1006,6 +1012,13 @@
        id="rect96323"
        style="display:inline;fill:#ffffff" />
     <rect
+       style="display:inline;fill:#ffffff"
+       id="rect96475"
+       width="4"
+       height="4"
+       x="70.004517"
+       y="70.067329" />
+    <rect
        y="70.067329"
        x="66.004517"
        height="4"
@@ -1015,7 +1028,7 @@
     <rect
        style="display:inline;fill:#ffffff"
        id="rect96664"
-       width="6"
+       width="4"
        height="4"
        x="78.004517"
        y="66.067329" />
@@ -1023,48 +1036,55 @@
        y="70.067329"
        x="78.004517"
        height="4"
-       width="6"
+       width="4"
        id="rect96666"
        style="display:inline;fill:#ffffff" />
     <rect
        style="display:inline;fill:#ffffff"
        id="rect96668"
-       width="6"
+       width="4"
        height="4"
        x="78.004517"
        y="74.067329" />
     <rect
+       y="72.067329"
+       x="78.004517"
+       height="4"
+       width="4"
+       id="rect96670"
+       style="display:inline;fill:#ffffff" />
+    <rect
        style="display:inline;fill:#ffffff"
        id="rect96672"
-       width="6"
-       height="6"
+       width="4"
+       height="4"
        x="78.004517"
        y="78.067329" />
     <rect
-       y="84.067329"
+       y="82.067329"
        x="78.004517"
        height="4"
-       width="6"
+       width="4"
        id="rect96674"
        style="display:inline;fill:#ffffff" />
     <rect
        style="display:inline;fill:#ffffff"
        id="rect96676"
-       width="6"
+       width="4"
        height="4"
        x="78.004517"
-       y="88.067329" />
+       y="86.067329" />
     <rect
-       y="92.067329"
+       y="90.067329"
        x="78.004517"
        height="4"
-       width="6"
+       width="4"
        id="rect96678"
        style="display:inline;fill:#ffffff" />
     <rect
        y="78.067329"
-       x="84.004517"
-       height="6"
+       x="82.004517"
+       height="4"
        width="4"
        id="rect96682"
        style="display:inline;fill:#ffffff" />
@@ -1072,13 +1092,13 @@
        style="display:inline;fill:#ffffff"
        id="rect96684"
        width="4"
-       height="6"
-       x="88.004517"
+       height="4"
+       x="86.004517"
        y="78.067329" />
     <rect
        y="78.067329"
-       x="92.004517"
-       height="6"
+       x="90.004517"
+       height="4"
        width="4"
        id="rect96686"
        style="display:inline;fill:#ffffff" />
@@ -1086,13 +1106,13 @@
        style="display:inline;fill:#ffffff"
        id="rect96688"
        width="4"
-       height="6"
+       height="4"
        x="74.004517"
        y="78.067329" />
     <rect
        y="78.067329"
        x="70.004517"
-       height="6"
+       height="4"
        width="4"
        id="rect96690"
        style="display:inline;fill:#ffffff" />
@@ -1100,36 +1120,8 @@
        style="display:inline;fill:#ffffff"
        id="rect96692"
        width="4"
-       height="6"
+       height="4"
        x="66.004517"
        y="78.067329" />
-    <rect
-       style="display:inline;fill:#ffffff"
-       id="rect3817"
-       width="4"
-       height="4"
-       x="70.004517"
-       y="70.067329" />
-    <rect
-       y="66.067329"
-       x="70.004517"
-       height="4"
-       width="4"
-       id="rect3819"
-       style="display:inline;fill:#ffffff" />
-    <rect
-       style="display:inline;fill:#ffffff"
-       id="rect3821"
-       width="4"
-       height="4"
-       x="58.004517"
-       y="74.067329" />
-    <rect
-       y="78.067329"
-       x="58.004517"
-       height="4"
-       width="4"
-       id="rect3823"
-       style="display:inline;fill:#ffffff" />
   </g>
 </svg>

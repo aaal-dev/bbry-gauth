@@ -162,23 +162,38 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="113"/>
+        <location filename="../assets/pages/MainPage.qml" line="34"/>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="125"/>
         <source>Authenticator Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="118"/>
+        <location filename="../assets/pages/MainPage.qml" line="129"/>
+        <source>Edit data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="132"/>
+        <source>Copy code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="163"/>
+        <source>Scan QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="175"/>
+        <source>Add manualy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/MainPage.qml" line="138"/>
         <source>Delete This Entry</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/MainPage.qml" line="130"/>
-        <source>Scan QR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/MainPage.qml" line="142"/>
-        <source>Add code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

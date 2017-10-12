@@ -15,6 +15,7 @@
  */
 
 import bb.cascades 1.4
+import bb.system 1.2
 
 NavigationPane {
     id: navigationPane
@@ -53,33 +54,6 @@ NavigationPane {
                 }
                 listItemComponents: [
                     ListItemComponent {
-                        
-                        contextActions: [
-                            ActionSet {
-                                title: qsTr("Authenticator Code")
-                                subtitle: ListItemData.title
-                                actions: [
-                                    ActionItem {
-                                        title: qsTr("Edit data")
-                                    },
-                                    ActionItem {
-                                        title: qsTr("Copy code")
-                                    },
-                                    ActionItem {
-                                        title: qsTr("Share This Entry")
-                                    }
-                                ]
-                                MultiSelectActionItem {
-                                }
-                                DeleteActionItem {
-                                    title: qsTr("Delete This Entry")
-                                    onTriggered: {
-                                        //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
-                                        //Qt.dlg.show()
-                                    }
-                                }
-                            }
-                        ]
                         type: "item"
                         content: Container {
                             Container {
@@ -121,6 +95,15 @@ NavigationPane {
                                             textStyle.fontSize: FontSize.XLarge
 
                                         }
+                                        attachedObjects: [
+                                            SystemToast{
+                                                id: codeContainerToast
+                                            }
+                                        ]
+                                        onTouch: {
+                                            codeContainerToast.body = "Copy code"
+                                            codeContainerToast.show()
+                                        }
                                     }
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
@@ -137,6 +120,29 @@ NavigationPane {
                                     }
                                 }
                             }
+                            contextActions: [
+                                ActionSet {
+                                    title: qsTr("Authenticator Code")
+                                    subtitle: ListItemData.title
+                                    actions: [
+                                        ActionItem {
+                                            title: qsTr("Edit data")
+                                        },
+                                        ActionItem {
+                                            title: qsTr("Copy code")
+                                        }
+                                    ]
+                                    MultiSelectActionItem {
+                                    }
+                                    DeleteActionItem {
+                                        title: qsTr("Delete This Entry")
+                                        onTriggered: {
+                                            //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
+                                            //Qt.dlg.show()
+                                        }
+                                    }
+                                }
+                            ]
                         }
                         
                     }
@@ -154,7 +160,7 @@ NavigationPane {
         actions: [
             ActionItem {
                 id: scanQRCodeButton
-                title: qsTr("Scan QR") + Retranslate.onLocaleOrLanguageChanged
+                title: qsTr("Scan QR Code") + Retranslate.onLocaleOrLanguageChanged
                 imageSource: "asset:///images/icons/ic_scan_barcode.png"
                 ActionBar.placement: ActionBarPlacement.Signature
                 shortcuts: Shortcut {
@@ -166,8 +172,8 @@ NavigationPane {
             },
             ActionItem {
                 id: addCodeButton
-                title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
-                imageSource: "asset:///images/icons/ic_compose.png"
+                title: qsTr("Add manualy") + Retranslate.onLocaleOrLanguageChanged
+                imageSource: "asset:///images/icons/ic_add_code.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 shortcuts: Shortcut {
                     key: "A"

@@ -36,11 +36,14 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/images/icons/ic_add_code.png) \
+        $$quote($$BASEDIR/assets/images/icons/ic_add_code.svg) \
         $$quote($$BASEDIR/assets/images/icons/ic_compose.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_info.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_rename.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.svg) \
+        $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.svg.2017_10_12_18_57_41.0.svg) \
         $$quote($$BASEDIR/assets/images/icons/ic_share.png) \
         $$quote($$BASEDIR/assets/model.xml) \
         $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \

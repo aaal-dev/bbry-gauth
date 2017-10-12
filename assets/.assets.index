@@ -1,7 +1,14 @@
 1
-7
+14
+images/icons/ic_add_code.png
+images/icons/ic_add_code.svg
+images/icons/ic_compose.png
+images/icons/ic_info.png
 images/icons/ic_rename.png
 images/icons/ic_scan_barcode.png
+images/icons/ic_scan_barcode.svg
+images/icons/ic_scan_barcode.svg.2017_10_12_18_57_41.0.svg
+images/icons/ic_share.png
 model.xml
 pages/AddCodePage.qml
 pages/MainPage.qml

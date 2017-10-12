@@ -69,6 +69,7 @@
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
+    <category>core.media</category>
     <author>Example Inc.</author>
 
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
@@ -81,7 +82,11 @@
 
     <!--  The icon for the application, which should be 114x114. -->
     <icon>
-        <image>icon.png</image>
+        <image>icon_110.png</image>
+        <image>icon_96.png</image>
+        <image>icon_90.png</image>
+        <image>icon_86.png</image>
+        <image>icon_144.png</image>
     </icon>
 
     <asset path="icon.png">icon.png</asset>
@@ -91,6 +96,11 @@
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
+    <asset path="icon_144.png">icon_144.png</asset>
+    <asset path="icon_110.png">icon_110.png</asset>
+    <asset path="icon_96.png">icon_96.png</asset>
+    <asset path="icon_90.png">icon_90.png</asset>
+    <asset path="icon_86.png">icon_86.png</asset>
 
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>

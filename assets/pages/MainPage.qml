@@ -25,6 +25,7 @@ NavigationPane {
             }
         }
         helpAction: HelpActionItem {
+            imageSource: "asset:///images/icons/ic_info.png"
         }
         actions: [
             ActionItem {
@@ -52,6 +53,33 @@ NavigationPane {
                 }
                 listItemComponents: [
                     ListItemComponent {
+                        
+                        contextActions: [
+                            ActionSet {
+                                title: qsTr("Authenticator Code")
+                                subtitle: ListItemData.title
+                                actions: [
+                                    ActionItem {
+                                        title: qsTr("Edit data")
+                                    },
+                                    ActionItem {
+                                        title: qsTr("Copy code")
+                                    },
+                                    ActionItem {
+                                        title: qsTr("Share This Entry")
+                                    }
+                                ]
+                                MultiSelectActionItem {
+                                }
+                                DeleteActionItem {
+                                    title: qsTr("Delete This Entry")
+                                    onTriggered: {
+                                        //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
+                                        //Qt.dlg.show()
+                                    }
+                                }
+                            }
+                        ]
                         type: "item"
                         content: Container {
                             Container {
@@ -110,6 +138,7 @@ NavigationPane {
                                 }
                             }
                         }
+                        
                     }
                 ]
                 property variant activeItem: undefined
@@ -121,21 +150,6 @@ NavigationPane {
             ProgressIndicator {
                 verticalAlignment: VerticalAlignment.Bottom
             }
-            contextActions: [
-                ActionSet {
-                    title: qsTr("Authenticator Code")
-                    subtitle: ListItemData.title
-                    MultiSelectActionItem {
-                    }
-                    DeleteActionItem {
-                        title: qsTr("Delete This Entry")
-                        onTriggered: {
-                            //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
-                            //Qt.dlg.show()
-                        }
-                    }
-                }
-            ]
         }
         actions: [
             ActionItem {
@@ -153,7 +167,7 @@ NavigationPane {
             ActionItem {
                 id: addCodeButton
                 title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
-                imageSource: "asset:///images/icons/ic_rename.png"
+                imageSource: "asset:///images/icons/ic_compose.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 shortcuts: Shortcut {
                     key: "A"
@@ -185,7 +199,17 @@ NavigationPane {
         }
     ]
     
-    onPopTransitionEnded: page.destroy();
+    onPushTransitionEnded: {
+        if (count() > 1) {
+            Application.menuEnabled = false;
+        }
+    }
+    onPopTransitionEnded: {
+        page.destroy();
+        if (count() == 1)
+            Application.menuEnabled = true;
+    }
+    
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);
     }

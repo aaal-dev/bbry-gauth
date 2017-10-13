@@ -22,16 +22,20 @@ NavigationPane {
     Menu.definition: MenuDefinition {
         settingsAction: SettingsActionItem {
             onTriggered: {
-                navigationPane.push(settingsPageDef.createObject());
+                navigationPane.push(settingsPageDefinition.createObject());
             }
         }
         helpAction: HelpActionItem {
+            title: qsTr("Information") + Retranslate.onLocaleOrLanguageChanged
             imageSource: "asset:///images/icons/ic_info.png"
+            onTriggered: {
+                navigationPane.push(informationPageDefinition.createObject());
+            }
         }
         actions: [
             ActionItem {
                 id: shareMenuItem
-                title: qsTr("Share")
+                title: qsTr("Share") + Retranslate.onLocaleOrLanguageChanged
                 imageSource: "asset:///images/icons/ic_share.png"
                 onTriggered: {
                     
@@ -60,7 +64,7 @@ NavigationPane {
                                 Container {
                                     Container {
                                         layoutProperties: StackLayoutProperties {
-                                            spaceQuota: 4.0
+                                            spaceQuota: 1.0
 
                                         }
                                         verticalAlignment: VerticalAlignment.Center
@@ -80,12 +84,14 @@ NavigationPane {
                                         }
                                     }
                                     Container {
+                                        maxWidth: 280
+                                        minWidth: 190
                                         verticalAlignment: VerticalAlignment.Center
                                         layout: StackLayout {
 
                                         }
                                         layoutProperties: StackLayoutProperties {
-                                            spaceQuota: 3.0
+                                            spaceQuota: -1.0
 
                                         }
                                         horizontalAlignment: HorizontalAlignment.Right
@@ -100,10 +106,14 @@ NavigationPane {
                                                 id: codeContainerToast
                                             }
                                         ]
-                                        onTouch: {
-                                            codeContainerToast.body = "Copy code"
-                                            codeContainerToast.show()
-                                        }
+                                        gestureHandlers: [
+                                            TapHandler {
+                                                onTapped: {
+                                                    codeContainerToast.body = "Copy code"
+                                                    codeContainerToast.show()
+                                                }
+                                            }
+                                        ]
                                     }
                                     layout: StackLayout {
                                         orientation: LayoutOrientation.LeftToRight
@@ -188,8 +198,12 @@ NavigationPane {
     }
     attachedObjects: [
         ComponentDefinition {
-            id: settingsPageDef
+            id: settingsPageDefinition
             source: "SettingsPage.qml"
+        },
+        ComponentDefinition {
+            id: informationPageDefinition
+            source: "InformationPage.qml"
         },
         ComponentDefinition {
             id: scanQRCodePageDef
@@ -202,8 +216,13 @@ NavigationPane {
                 AddCodePage {
                 }
             }
+        },
+        SystemToast {
+            id: mainPageToast
+            button.label: qsTr("Close")
         }
     ]
+    
     
     onPushTransitionEnded: {
         if (count() > 1) {
@@ -214,6 +233,19 @@ NavigationPane {
         page.destroy();
         if (count() == 1)
             Application.menuEnabled = true;
+    }
+    
+    // Самописные функции
+    function onError(errorString)
+    {
+        mainPageToast.body = errorString;
+        mainPageToast.show();
+    }
+    
+    function onInfo(infoString)
+    {
+        mainPageToast.body = infoString;
+        mainPageToast.show();
     }
     
     onCreationCompleted: {

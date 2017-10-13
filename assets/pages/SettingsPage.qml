@@ -3,17 +3,29 @@ import bb.cascades 1.4
 Page {
     id: settingsPage
     signal done()
-    signal visualStyleChanged(visualStyle visualStyle)
     
     titleBar: TitleBar {
         title: qsTr("Settings") + Retranslate.onLocaleOrLanguageChanged
     }
+    
     ScrollView {
         Container {
             Header {
-                title: qsTr("Theme") + Retranslate.onLocaleOrLanguageChanged
+                title: qsTr("Language") + Retranslate.onLocaleOrLanguageChanged
+            }
+            DropDown {
+                id: languages
+                
+                title: qsTr("Interface Language") + Retranslate.onLocaleOrLanguageChanged
+                
+                onSelectedIndexChanged: {
+                    l10n.currentLanguage = selectedValue;
+                }
             }
             
+            Header {
+                title: qsTr("Theme") + Retranslate.onLocaleOrLanguageChanged
+            }
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.LeftToRight
@@ -44,7 +56,6 @@ Page {
                     }
                 }
             }
-            
             Container {
                 topPadding: ui.du(0)
                 leftPadding: ui.du(2)
@@ -56,6 +67,8 @@ Page {
                     
                 }
             }
+            
+            
         }
     }
     paneProperties: NavigationPaneProperties {

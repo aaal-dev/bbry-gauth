@@ -36,11 +36,13 @@ using namespace bb::cascades;
 class ApplicationUI : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(DataModel* dataModel READ getDataModel CONSTANT)
+
 public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
 
-    Q_PROPERTY(DataModel* dataModel READ getDataModel CONSTANT)
+    Q_INVOKABLE void parseBarcodeData(const QString&);
 
 private slots:
     void onSystemLanguageChanged();

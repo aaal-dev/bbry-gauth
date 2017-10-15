@@ -104,3 +104,32 @@ GroupDataModel* ApplicationUI :: getDataModel() const
 {
     return m_dataModel;
 }
+
+void ApplicationUI :: parseBarcodeData(const QString& data) {
+    QUrl url(data);
+    if (url.scheme().toAscii() == "otpauth") {
+        QString authType = url.host();
+        QString urlPath = url.path();
+        QString secterKey = url.queryItemValue("secret");
+        QString issuerName;
+        if (url.hasQueryItem("issuer")) {
+            issuerName = url.queryItemValue("issuer");
+        }
+        //QString algorithmType;
+        //if (url.hasQueryItem("algorithm")) {
+        //    algorithmType = url.queryItemValue("algorithm");
+        //}
+        QString keyLenght;
+        if (url.hasQueryItem("digits")) {
+            keyLenght = url.queryItemValue("digits");
+        }
+        QString counterValue;
+        if (url.hasQueryItem("counter")) {
+            counterValue = url.queryItemValue("counter");
+        }
+        QString periodTime;
+        if (url.hasQueryItem("period")) {
+            periodTime = url.queryItemValue("period");
+        }
+    }
+}

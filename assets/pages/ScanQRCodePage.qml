@@ -73,9 +73,7 @@ Page {
                         cameraSound.play();
                         //scanQRCodePage.done();
                         navigationPane.pop();
-                        var page = addCodePageDef.createObject();
-                        page.url = data;
-                        page.open();
+                        _app.parseBarcodeData(data);
                     }
                 },
                 SystemSound {
@@ -119,13 +117,8 @@ Page {
     attachedObjects: [
         SystemToast {
             id: qmlToast
-        },
-        ComponentDefinition {
-        id: addCodePageDef
-        source: "AddCodePage.qml"
         }
     ]
-    
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {
             onTriggered: {

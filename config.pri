@@ -45,6 +45,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/icons/ic_share.png) \
         $$quote($$BASEDIR/assets/model.xml) \
         $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \
+        $$quote($$BASEDIR/assets/pages/InformationPage.qml) \
         $$quote($$BASEDIR/assets/pages/MainPage.qml) \
         $$quote($$BASEDIR/assets/pages/ScanQRCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/SettingsPage.qml)

@@ -84,8 +84,7 @@ NavigationPane {
                                         }
                                     }
                                     Container {
-                                        maxWidth: 280
-                                        minWidth: 190
+                                        preferredWidth: 280
                                         verticalAlignment: VerticalAlignment.Center
                                         layout: StackLayout {
 
@@ -101,16 +100,10 @@ NavigationPane {
                                             textStyle.fontSize: FontSize.XLarge
 
                                         }
-                                        attachedObjects: [
-                                            SystemToast{
-                                                id: codeContainerToast
-                                            }
-                                        ]
                                         gestureHandlers: [
                                             TapHandler {
                                                 onTapped: {
-                                                    codeContainerToast.body = "Copy code"
-                                                    codeContainerToast.show()
+                                                    onInfo("Copy code")
                                                 }
                                             }
                                         ]
@@ -189,8 +182,7 @@ NavigationPane {
                     key: "A"
                 }
                 onTriggered: {
-                    var page = addCodePageDef.createObject();
-                    page.open();
+                    addCodeSheet.open();
                 }
             },
             MultiSelectActionItem {}
@@ -209,31 +201,19 @@ NavigationPane {
             id: scanQRCodePageDef
             source: "ScanQRCodePage.qml"
         },
-        ComponentDefinition {
-            id: addCodePageDef
-            content: Sheet {
-                id: addCodeSheet
-                AddCodePage {
+        Sheet {
+            id: addCodeSheet
+            content: AddCodePage {
+                onDone: {
+                    addCodeSheet.close()
                 }
-            }
+            }           
         },
         SystemToast {
             id: mainPageToast
             button.label: qsTr("Close")
         }
     ]
-    
-    
-    onPushTransitionEnded: {
-        if (count() > 1) {
-            Application.menuEnabled = false;
-        }
-    }
-    onPopTransitionEnded: {
-        page.destroy();
-        if (count() == 1)
-            Application.menuEnabled = true;
-    }
     
     // Самописные функции
     function onError(errorString)
@@ -248,6 +228,18 @@ NavigationPane {
         mainPageToast.show();
     }
     
+    // Функции слоты
+    onPushTransitionEnded: {
+        if (count() > 1) {
+            Application.menuEnabled = false;
+        }
+    }
+    onPopTransitionEnded: {
+        page.destroy();
+        if (count() == 1)
+            Application.menuEnabled = true;
+    }
+
     onCreationCompleted: {
         //Application.themeSupport.setVisualStyle(_settings.visualStyle);
     }

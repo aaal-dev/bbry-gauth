@@ -1,14 +1,14 @@
 import bb.cascades 1.4
 
 Page {
-    id: addCodePage;
+    id: addCodePage
     
     signal done()
     
     property string url
     
     titleBar: TitleBar {
-        title: qsTr("Manual edit") + Retranslate.onLocaleOrLanguageChanged
+        title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
         kind: TitleBarKind.Default
         acceptAction: ActionItem {
             title: qsTr("Create") + Retranslate.onLocaleOrLanguageChanged
@@ -19,18 +19,18 @@ Page {
                 //_database.keyLenght = keyLenght.selectedOption.value;
                 //_database.authType = authType.selectedOption.value;
                 //_database.writeData();
-                addCodePage.done();
+                done();
             }
             enabled: false
         }
         dismissAction: ActionItem {
             title: qsTr("Cancel") + Retranslate.onLocaleOrLanguageChanged
             onTriggered: {
-                addCodeSheet.done()
+                done()
             }
         }
     }
-        
+    
     content: Container {
         
         layout: DockLayout {}
@@ -49,7 +49,7 @@ Page {
                 }
             }            
             Divider {
-
+            
             }
             Container {
                 leftPadding: ui.du(2)
@@ -88,64 +88,16 @@ Page {
                         }
                     }
                 }
+                TextField {
+                    id: secretKey
+                    hintText: qsTr("Authentication code")
+                    clearButtonVisible: true
+                    input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
+                    input.submitKey: SubmitKey.Next
+                    maximumLength: 4
+                }
             }
             
-            Container {
-                background: Color.create("#ffa5dae4")
-                leftPadding: ui.du(2)
-                rightPadding: ui.du(2)
-                topPadding: ui.du(2)
-                bottomPadding: ui.du(2)
-                Label {
-                    text: qsTr("Two factor authentication code")
-                    textStyle.textAlign: TextAlign.Center
-                    horizontalAlignment: HorizontalAlignment.Center
-                }
-                Container {
-                    id: secretKey
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    
-                    }
-                    layoutProperties: StackLayoutProperties {
-                    
-                    }
-                    
-                    TextField {
-                        id: secretKeyPart1
-                        hintText: qsTr("")
-                        clearButtonVisible: true
-                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
-                        input.submitKey: SubmitKey.Next
-                        maximumLength: 4
-                    }
-                    TextField {
-                        id: secretKeyPart2
-                        hintText: qsTr("")
-                        clearButtonVisible: true
-                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
-                        input.submitKey: SubmitKey.Next
-                        maximumLength: 4
-                    }
-                    TextField {
-                        id: secretKeyPart3
-                        hintText: qsTr("")
-                        clearButtonVisible: true
-                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
-                        input.submitKey: SubmitKey.Next
-                        maximumLength: 4
-                    }
-                    TextField {
-                        id: secretKeyPart4
-                        hintText: qsTr("")
-                        clearButtonVisible: true
-                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
-                        input.submitKey: SubmitKey.Next
-                        maximumLength: 4
-                    }
-                }                
-            }       
-         
             Divider {}
             Container {
                 leftPadding: ui.du(2)

@@ -61,6 +61,7 @@ private:
     bool readCodeList();
 
     GroupDataModel* getDataModel() const;
+    void alert(const QString&);
 };
 
 #endif /* ApplicationUI_HPP_ */

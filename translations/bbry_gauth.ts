@@ -4,37 +4,32 @@
 <context>
     <name>AddCodePage</name>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="11"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="18"/>
         <source>Add code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="14"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="21"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="27"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="34"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="47"/>
-        <source>Enter web-service title, auth login and secret key from the 2-step authentication setup page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="63"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="70"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="79"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="86"/>
         <source>Your login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="93"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="100"/>
         <source>Authentication code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -44,30 +39,101 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="108"/>
-        <source>Setup preferences for output key. If you don&apos;t know, leave it by default</source>
+        <location filename="../assets/pages/AddCodePage.qml" line="54"/>
+        <source>Enter title, login and secret key from the 2-step authentication setup page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="119"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="114"/>
+        <source>Setup preferences for output key. Don&apos;t chage it, if you don&apos;t know what is for, leave it by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="126"/>
         <source>Key Length:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="142"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="149"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="146"/>
-        <location filename="../assets/pages/AddCodePage.qml" line="147"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="154"/>
+        <source>TOTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="155"/>
         <source>Time based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="151"/>
-        <location filename="../assets/pages/AddCodePage.qml" line="152"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="162"/>
+        <source>HOTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="163"/>
         <source>Counter based OTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="179"/>
+        <source>Period time (30 by default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="189"/>
+        <source>Counter value (0 by default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="198"/>
+        <source>Algorithm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="202"/>
+        <source>SHA-1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="203"/>
+        <source>Secure Hash Algorithm 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="208"/>
+        <source>SHA256</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="209"/>
+        <source>Secure Hash Algorithm 2, 256 bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="213"/>
+        <source>SHA512</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="214"/>
+        <source>Secure Hash Algorithm 2, 512 bits</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ApplicationUI</name>
+    <message>
+        <location filename="../src/applicationui.cpp" line="166"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/applicationui.cpp" line="167"/>
+        <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -94,67 +160,75 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="81"/>
+        <location filename="../src/database.cpp" line="83"/>
         <source>Table creation query execute successfully</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="84"/>
+        <location filename="../src/database.cpp" line="86"/>
+        <location filename="../src/database.cpp" line="128"/>
+        <location filename="../src/database.cpp" line="151"/>
         <source>Create table error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="99"/>
+        <location filename="../src/database.cpp" line="101"/>
         <source>Table drop query execute successfully</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="102"/>
+        <location filename="../src/database.cpp" line="104"/>
         <source>Drop table error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="128"/>
+        <location filename="../src/database.cpp" line="125"/>
+        <location filename="../src/database.cpp" line="148"/>
+        <source>Column creation query execute successfully</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/database.cpp" line="177"/>
         <source>Record created</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="131"/>
+        <location filename="../src/database.cpp" line="180"/>
         <source>Create record error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="135"/>
+        <location filename="../src/database.cpp" line="184"/>
         <source>Create record error: customers table does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="168"/>
+        <location filename="../src/database.cpp" line="217"/>
         <source>Record updated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="171"/>
+        <location filename="../src/database.cpp" line="220"/>
         <source>Update record error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="187"/>
+        <location filename="../src/database.cpp" line="236"/>
         <source>Record deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="190"/>
+        <location filename="../src/database.cpp" line="239"/>
         <source>Delete record error: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="329"/>
+        <location filename="../src/database.cpp" line="378"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/database.cpp" line="330"/>
+        <location filename="../src/database.cpp" line="379"/>
         <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>

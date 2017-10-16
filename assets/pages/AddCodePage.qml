@@ -5,7 +5,14 @@ Page {
     
     signal done()
     
-    property string url
+    property alias issuerTitle: issuerTitle.text
+    property alias accountName: accountName.text
+    property alias secretKey: secretKey.text
+    //property string keyLenght
+    property int authType
+    property int counterValue
+    property int periodTime
+    property int algorithmType
     
     titleBar: TitleBar {
         title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
@@ -94,7 +101,6 @@ Page {
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
                         input.submitKey: SubmitKey.Next
-                        maximumLength: 4
                     }
                 }
                 
@@ -116,17 +122,17 @@ Page {
                     bottomPadding: ui.du(0)
                     
                     DropDown {
-                        id: keyLenght
+                        id: keyLenghtDropDownMenu
                         title: qsTr("Key Length:")
                         options: [
                             Option {
                                 text: "6"
                                 value: 6
-                                selected: true
                             },
                             Option {
                                 text: "7"
                                 value: 7
+                                selected: true
                             },
                             Option {
                                 text: "8"
@@ -144,14 +150,18 @@ Page {
                         horizontalAlignment: HorizontalAlignment.Center
                         options: [
                             Option {
+                                id: totpOption
                                 text: qsTr("TOTP")
                                 description: qsTr("Time based OTP")
-                                selected: true
                                 value: 0
+                                onSelectedChanged: {
+                                }
                             },
                             Option {
+                                id: hotpOption
                                 text: qsTr("HOTP")
                                 description: qsTr("Counter based OTP")
+                                selected: true
                                 value: 1
                             }
                         ]

@@ -17,8 +17,11 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/cascades/Page>
 #include <bb/cascades/Sheet>
 #include <bb/cascades/LocaleHandler>
+
+#include <bb/system/SystemDialog>
 
 #include "applicationui.hpp"
 #include "settings.hpp"
@@ -26,6 +29,7 @@
 
 
 using namespace bb::cascades;
+using namespace bb::system;
 
 ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     m_pTranslator = new QTranslator(this);
@@ -42,8 +46,6 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     QmlDocument *qml = QmlDocument::create("asset:///pages/MainPage.qml").parent(this);
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     Application::instance()->setScene(root);
-    qml->setContextProperty("_settings", settings);
-    qml->setContextProperty("_database", database);
     qml->setContextProperty("_app", this);
 }
 
@@ -109,42 +111,57 @@ GroupDataModel* ApplicationUI :: getDataModel() const
 void ApplicationUI :: parseBarcodeData(const QString& data) {
     QUrl url(data);
     if (url.scheme().toAscii() == "otpauth") {
-        QString authType = url.host();
-        QString urlPath = url.path();
-        QString secterKey = url.queryItemValue("secret");
-        QString issuerTitle;
-        if (url.hasQueryItem("issuer")) {
-            issuerTitle = url.queryItemValue("issuer");
+        Sheet* sheet = new Sheet;
+        QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
+        Page *page = qml->createRootObject<Page>();
+
+
+        if (url.host() == "hotp") {
+            page->setProperty("authType", false);
+        } else {
+            page->setProperty("authType", true);
         }
+
+        // property alias issuerTitle: issuerTitle.text
+        if (url.hasQueryItem("issuer")) {
+            page->setProperty("issuerTitle", url.queryItemValue("issuer"));
+        }
+
+        // property alias accountName: accountName.text
+        page->setProperty("accountName", url.path());
+
+        // property alias secretKey: secretKey.text
+        page->setProperty("secretKey", url.queryItemValue("secret"));
+
+        // property alias keyLenght
+        if (url.hasQueryItem("digits")) {
+            page->setProperty("keyLenght", url.queryItemValue("digits"));
+        }
+
+
+        // property int counterValue
+        if (url.hasQueryItem("counter")) {
+            //page->setProperty("counterValue", url.queryItemValue("counter"));
+        }
+
+        // property int periodTime
+        if (url.hasQueryItem("period")) {
+            page->setProperty("periodTime", url.queryItemValue("period"));
+        }
+
+        // property int algorithmType
         //QString algorithmType;
         //if (url.hasQueryItem("algorithm")) {
         //    algorithmType = url.queryItemValue("algorithm");
         //}
-        QString keyLenght;
-        if (url.hasQueryItem("digits")) {
-            keyLenght = url.queryItemValue("digits");
-        }
-        QString counterValue;
-        if (url.hasQueryItem("counter")) {
-            counterValue = url.queryItemValue("counter");
-        }
-        QString periodTime;
-        if (url.hasQueryItem("period")) {
-            periodTime = url.queryItemValue("period");
-        }
-        Sheet* sheet = new Sheet;
-        Page* page = QmlDocument::create("asset:///pages/AddCodePage.qml");
-        page->issuerTitle = issuerTitle;
-        page->accountName = accountName;
-        page->secretKey = secretKey;
-        page->keyLenght.setSelectedOption(keyLenght);
-        page->authType.setSelectedOption(authType);
+
+        sheet->setContent(page);
+        sheet->open();
     }
 }
 
-void alert(const QString &message) {
-    SystemDialog *dialog;
-    dialog = new SystemDialog(tr("OK"), 0);
+void ApplicationUI :: alert(const QString &message) {
+    SystemDialog *dialog = new SystemDialog(tr("OK"), 0);
     dialog->setTitle(tr("Alert"));
     dialog->setBody(message);
     dialog->setDismissAutomatically(true);

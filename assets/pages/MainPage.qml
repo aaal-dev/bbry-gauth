@@ -239,8 +239,4 @@ NavigationPane {
         if (count() == 1)
             Application.menuEnabled = true;
     }
-
-    onCreationCompleted: {
-        //Application.themeSupport.setVisualStyle(_settings.visualStyle);
-    }
 }

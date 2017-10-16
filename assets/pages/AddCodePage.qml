@@ -30,135 +30,184 @@ Page {
             }
         }
     }
-    
-    content: Container {
-        
-        layout: DockLayout {}
-        
-        Container {
-            layout: StackLayout {}
+    ScrollView {
+        content: Container {
+            
+            layout: DockLayout {}
             
             Container {
-                leftPadding: ui.du(2)
-                rightPadding: ui.du(2)
-                topPadding: ui.du(2)
-                bottomPadding: ui.du(0)
-                Label {
-                    text: qsTr("Enter web-service title, auth login and secret key from the 2-step authentication setup page")
-                    multiline: true
+                layout: StackLayout {}
+                
+                Container {
+                    leftPadding: ui.du(3)
+                    rightPadding: ui.du(3)
+                    topPadding: ui.du(2)
+                    bottomPadding: ui.du(0)
+                    Label {
+                        text: qsTr("Enter title, login and secret key from the 2-step authentication setup page")
+                        multiline: true
+                    }
+                }            
+                Divider {
+                
                 }
-            }            
-            Divider {
-            
-            }
-            Container {
-                leftPadding: ui.du(2)
-                rightPadding: ui.du(2)
-                topPadding: ui.du(0)
-                bottomPadding: ui.du(2)
-                TextField {
-                    id: title
-                    inputMode: TextFieldInputMode.Text
-                    input.submitKey: SubmitKey.Next
-                    hintText: qsTr("Title")
-                    validator: Validator {
-                        mode: ValidationMode.Immediate
-                        errorMessage: "Name title"
-                        onValidate: {
-                            if (title.text.length < 1)
-                                state = ValidationState.Valid;
-                            else
-                                state = ValidationState.Invalid;
+                Container {
+                    leftPadding: ui.du(3)
+                    rightPadding: ui.du(3)
+                    topPadding: ui.du(0)
+                    bottomPadding: ui.du(0)
+                    TextField {
+                        id: issuerTitle
+                        inputMode: TextFieldInputMode.Text
+                        input.submitKey: SubmitKey.Next
+                        hintText: qsTr("Title")
+                        validator: Validator {
+                            mode: ValidationMode.Immediate
+                            errorMessage: "Name title"
+                            onValidate: {
+                                if (title.text.length < 1)
+                                    state = ValidationState.Valid;
+                                else
+                                    state = ValidationState.Invalid;
+                            }
                         }
                     }
-                }
-                TextField {
-                    id: authLogin
-                    inputMode: TextFieldInputMode.EmailAddress
-                    input.submitKey: SubmitKey.Next
-                    hintText: qsTr("Your login")
-                    validator: Validator {
-                        mode: ValidationMode.Immediate
-                        errorMessage: "Enter your login"
-                        onValidate: {
-                            if (authLogin.text.length < 1)
-                                state = ValidationState.Valid;
-                            else
-                                state = ValidationState.Invalid;
+                    TextField {
+                        id: accountName
+                        inputMode: TextFieldInputMode.EmailAddress
+                        input.submitKey: SubmitKey.Next
+                        hintText: qsTr("Your login")
+                        validator: Validator {
+                            mode: ValidationMode.Immediate
+                            errorMessage: "Enter your login"
+                            onValidate: {
+                                if (authLogin.text.length < 1)
+                                    state = ValidationState.Valid;
+                                else
+                                    state = ValidationState.Invalid;
+                            }
                         }
                     }
+                    TextField {
+                        id: secretKey
+                        hintText: qsTr("Authentication code")
+                        clearButtonVisible: true
+                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
+                        input.submitKey: SubmitKey.Next
+                        maximumLength: 4
+                    }
                 }
-                TextField {
-                    id: secretKey
-                    hintText: qsTr("Authentication code")
-                    clearButtonVisible: true
-                    input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
-                    input.submitKey: SubmitKey.Next
-                    maximumLength: 4
+                
+                Divider {}
+                Container {
+                    leftPadding: ui.du(3)
+                    rightPadding: ui.du(3)
+                    topPadding: ui.du(0)
+                    bottomPadding: ui.du(0)
+                    Label {
+                        text: qsTr("Setup preferences for output key. Don't chage it, if you don't know what is for, leave it by default")
+                        multiline: true
+                    }
                 }
-            }
-            
-            Divider {}
-            Container {
-                leftPadding: ui.du(2)
-                rightPadding: ui.du(2)
-                topPadding: ui.du(0)
-                bottomPadding: ui.du(0)
-                Label {
-                    text: qsTr("Setup preferences for output key. If you don't know, leave it by default")
-                    multiline: true
-                }
-            }
-            Container {
-                leftPadding: ui.du(2)
-                rightPadding: ui.du(2)
-                topPadding: ui.du(2)
-                bottomPadding: ui.du(0)
-                DropDown {
-                    id: keyLenght
-                    title: qsTr("Key Length:")
-                    options: [
-                        Option {
-                            text: "6"
-                            value: 6
-                            selected: true
-                        },
-                        Option {
-                            text: "7"
-                            value: 7
-                        },
-                        Option {
-                            text: "8"
-                            value: 8
-                        },
-                        Option {
-                            text: "9"
-                            value: 9
+                Container {
+                    leftPadding: ui.du(3)
+                    rightPadding: ui.du(3)
+                    topPadding: ui.du(2)
+                    bottomPadding: ui.du(0)
+                    
+                    DropDown {
+                        id: keyLenght
+                        title: qsTr("Key Length:")
+                        options: [
+                            Option {
+                                text: "6"
+                                value: 6
+                                selected: true
+                            },
+                            Option {
+                                text: "7"
+                                value: 7
+                            },
+                            Option {
+                                text: "8"
+                                value: 8
+                            },
+                            Option {
+                                text: "9"
+                                value: 9
+                            }
+                        ]
+                    }
+                    DropDown {
+                        id: authType
+                        title: qsTr("Type:")
+                        horizontalAlignment: HorizontalAlignment.Center
+                        options: [
+                            Option {
+                                text: qsTr("TOTP")
+                                description: qsTr("Time based OTP")
+                                selected: true
+                                value: 0
+                            },
+                            Option {
+                                text: qsTr("HOTP")
+                                description: qsTr("Counter based OTP")
+                                value: 1
+                            }
+                        ]
+                        onSelectedOptionChanged: {
+                            flipVisability();
                         }
-                    ]
-                }
-                DropDown {
-                    id: authType
-                    title: qsTr("Type:")
-                    horizontalAlignment: HorizontalAlignment.Center
-                    options: [
-                        Option {
-                            text: qsTr("Time based OTP")
-                            description: qsTr("Time based OTP")
-                            selected: true
-                        },
-                        Option {
-                            text: qsTr("Counter based OTP")
-                            description: qsTr("Counter based OTP")
+                        function flipVisability(){
+                            periodTime.visible = !periodTime.visible;
+                            counterValue.visible = !counterValue.visible;
                         }
-                    ]
+                    }
+                    TextField {
+                        id: periodTime
+                        text: "30"
+                        hintText: qsTr("Period time (30 by default)")
+                        clearButtonVisible: false
+                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
+                        input.submitKey: SubmitKey.Next
+                        maximumLength: 4
+                        visible: true
+                    }
+                    TextField {
+                        id: counterValue
+                        text: "0"
+                        hintText: qsTr("Counter value (0 by default)")
+                        clearButtonVisible: false
+                        input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
+                        input.submitKey: SubmitKey.Next
+                        maximumLength: 4
+                        visible: false
+                    }
+                    DropDown {
+                        id: algorithmType
+                        title: qsTr("Algorithm:")
+                        horizontalAlignment: HorizontalAlignment.Center
+                        options: [
+                            Option {
+                                text: qsTr("SHA-1")
+                                description: qsTr("Secure Hash Algorithm 1")
+                                selected: true
+                                value: 0
+                            },
+                            Option {
+                                text: qsTr("SHA256")
+                                description: qsTr("Secure Hash Algorithm 2, 256 bits")
+                                value: 1
+                            },
+                            Option {
+                                text: qsTr("SHA512")
+                                description: qsTr("Secure Hash Algorithm 2, 512 bits")
+                                value: 2
+                            }
+                        ]
+                    }
                 }
             }
-        }
-    }
-    onCreationCompleted: {
-        if (url) {
-            _database.getDatafromURLString(url)
         }
     }
 }

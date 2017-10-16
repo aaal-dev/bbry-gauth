@@ -33,6 +33,9 @@ public:
     bool createTable();
     bool dropTable();
 
+    bool createColumn(QString&, QString&, QString&);
+    bool deleteColumn(QString&, QString&);
+
     Q_INVOKABLE bool createRecord();
     Q_INVOKABLE bool updateRecord();
     Q_INVOKABLE bool deleteRecord();

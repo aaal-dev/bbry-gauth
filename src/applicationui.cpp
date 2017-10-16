@@ -17,6 +17,7 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/cascades/Sheet>
 #include <bb/cascades/LocaleHandler>
 
 #include "applicationui.hpp"
@@ -111,9 +112,9 @@ void ApplicationUI :: parseBarcodeData(const QString& data) {
         QString authType = url.host();
         QString urlPath = url.path();
         QString secterKey = url.queryItemValue("secret");
-        QString issuerName;
+        QString issuerTitle;
         if (url.hasQueryItem("issuer")) {
-            issuerName = url.queryItemValue("issuer");
+            issuerTitle = url.queryItemValue("issuer");
         }
         //QString algorithmType;
         //if (url.hasQueryItem("algorithm")) {
@@ -131,5 +132,23 @@ void ApplicationUI :: parseBarcodeData(const QString& data) {
         if (url.hasQueryItem("period")) {
             periodTime = url.queryItemValue("period");
         }
+        Sheet* sheet = new Sheet;
+        Page* page = QmlDocument::create("asset:///pages/AddCodePage.qml");
+        page->issuerTitle = issuerTitle;
+        page->accountName = accountName;
+        page->secretKey = secretKey;
+        page->keyLenght.setSelectedOption(keyLenght);
+        page->authType.setSelectedOption(authType);
     }
+}
+
+void alert(const QString &message) {
+    SystemDialog *dialog;
+    dialog = new SystemDialog(tr("OK"), 0);
+    dialog->setTitle(tr("Alert"));
+    dialog->setBody(message);
+    dialog->setDismissAutomatically(true);
+    bool ok = connect(dialog, SIGNAL(finished(bb::system::SystemUiResult::Type)), dialog, SLOT(deleteLater()));
+    Q_ASSERT(ok);
+    dialog->show();
 }

@@ -16,7 +16,7 @@
 using namespace bb::system;
 
 
-Database :: Database (QObject *parent) : QObject(parent), DB_PATH("./data/bbauth.db") {
+Database :: Database(QObject *parent) : QObject(parent), DB_PATH("./data/bbauth.db") {
     m_id = 0;
     m_title = "";
     m_authLogin = "";
@@ -28,11 +28,11 @@ Database :: Database (QObject *parent) : QObject(parent), DB_PATH("./data/bbauth
     m_editDate = "";
 }
 
-Database :: ~Database () {
+Database :: ~Database() {
 
 }
 
-bool Database :: createDatabase () {
+bool Database :: createDatabase() {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_PATH);
     bool success = database.open();
@@ -47,7 +47,7 @@ bool Database :: createDatabase () {
     return success;
 }
 
-bool Database :: deleteDatabase () {
+bool Database :: deleteDatabase() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if(success){
@@ -60,7 +60,7 @@ bool Database :: deleteDatabase () {
     return success;
 }
 
-bool Database :: createTable () {
+bool Database :: createTable() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if(success){
@@ -68,13 +68,15 @@ bool Database :: createTable () {
         query.prepare(
                 "CREATE TABLE IF NOT EXISTS accounts"
                 "   (id INTEGER PRIMARY KEY, "
-                "   title TEXT NOT NULL, "
-                "   auth_login TEXT NOT NULL, "
-                "   secret_code TEXT NOT NULL,"
+                "   issuer_title TEXT, "
+                "   account_name TEXT, "
+                "   secret_key TEXT,"
                 "   key_lenght INTEGER DEFAULT 6, "
+                "   algorithm_type INTEGER DEFAULT 0, "
                 "   auth_type INTEGER DEFAULT 0, "
-                "   counter INTEGER DEFAULT 0, "
-                "   publish_date TEXT NOT NULL, "
+                "   counter_value INTEGER DEFAULT 0, "
+                "   period_time INTEGER DEFAULT 30, "
+                "   publish_date TEXT, "
                 "   edit_date TEXT)"
                 );
         if (query.exec()) {
@@ -89,7 +91,7 @@ bool Database :: createTable () {
     return success;
 }
 
-bool Database :: dropTable () {
+bool Database :: dropTable() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if(success){
@@ -100,6 +102,53 @@ bool Database :: dropTable () {
         } else {
             const QSqlError error = query.lastError();
             alert(tr("Drop table error: %1").arg(error.text()));
+            success = false;
+        }
+        database.close();
+    }
+    return success;
+}
+
+// wip
+bool Database :: createColumn(QString& tableName, QString& columnName, QString& columnParams) {
+    QSqlDatabase database = QSqlDatabase::database();
+    bool success = database.open();
+    if(success){
+        QSqlQuery query(database);
+        query.prepare(
+                "ALTER TABLE :tableName"
+                "   ADD :columnName :columnParams");
+        query.bindValue(":tableName", tableName);
+        query.bindValue(":columnName", columnName);
+        query.bindValue(":columnParams", columnParams);
+        if (query.exec()) {
+            alert(tr("Column creation query execute successfully"));
+        } else {
+            const QSqlError error = query.lastError();
+            alert(tr("Create table error: %1").arg(error.text()));
+            success = false;
+        }
+        database.close();
+    }
+    return success;
+}
+
+// wip
+bool Database :: deleteColumn(QString& tableName, QString& columnName) {
+    QSqlDatabase database = QSqlDatabase::database();
+    bool success = database.open();
+    if(success){
+        QSqlQuery query(database);
+        query.prepare(
+                "ALTER TABLE :tableName"
+                "   RENAME TO :tableName + '_old'");
+        query.bindValue(":tableName", tableName);
+        query.bindValue(":columnName", columnName);
+        if (query.exec()) {
+            alert(tr("Column creation query execute successfully"));
+        } else {
+            const QSqlError error = query.lastError();
+            alert(tr("Create table error: %1").arg(error.text()));
             success = false;
         }
         database.close();
@@ -140,7 +189,7 @@ bool Database :: createRecord () {
     return success;
 }
 
-bool Database :: updateRecord () {
+bool Database :: updateRecord() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if (success) {
@@ -176,7 +225,7 @@ bool Database :: updateRecord () {
     return success;
 }
 
-bool Database :: deleteRecord () {
+bool Database :: deleteRecord() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if (success) {
@@ -195,7 +244,7 @@ bool Database :: deleteRecord () {
     return success;
 }
 
-QVariant Database :: readRecords () {
+QVariant Database :: readRecords() {
     QSqlDatabase database = QSqlDatabase::database();
     QSqlQuery query(database);
     query.prepare("SELECT * FROM accounts");
@@ -219,66 +268,66 @@ bool Database :: initializeDatabase() {
 
 
 
-int Database :: getId () {
+int Database :: getId() {
     return m_id;
 }
 
-void Database :: setId (int id) {
+void Database :: setId(int id) {
     m_id = id;
     emit idValueChanged(m_id);
 }
 
 
 
-QString Database :: getTitle () {
+QString Database :: getTitle() {
     return m_title;
 }
 
-void Database :: setTitle (QString title) {
+void Database :: setTitle(QString title) {
     m_title = title;
     emit titleValueChanged(m_title);
 }
 
 
 
-QString Database :: getAuthLogin () {
+QString Database :: getAuthLogin() {
     return m_authLogin;
 }
 
-void Database :: setAuthLogin (QString authLogin) {
+void Database :: setAuthLogin(QString authLogin) {
     m_authLogin = authLogin;
     emit authLoginValueChanged(m_authLogin);
 }
 
 
 
-QString Database :: getSecretCode () {
+QString Database :: getSecretCode() {
     return m_secretCode;
 }
 
-void Database :: setSecretCode (QString secretCode) {
+void Database :: setSecretCode(QString secretCode) {
     m_secretCode = secretCode;
     emit secretCodeValueChanged(m_secretCode);
 }
 
 
 
-int Database :: getKeyLenght () {
+int Database :: getKeyLenght() {
     return m_keyLenght;
 }
 
-void Database :: setKeyLenght (int keyLenght) {
+void Database :: setKeyLenght(int keyLenght) {
     m_keyLenght = keyLenght;
     emit keyLenghtValueChanged(m_keyLenght);
 }
 
 
 
-int Database :: getAuthType () {
+int Database :: getAuthType() {
     return m_authType;
 }
 
-void Database :: setAuthType (int authType) {
+void Database :: setAuthType(int authType) {
     m_authType = authType;
     emit authTypeValueChanged(m_authType);
 }
@@ -289,34 +338,34 @@ int Database :: getCounter(){
     return m_counter;
 }
 
-void Database :: setCounter (int counter) {
+void Database :: setCounter(int counter) {
     m_counter = counter;
     emit counterValueChanged(m_counter);
 }
 
 
 
-QString Database :: getPublishDate () {
+QString Database :: getPublishDate() {
     return m_publishDate;
 }
 
-void Database :: setPublishDate (QString publishDate) {
+void Database :: setPublishDate(QString publishDate) {
     m_publishDate = publishDate;
     emit publishDateValueChanged(m_publishDate);
 }
 
 
 
-QString Database :: getEditDate () {
+QString Database :: getEditDate() {
     return m_editDate;
 }
 
-void Database :: setEditDate (QString editDate) {
+void Database :: setEditDate(QString editDate) {
     m_editDate = editDate;
     emit editDateValueChanged(m_editDate);
 }
 
-bool Database :: getDatafromURLString (QString& url) {
+bool Database :: getDatafromURLString(QString& url) {
     bool success = false;
     QString s = url;
     return success;

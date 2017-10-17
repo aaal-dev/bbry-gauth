@@ -1,20 +1,14 @@
 <model>
-	<item id="1" title="Discord" auth_login="ascii.animeslave@gmail.com" auth_code="123456789"/>
-	<item id="2" title="AV" auth_login="ascii.animeslave@gmail.com" auth_code="589645"/>
-	<item id="3" title="Track" auth_login="ascii.animeslave@gmail.com" auth_code="783645"/>
-	<item id="4" title="Manace" auth_login="ascii.animeslave@gmail.com" auth_code="123758"/>
-	<item id="5" title="Liquor" auth_login="ascii.animeslave@gmail.com" auth_code="985123"/>
-	<item id="6" title="Freeda" auth_login="ascii.animeslave@gmail.com" auth_code="789434"/>
-	<item id="7" title="Discord" auth_login="ascii.animeslave@gmail.com" auth_code="123456"/>
-	<item id="8" title="AV" auth_login="ascii.animeslave@gmail.com" auth_code="589645"/>
-	<item id="9" title="Track" auth_login="ascii.animeslave@gmail.com" auth_code="783645"/>
-	<item id="10" title="Manace" auth_login="ascii.animeslave@gmail.com" auth_code="123758"/>
-	<item id="11" title="Liquor" auth_login="ascii.animeslave@gmail.com" auth_code="985123"/>
-	<item id="12" title="Freeda" auth_login="ascii.animeslave@gmail.com" auth_code="789434"/>
-	<item id="13" title="Discord" auth_login="ascii.animeslave@gmail.com" auth_code="123456"/>
-	<item id="14" title="AV" auth_login="ascii.animeslave@gmail.com" auth_code="589645"/>
-	<item id="15" title="Track" auth_login="ascii.animeslave@gmail.com" auth_code="783645"/>
-	<item id="16" title="Manace" auth_login="ascii.animeslave@gmail.com" auth_code="123758"/>
-	<item id="17" title="Liquor" auth_login="ascii.animeslave@gmail.com" auth_code="985123"/>
-	<item id="18" title="Freeda" auth_login="ascii.animeslave@gmail.com" auth_code="789434"/>
+	<item id="1" title="Discord" auth_login="ascii.animeslave@gmail.com" secret_key="UD43R3HVJ5QOORVOGP7XQQLC3MACADUD"/>
+	<item id="2" title="AV" auth_login="ascii.animeslave@gmail.com" secret_key="63AXDNJN23LF7SMFCTDFQ27XAIRSNFXA"/>
+	<item id="3" title="Track bullet" auth_login="ascii.animeslave@gmail.com" secret_key="5F7YCNA5Q3EDBMX3BJOURSA74G2EH23V"/>
+	<item id="4" title="Manace" auth_login="ascii.animeslave@gmail.com" secret_key="G5E2OJHAKTBD6ZOC6XFW2DN7NTIGWZQS"/>
+	<item id="5" title="Liquor Store" auth_login="ascii.animeslave@gmail.com" secret_key="TKUSCZ2BRHKP3EQEYBNNDARKF7NH3L2L"/>
+	<item id="6" title="Freeda" auth_login="ascii.animeslave@gmail.com" secret_key="CLTBOCMR4NFC4Z6VAZF4MVR3HJPFGD5Y"/>
+	<item id="7" title="Tecran Dorfa" auth_login="ascii.animeslave@gmail.com" secret_key="U7BZRLFGCSIAKYY6J5TADZXZLAHNT2VJ"/>
+	<item id="8" title="Libort Golf Club" auth_login="ascii.animeslave@gmail.com" secret_key="KWXKUWCN7OJX6PNN4YT5EJ4Z6KBJDFK5"/>
+	<item id="9" title="Keller" auth_login="ascii.animeslave@gmail.com" secret_key="WXHZ3EFFSBDWM7ZKQUFCYU63GRVGVSHH"/>
+	<item id="10" title="Senetry Gold" auth_login="ascii.animeslave@gmail.com" secret_key="T5CLNTVX2MNQRCXOMNUUOQJK3IADBFY5"/>
+	<item id="11" title="Denver Track Manager" auth_login="ascii.animeslave@gmail.com" secret_key="BDQFGBIC27EYPSRPN74NWRPOOEIBP2SW"/>
+	<item id="12" title="Free cookies" auth_login="ascii.animeslave@gmail.com" secret_key="E67SNMZ5Q25NM6P6O2YSRD2MHH7K6VKV"/>
 </model>

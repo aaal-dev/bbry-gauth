@@ -153,6 +153,7 @@ Page {
                             Option {
                                 text: "6"
                                 value: "6"
+                                selected: true
                             },
                             Option {
                                 text: "7"
@@ -178,8 +179,7 @@ Page {
                                 text: qsTr("TOTP")
                                 description: qsTr("Time based OTP")
                                 value: "totp"
-                                onSelectedChanged: {
-                                }
+                                selected: true
                             },
                             Option {
                                 id: hotpOption
@@ -207,6 +207,7 @@ Page {
 
                     TextField {
                         id: periodTimeTextField
+                        text: "30"
                         hintText: qsTr("Period time (30 by default)")
                         clearButtonVisible: false
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -216,6 +217,7 @@ Page {
                     }
                     TextField {
                         id: counterValueTextField
+                        text: "0"
                         hintText: qsTr("Counter value (0 by default)")
                         clearButtonVisible: false
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -232,6 +234,7 @@ Page {
                                 text: qsTr("SHA-1")
                                 description: qsTr("Secure Hash Algorithm 1")
                                 value: "SHA1"
+                                selected: true
                             },
                             Option {
                                 text: qsTr("SHA256")

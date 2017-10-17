@@ -5,15 +5,35 @@ Page {
     
     signal done()
     
-    property alias issuerTitle: issuerTitle.text
-    property alias accountName: accountName.text
-    property alias secretKey: secretKey.text
-    //property string keyLenght
-    property int authType
-    property int counterValue
-    property int periodTime
-    property int algorithmType
+    property alias issuerTitle : issuerTitle.text
+    property alias accountName : accountName.text
+    property alias secretKey : secretKey.text
+    property string keyLenght : "6"
+    property int authType : 0
+    property int counterValue : 0
+    property int periodTimeValue : 30
+    property int algorithmType : 0
     
+    onIssuerTitleChanged: {
+        
+    }
+    
+    function klc() {
+        for(number = 0; number < keyLenghtDropDownMenu.count(); number++) {
+            if (keyLenghtDropDownMenu.at(i).value == keyLenght) {
+                keyLenghtDropDownMenu.at(i).selected = true;
+            }
+        }
+    }
+    
+    onKeyLenghtChanged: {
+        
+    }
+    
+    onAuthTypeChanged: {
+        authTypeDropDownMenu.setSelectedIndex(authType)
+    }
+ 
     titleBar: TitleBar {
         title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
         kind: TitleBarKind.Default
@@ -145,7 +165,7 @@ Page {
                         ]
                     }
                     DropDown {
-                        id: authType
+                        id: authTypeDropDownMenu
                         title: qsTr("Type:")
                         horizontalAlignment: HorizontalAlignment.Center
                         options: [
@@ -165,17 +185,25 @@ Page {
                                 value: 1
                             }
                         ]
-                        onSelectedOptionChanged: {
-                            flipVisability();
+                        onCreationCompleted: {
+                            flipVisability(authType.selectedValue);
                         }
-                        function flipVisability(){
-                            periodTime.visible = !periodTime.visible;
-                            counterValue.visible = !counterValue.visible;
+                        onSelectedOptionChanged: {
+                            flipVisability(authType.selectedValue);
+                        }
+                        function flipVisability(value){
+                            if (value == 0){
+                                periodTime.visible = true;
+                                counterValue.visible = false;
+                            } else {
+                                periodTime.visible = false;
+                                counterValue.visible = true;
+                            }
                         }
                     }
                     TextField {
                         id: periodTime
-                        text: "30"
+                        text: periodTimeValue
                         hintText: qsTr("Period time (30 by default)")
                         clearButtonVisible: false
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -194,7 +222,7 @@ Page {
                         visible: false
                     }
                     DropDown {
-                        id: algorithmType
+                        id: algorithmTypeDropDownMenu
                         title: qsTr("Algorithm:")
                         horizontalAlignment: HorizontalAlignment.Center
                         options: [

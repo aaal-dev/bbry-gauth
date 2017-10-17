@@ -110,44 +110,42 @@ GroupDataModel* ApplicationUI :: getDataModel() const
 
 void ApplicationUI :: parseBarcodeData(const QString& data) {
     QUrl url(data);
+    // Определяем соответвие строки, убирая ошибочные
     if (url.scheme().toAscii() == "otpauth") {
-        Sheet* sheet = new Sheet;
-        QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
-        Page *page = qml->createRootObject<Page>();
 
+        // Выделяю метод генерации кода, Периодический (TOTP) или по Счетчику (HOTP)
+        QString authType = url.host();
 
-        if (url.host() == "hotp") {
-            page->setProperty("authType", false);
-        } else {
-            page->setProperty("authType", true);
+        // Выделяю Название и Логин
+        QString issuerTitle;
+        QString accountName;
+        if (url.path().contains(":")) {
+            if (url.hasQueryItem("issuer")) {
+                issuerTitle = url.queryItemValue("issuer");
+            } else {
+                issuerTitle = url.path().mid(1).section(":", 0);
+            }
+            accountName = url.path().mid(1).section(":", 1);
         }
 
-        // property alias issuerTitle: issuerTitle.text
-        if (url.hasQueryItem("issuer")) {
-            page->setProperty("issuerTitle", url.queryItemValue("issuer"));
-        }
+        // Выделяю секретный код
+        QString secretKey = url.queryItemValue("secret");
 
-        // property alias accountName: accountName.text
-        page->setProperty("accountName", url.path());
-
-        // property alias secretKey: secretKey.text
-        page->setProperty("secretKey", url.queryItemValue("secret"));
-
-        // property alias keyLenght
+        // Выделяю количество цифр конечного кода
         if (url.hasQueryItem("digits")) {
-            page->setProperty("keyLenght", url.queryItemValue("digits"));
+            int keyLenght = url.queryItemValue("digits").toUInt();
         }
 
 
         // property int counterValue
-        if (url.hasQueryItem("counter")) {
-            //page->setProperty("counterValue", url.queryItemValue("counter"));
-        }
+        //if (url.hasQueryItem("counter")) {
+        //    //page->setProperty("counterValue", url.queryItemValue("counter"));
+        //}
 
         // property int periodTime
-        if (url.hasQueryItem("period")) {
-            page->setProperty("periodTime", url.queryItemValue("period"));
-        }
+        //if (url.hasQueryItem("period")) {
+        //    page->setProperty("periodTime", url.queryItemValue("period"));
+        //}
 
         // property int algorithmType
         //QString algorithmType;
@@ -155,8 +153,13 @@ void ApplicationUI :: parseBarcodeData(const QString& data) {
         //    algorithmType = url.queryItemValue("algorithm");
         //}
 
+        Sheet* sheet = new Sheet;
+        QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
+        Page *page = qml->createRootObject<Page>();
         sheet->setContent(page);
         sheet->open();
+    } else {
+        alert("Не подходящий QR код");
     }
 }
 

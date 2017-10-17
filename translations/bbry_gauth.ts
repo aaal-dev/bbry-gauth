@@ -4,33 +4,28 @@
 <context>
     <name>AddCodePage</name>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="18"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="63"/>
         <source>Add code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="21"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="66"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="34"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="79"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="70"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="115"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="86"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="121"/>
         <source>Your login</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="100"/>
-        <source>Authentication code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -39,87 +34,92 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="54"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="99"/>
         <source>Enter title, login and secret key from the 2-step authentication setup page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="114"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="125"/>
+        <source>Secret key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="139"/>
         <source>Setup preferences for output key. Don&apos;t chage it, if you don&apos;t know what is for, leave it by default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="126"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="151"/>
         <source>Key Length:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="149"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="173"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="154"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="178"/>
         <source>TOTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="155"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="179"/>
         <source>Time based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="162"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="186"/>
         <source>HOTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="163"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="187"/>
         <source>Counter based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="179"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="210"/>
         <source>Period time (30 by default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="189"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="219"/>
         <source>Counter value (0 by default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="198"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="228"/>
         <source>Algorithm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="202"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="232"/>
         <source>SHA-1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="203"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="233"/>
         <source>Secure Hash Algorithm 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="208"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="237"/>
         <source>SHA256</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="209"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="238"/>
         <source>Secure Hash Algorithm 2, 256 bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="213"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="242"/>
         <source>SHA512</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="214"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="243"/>
         <source>Secure Hash Algorithm 2, 512 bits</source>
         <translation type="unfinished"></translation>
     </message>
@@ -127,12 +127,12 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/applicationui.cpp" line="167"/>
+        <location filename="../src/applicationui.cpp" line="170"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/applicationui.cpp" line="168"/>
+        <location filename="../src/applicationui.cpp" line="171"/>
         <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>

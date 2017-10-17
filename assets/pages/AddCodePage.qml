@@ -5,35 +5,60 @@ Page {
     
     signal done()
     
-    property alias issuerTitle : issuerTitle.text
-    property alias accountName : accountName.text
-    property alias secretKey : secretKey.text
-    property string keyLenght : "6"
-    property int authType : 0
-    property int counterValue : 0
-    property int periodTimeValue : 30
-    property int algorithmType : 0
+    property string issuerTitleProperty
+    property string accountNameProperty
+    property string secretKeyProperty
+    property string keyLenghtProperty
+    property string authTypeProperty
+    property int counterValueProperty
+    property int periodTimeValueProperty
+    property string algorithmTypeProperty
     
-    onIssuerTitleChanged: {
+    onIssuerTitlePropertyChanged: {
+        issuerTitleTextField.text = issuerTitleProperty
+    }
+    
+    onAccountNamePropertyChanged: {
+        accountNameTextField.text = accountNameProperty
+    }
+    
+    onSecretKeyPropertyChanged: {
+        secretKeyTextField.text = secretKeyProperty
+    }
+    
+    onKeyLenghtPropertyChanged: {
+        for(var index = 0; index < keyLenghtDropDownMenu.count(); index++) {
+            if (keyLenghtDropDownMenu.at(index).value == keyLenghtProperty) {
+                keyLenghtDropDownMenu.at(index).setSelected(true);
+            }
+        }
+    }
+
+    onAuthTypePropertyChanged: {
+        for (var index = 0; index < authTypeDropDownMenu.count(); index ++) {
+            if (authTypeDropDownMenu.at(index).value == authTypeProperty) {
+                authTypeDropDownMenu.at(index).setSelected(true);
+            }
+        }
         
     }
     
-    function klc() {
-        for(number = 0; number < keyLenghtDropDownMenu.count(); number++) {
-            if (keyLenghtDropDownMenu.at(i).value == keyLenght) {
-                keyLenghtDropDownMenu.at(i).selected = true;
+    onCounterValuePropertyChanged: {
+        counterValueTextField.text = counterValueProperty
+    }
+    
+    onPeriodTimeValuePropertyChanged: {
+        periodTimeTextField.text = periodTimeValueProperty
+    }
+    
+    onAlgorithmTypePropertyChanged: {
+        for(var index = 0; index < algorithmTypeDropDownMenu.count(); index++) {
+            if (algorithmTypeDropDownMenu.at(index).value == algorithmTypeProperty) {
+                algorithmTypeDropDownMenu.at(index).setSelected(true);
             }
         }
     }
     
-    onKeyLenghtChanged: {
-        
-    }
-    
-    onAuthTypeChanged: {
-        authTypeDropDownMenu.setSelectedIndex(authType)
-    }
- 
     titleBar: TitleBar {
         title: qsTr("Add code") + Retranslate.onLocaleOrLanguageChanged
         kind: TitleBarKind.Default
@@ -84,40 +109,20 @@ Page {
                     topPadding: ui.du(0)
                     bottomPadding: ui.du(0)
                     TextField {
-                        id: issuerTitle
+                        id: issuerTitleTextField
                         inputMode: TextFieldInputMode.Text
                         input.submitKey: SubmitKey.Next
                         hintText: qsTr("Title")
-                        validator: Validator {
-                            mode: ValidationMode.Immediate
-                            errorMessage: "Name title"
-                            onValidate: {
-                                if (title.text.length < 1)
-                                    state = ValidationState.Valid;
-                                else
-                                    state = ValidationState.Invalid;
-                            }
-                        }
                     }
                     TextField {
-                        id: accountName
+                        id: accountNameTextField
                         inputMode: TextFieldInputMode.EmailAddress
                         input.submitKey: SubmitKey.Next
                         hintText: qsTr("Your login")
-                        validator: Validator {
-                            mode: ValidationMode.Immediate
-                            errorMessage: "Enter your login"
-                            onValidate: {
-                                if (authLogin.text.length < 1)
-                                    state = ValidationState.Valid;
-                                else
-                                    state = ValidationState.Invalid;
-                            }
-                        }
                     }
                     TextField {
-                        id: secretKey
-                        hintText: qsTr("Authentication code")
+                        id: secretKeyTextField
+                        hintText: qsTr("Secret key")
                         clearButtonVisible: true
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
                         input.submitKey: SubmitKey.Next
@@ -147,20 +152,19 @@ Page {
                         options: [
                             Option {
                                 text: "6"
-                                value: 6
+                                value: "6"
                             },
                             Option {
                                 text: "7"
-                                value: 7
-                                selected: true
+                                value: "7"
                             },
                             Option {
                                 text: "8"
-                                value: 8
+                                value: "8"
                             },
                             Option {
                                 text: "9"
-                                value: 9
+                                value: "9"
                             }
                         ]
                     }
@@ -173,7 +177,7 @@ Page {
                                 id: totpOption
                                 text: qsTr("TOTP")
                                 description: qsTr("Time based OTP")
-                                value: 0
+                                value: "totp"
                                 onSelectedChanged: {
                                 }
                             },
@@ -181,29 +185,28 @@ Page {
                                 id: hotpOption
                                 text: qsTr("HOTP")
                                 description: qsTr("Counter based OTP")
-                                selected: true
-                                value: 1
+                                value: "hotp"
                             }
                         ]
                         onCreationCompleted: {
-                            flipVisability(authType.selectedValue);
+                            flipVisability(authTypeDropDownMenu.selectedValue);
                         }
                         onSelectedOptionChanged: {
-                            flipVisability(authType.selectedValue);
+                            flipVisability(authTypeDropDownMenu.selectedValue);
                         }
                         function flipVisability(value){
-                            if (value == 0){
-                                periodTime.visible = true;
-                                counterValue.visible = false;
+                            if (value == "totp"){
+                                periodTimeTextField.visible = true;
+                                counterValueTextField.visible = false;
                             } else {
-                                periodTime.visible = false;
-                                counterValue.visible = true;
+                                periodTimeTextField.visible = false;
+                                counterValueTextField.visible = true;
                             }
                         }
                     }
+
                     TextField {
-                        id: periodTime
-                        text: periodTimeValue
+                        id: periodTimeTextField
                         hintText: qsTr("Period time (30 by default)")
                         clearButtonVisible: false
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -212,8 +215,7 @@ Page {
                         visible: true
                     }
                     TextField {
-                        id: counterValue
-                        text: "0"
+                        id: counterValueTextField
                         hintText: qsTr("Counter value (0 by default)")
                         clearButtonVisible: false
                         input.flags: TextInputFlag.AutoCapitalizationOff | TextInputFlag.AutoCorrectionOff | TextInputFlag.AutoPeriodOff | TextInputFlag.PredictionOff | TextInputFlag.SpellCheckOff | TextInputFlag.WordSubstitutionOff
@@ -229,18 +231,17 @@ Page {
                             Option {
                                 text: qsTr("SHA-1")
                                 description: qsTr("Secure Hash Algorithm 1")
-                                selected: true
-                                value: 0
+                                value: "SHA1"
                             },
                             Option {
                                 text: qsTr("SHA256")
                                 description: qsTr("Secure Hash Algorithm 2, 256 bits")
-                                value: 1
+                                value: "SHA256"
                             },
                             Option {
                                 text: qsTr("SHA512")
                                 description: qsTr("Secure Hash Algorithm 2, 512 bits")
-                                value: 2
+                                value: "SHA512"
                             }
                         ]
                     }

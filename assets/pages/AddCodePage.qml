@@ -196,9 +196,16 @@ Page {
                         }
                         function flipVisability(value){
                             if (value == "totp"){
+                                algorithmTypeDropDownMenu.visible = true;
                                 periodTimeTextField.visible = true;
                                 counterValueTextField.visible = false;
                             } else {
+                                for (var index = 0; index < algorithmTypeDropDownMenu.count(); index ++) {
+                                    if (algorithmTypeDropDownMenu.at(index).value == "SHA1") {
+                                        algorithmTypeDropDownMenu.at(index).selected = true
+                                        algorithmTypeDropDownMenu.visible = false;
+                                    }
+                                }
                                 periodTimeTextField.visible = false;
                                 counterValueTextField.visible = true;
                             }

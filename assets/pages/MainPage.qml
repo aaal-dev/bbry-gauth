@@ -70,13 +70,13 @@ NavigationPane {
                                         verticalAlignment: VerticalAlignment.Center
                                         Container {
                                             Label {
-                                                text: ListItemData.title
+                                                text: ListItemData.issuer_title
                                                 textStyle.fontSize: FontSize.Medium
                                             }
                                         }
                                         Container {
                                             Label {
-                                                text: ListItemData.auth_login
+                                                text: ListItemData.account_name
                                                 textStyle.fontSize: FontSize.XSmall
                                                 textStyle.color: Color.DarkGray
                                                 textStyle.fontWeight: FontWeight.W300
@@ -95,7 +95,7 @@ NavigationPane {
                                         }
                                         horizontalAlignment: HorizontalAlignment.Right
                                         Label {
-                                            text: ListItemData.auth_code
+                                            text: ListItemData.secret_key
                                             horizontalAlignment: HorizontalAlignment.Right
                                             textStyle.fontSize: FontSize.XLarge
 

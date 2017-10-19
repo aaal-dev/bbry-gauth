@@ -37,6 +37,7 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     settings = new Settings(this);
     database = new Database(this);
     if (isFirstStart()) { initializeApplication(); }
+    initializeTimer();
     readApplicationSettings();
     readCodeList();
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
@@ -78,11 +79,17 @@ bool ApplicationUI :: readApplicationSettings() {
     return success;
 }
 
-void ApplicationUI :: initializeDataModel()
-{
+void ApplicationUI :: initializeDataModel() {
     m_dataModel = new GroupDataModel(this);
-    m_dataModel->setSortingKeys(QStringList() << "title");
+    m_dataModel->setSortingKeys(QStringList() << "issuer_title");
     m_dataModel->setGrouping(ItemGrouping::None);
+}
+
+bool ApplicationUI :: initializeTimer() {
+    bool success = false;
+    QTimer* timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+    return success;
 }
 
 bool ApplicationUI :: readCodeList() {
@@ -103,24 +110,17 @@ bool ApplicationUI :: readCodeList() {
     return success;
 }
 
-GroupDataModel* ApplicationUI :: getDataModel() const
-{
+GroupDataModel* ApplicationUI :: getDataModel() const {
     return m_dataModel;
 }
 
 void ApplicationUI :: parseBarcodeData(const QString& data) {
     QUrl url(data);
-    // Определяем соответвие строки, убирая ошибочные
     if (url.scheme().toAscii() == "otpauth") {
-
         Sheet* sheet = new Sheet;
         QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
-        Page *page = qml->createRootObject<Page>();
-
-        // Выделяю метод генерации кода, Периодический (TOTP) или по Счетчику (HOTP)
+        Page* page = qml->createRootObject<Page>();
         page->setProperty("authTypeProperty", url.host().toAscii());
-
-        // Выделяю Название и Логин
         if (url.path().contains(":")) {
             if (url.hasQueryItem("issuer")) {
                 page->setProperty("issuerTitleProperty", QUrl::fromPercentEncoding(url.queryItemValue("issuer").toAscii()));
@@ -131,36 +131,25 @@ void ApplicationUI :: parseBarcodeData(const QString& data) {
         } else {
             page->setProperty("accountNameProperty", QUrl::fromPercentEncoding(url.path().mid(1).toAscii()));
         }
-
-        // Выделяю секретный код
         page->setProperty("secretKeyProperty", url.queryItemValue("secret").toAscii());
-
-        // Выделяю количество цифр конечного кода
         if (url.hasQueryItem("digits")) {
             page->setProperty("keyLenghtProperty", url.queryItemValue("digits").toAscii());
         }
-
-        // property int counterValue
         if (url.hasQueryItem("counter")) {
             page->setProperty("counterValueProperty", url.queryItemValue("counter").toUInt());
         } else {
             page->setProperty("counterValueProperty", 0);
         }
-
-        // property int periodTime
         if (url.hasQueryItem("period")) {
             page->setProperty("periodTimeValueProperty", url.queryItemValue("period").toUInt());
         } else {
             page->setProperty("periodTimeValueProperty", 30);
         }
-
-        // property int algorithmType
         if (url.hasQueryItem("algorithm")) {
             page->setProperty("algorithmTypeProperty", url.queryItemValue("algorithm").toAscii());
         } else {
             page->setProperty("algorithmTypeProperty", "SHA1");
         }
-
         bool res = QObject::connect(page, SIGNAL(done()), sheet, SLOT(close()));
         Q_ASSERT(res);
         Q_UNUSED(res);

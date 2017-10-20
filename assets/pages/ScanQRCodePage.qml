@@ -71,9 +71,8 @@ Page {
                             cameraVibration.start(100, 100);
                         }
                         cameraSound.play();
-                        //scanQRCodePage.done();
-                        navigationPane.pop();
-                        _app.parseBarcodeData(data);
+                        scanQRCodePage.done();
+                        _app.parseQRData(data);
                     }
                 },
                 SystemSound {

@@ -55,12 +55,14 @@ config_pri_source_group1 {
     SOURCES += \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/database.cpp) \
+        $$quote($$BASEDIR/src/datamodels/Account.cpp) \
         $$quote($$BASEDIR/src/main.cpp) \
         $$quote($$BASEDIR/src/settings.cpp)
 
     HEADERS += \
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/database.hpp) \
+        $$quote($$BASEDIR/src/datamodels/Account.hpp) \
         $$quote($$BASEDIR/src/settings.hpp)
 }
 
@@ -75,6 +77,11 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.cc) \
         $$quote($$BASEDIR/../src/*.cpp) \
         $$quote($$BASEDIR/../src/*.cxx) \
+        $$quote($$BASEDIR/../src/datamodels/*.c) \
+        $$quote($$BASEDIR/../src/datamodels/*.c++) \
+        $$quote($$BASEDIR/../src/datamodels/*.cc) \
+        $$quote($$BASEDIR/../src/datamodels/*.cpp) \
+        $$quote($$BASEDIR/../src/datamodels/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \

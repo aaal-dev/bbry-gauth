@@ -24,6 +24,8 @@
 namespace bb {
     namespace cascades {
         class LocaleHandler;
+        class DataModel;
+        class GroupDataModel;
     }
 }
 
@@ -42,7 +44,7 @@ public:
     ApplicationUI();
     virtual ~ApplicationUI() {}
 
-    Q_INVOKABLE void parseBarcodeData(const QString&);
+    Q_INVOKABLE void parseQRData(const QString&);
 
 private slots:
     void onSystemLanguageChanged();
@@ -58,9 +60,10 @@ private:
     bool initializeApplication();
     bool readApplicationSettings();
     void initializeDataModel();
+    bool initializeTimer();
     bool readCodeList();
 
-    GroupDataModel* getDataModel() const;
+    DataModel* getDataModel() const;
     void alert(const QString&);
 };
 

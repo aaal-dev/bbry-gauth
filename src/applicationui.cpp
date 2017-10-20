@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#include <bb/data/XmlDataAccess>
+
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -23,11 +25,13 @@
 
 #include <bb/system/SystemDialog>
 
+#include <QtCore/QMap>
+
 #include "applicationui.hpp"
 #include "settings.hpp"
 #include "database.hpp"
 
-
+using namespace bb::data;
 using namespace bb::cascades;
 using namespace bb::system;
 
@@ -85,6 +89,10 @@ void ApplicationUI :: initializeDataModel() {
     m_dataModel->setGrouping(ItemGrouping::None);
 }
 
+DataModel* ApplicationUI :: getDataModel() const {
+    return m_dataModel;
+}
+
 bool ApplicationUI :: initializeTimer() {
     bool success = false;
     QTimer* timer = new QTimer(this);
@@ -95,26 +103,25 @@ bool ApplicationUI :: initializeTimer() {
 bool ApplicationUI :: readCodeList() {
     bool success = false;
     initializeDataModel();
-    m_dataModel->clear();
-    QVariant result = database->readRecords();
-    if (!result.isNull()) {
-        QVariantList list = result.value<QVariantList>();
-        int recordsListSize = list.size();
-        for (int i = 0; i < recordsListSize; i++) {
+    XmlDataAccess xda;
+    QVariant list = xda.load("model.xml", "/model/item");
+    if (!list.isNull()) {
+        QVariantList list = list.value<QVariantList>();
+        int recordsRead = list.size();
+        for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
-            //CodeListItem *listItem = new CodeListItem();
-            //m_dataModel->insert(listItem);
+            Person *person = new Person(map["customerID"].toString(),
+                    map["firstName"].toString(),
+                    map["lastName"].toString());
+            Q_UNUSED(person);
+            m_dataModel->insert(person);
         }
         success = true;
     }
     return success;
 }
 
-GroupDataModel* ApplicationUI :: getDataModel() const {
-    return m_dataModel;
-}
-
-void ApplicationUI :: parseBarcodeData(const QString& data) {
+void ApplicationUI :: parseQRData(const QString& data) {
     QUrl url(data);
     if (url.scheme().toAscii() == "otpauth") {
         Sheet* sheet = new Sheet;
@@ -160,6 +167,8 @@ void ApplicationUI :: parseBarcodeData(const QString& data) {
         alert("Не подходящий QR код");
     }
 }
+
+//void ApplicationUI :: addAccount(const QMap& data) {}
 
 void ApplicationUI :: alert(const QString &message) {
     SystemDialog *dialog = new SystemDialog(tr("OK"), 0);

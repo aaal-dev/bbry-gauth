@@ -52,10 +52,8 @@ NavigationPane {
                 id: listView
                 verticalAlignment: VerticalAlignment.Fill
                 horizontalAlignment: HorizontalAlignment.Fill
-                //dataModel: _app.dataModel
-                dataModel: XmlDataModel {
-                    source: "asset:///model.xml"
-                }
+                dataModel: _app.dataModel
+                //dataModel: XmlDataModel { source: "asset:///model.xml" }
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"

@@ -20,25 +20,22 @@
 #include <QObject>
 #include <bb/cascades/GroupDataModel>
 
-
 namespace bb {
     namespace cascades {
         class LocaleHandler;
-        class DataModel;
-        class GroupDataModel;
     }
 }
 
+class Accounts;
+class Database;
 class QTranslator;
 class Settings;
-class Database;
 
 using namespace bb::cascades;
 
-class ApplicationUI : public QObject
-{
+class ApplicationUI : public QObject {
     Q_OBJECT
-    Q_PROPERTY(DataModel* dataModel READ getDataModel CONSTANT)
+    Q_PROPERTY(bb::cascades::DataModel* dataModel READ getDataModel CONSTANT)
 
 public:
     ApplicationUI();
@@ -63,8 +60,9 @@ private:
     bool initializeTimer();
     bool readCodeList();
 
-    DataModel* getDataModel() const;
+    bb::cascades::GroupDataModel* getDataModel() const;
     void alert(const QString&);
+    void logToConsole(const QString& msg);
 };
 
 #endif /* ApplicationUI_HPP_ */

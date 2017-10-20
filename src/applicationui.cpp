@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-#include <bb/data/XmlDataAccess>
-
-#include <bb/cascades/Application>
-#include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
+#include <bb/cascades/Application>
+#include <bb/cascades/GroupDataModel>
+#include <bb/cascades/QmlDocument>
 #include <bb/cascades/Page>
 #include <bb/cascades/Sheet>
 #include <bb/cascades/LocaleHandler>
-
+#include <bb/data/XmlDataAccess>
 #include <bb/system/SystemDialog>
 
-#include <QtCore/QMap>
-
 #include "applicationui.hpp"
-#include "settings.hpp"
-#include "database.hpp"
 
-using namespace bb::data;
+#include "datamodels/accounts.hpp"
+#include "database.hpp"
+#include "settings.hpp"
+
 using namespace bb::cascades;
+using namespace bb::data;
 using namespace bb::system;
 
 ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
@@ -49,9 +48,9 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     Q_UNUSED(res);
     onSystemLanguageChanged();
     QmlDocument *qml = QmlDocument::create("asset:///pages/MainPage.qml").parent(this);
+    qml->setContextProperty("_app", this);
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     Application::instance()->setScene(root);
-    qml->setContextProperty("_app", this);
 }
 
 void ApplicationUI :: onSystemLanguageChanged() {
@@ -85,13 +84,11 @@ bool ApplicationUI :: readApplicationSettings() {
 
 void ApplicationUI :: initializeDataModel() {
     m_dataModel = new GroupDataModel(this);
-    m_dataModel->setSortingKeys(QStringList() << "issuer_title");
+    m_dataModel->setSortingKeys(QStringList() << "id");
     m_dataModel->setGrouping(ItemGrouping::None);
 }
 
-DataModel* ApplicationUI :: getDataModel() const {
-    return m_dataModel;
-}
+bb::cascades::GroupDataModel* ApplicationUI :: getDataModel() const { return m_dataModel; }
 
 bool ApplicationUI :: initializeTimer() {
     bool success = false;
@@ -104,20 +101,34 @@ bool ApplicationUI :: readCodeList() {
     bool success = false;
     initializeDataModel();
     XmlDataAccess xda;
-    QVariant list = xda.load("model.xml", "/model/item");
-    if (!list.isNull()) {
-        QVariantList list = list.value<QVariantList>();
+    QFile dataFileSpeaker(QDir::currentPath() + "/app/native/assets/model.xml");
+    bool ok = dataFileSpeaker.open(QIODevice::ReadOnly);
+    QVariant result = xda.loadFromBuffer(dataFileSpeaker.readAll(), "/model/item");
+    dataFileSpeaker.close();
+    if (!result.isNull() && ok) {
+        QVariantList list = result.value<QVariantList>();
         int recordsRead = list.size();
         for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
-            Person *person = new Person(map["customerID"].toString(),
-                    map["firstName"].toString(),
-                    map["lastName"].toString());
-            Q_UNUSED(person);
-            m_dataModel->insert(person);
+            Accounts *account = new Accounts(
+                    map["id"].toInt(),
+                    map["issuer_title"].toString(),
+                    map["account_name"].toString(),
+                    map["secret_key"].toString(),
+                    map["keyLenght"].toString(),
+                    map["algorithmType"].toString(),
+                    map["authType"].toString(),
+                    map["counterValue"].toString(),
+                    map["periodTime"].toString(),
+                    map["publishDate"].toString(),
+                    map["editDate"].toString(),
+                    this);
+            Q_UNUSED(account);
+            logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
+            m_dataModel->insert(account);
         }
         success = true;
-    }
+    } else {alert("no");}
     return success;
 }
 
@@ -179,3 +190,10 @@ void ApplicationUI :: alert(const QString &message) {
     Q_ASSERT(ok);
     dialog->show();
 }
+
+#ifdef QT_DEBUG
+void ApplicationUI :: logToConsole(const QString& msg) {
+    fprintf(stdout, "%s\n", msg.toUtf8().constData());
+    fflush(stdout);
+}
+#endif

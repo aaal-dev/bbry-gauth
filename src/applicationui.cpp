@@ -112,10 +112,10 @@ bool ApplicationUI :: readCodeList() {
             QVariantMap map = list.at(i).value<QVariantMap>();
             Accounts *account = new Accounts(
                     map["id"].toInt(),
-                    map["issuer_title"].toString(),
-                    map["account_name"].toString(),
-                    map["secret_key"].toString(),
-                    map["keyLenght"].toString(),
+                    map["issuerTitle"].toString(),
+                    map["accountName"].toString(),
+                    map["secretKey"].toString(),
+                    map["keyLenght"].toInt(),
                     map["algorithmType"].toString(),
                     map["authType"].toString(),
                     map["counterValue"].toString(),
@@ -124,11 +124,11 @@ bool ApplicationUI :: readCodeList() {
                     map["editDate"].toString(),
                     this);
             Q_UNUSED(account);
-            logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
+            //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
             m_dataModel->insert(account);
         }
         success = true;
-    } else {alert("no");}
+    }
     return success;
 }
 

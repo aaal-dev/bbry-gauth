@@ -275,37 +275,37 @@ Happy feedbacking.&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="126"/>
+        <location filename="../assets/pages/MainPage.qml" line="132"/>
         <source>Authenticator Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="130"/>
+        <location filename="../assets/pages/MainPage.qml" line="136"/>
         <source>Edit data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="133"/>
+        <location filename="../assets/pages/MainPage.qml" line="139"/>
         <source>Copy code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="164"/>
+        <location filename="../assets/pages/MainPage.qml" line="170"/>
         <source>Scan QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="176"/>
+        <location filename="../assets/pages/MainPage.qml" line="182"/>
         <source>Add manualy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="212"/>
+        <location filename="../assets/pages/MainPage.qml" line="218"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="139"/>
+        <location filename="../assets/pages/MainPage.qml" line="145"/>
         <source>Delete This Entry</source>
         <translation type="unfinished"></translation>
     </message>

@@ -57,12 +57,18 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/database.cpp) \
         $$quote($$BASEDIR/src/datamodels/accounts.cpp) \
         $$quote($$BASEDIR/src/main.cpp) \
+        $$quote($$BASEDIR/src/oath/base32.cpp) \
+        $$quote($$BASEDIR/src/oath/hmac.cpp) \
+        $$quote($$BASEDIR/src/oath/sha1.cpp) \
         $$quote($$BASEDIR/src/settings.cpp)
 
     HEADERS += \
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/database.hpp) \
         $$quote($$BASEDIR/src/datamodels/accounts.hpp) \
+        $$quote($$BASEDIR/src/oath/base32.hpp) \
+        $$quote($$BASEDIR/src/oath/hmac.hpp) \
+        $$quote($$BASEDIR/src/oath/sha1.hpp) \
         $$quote($$BASEDIR/src/settings.hpp)
 }
 
@@ -82,6 +88,11 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/datamodels/*.cc) \
         $$quote($$BASEDIR/../src/datamodels/*.cpp) \
         $$quote($$BASEDIR/../src/datamodels/*.cxx) \
+        $$quote($$BASEDIR/../src/oath/*.c) \
+        $$quote($$BASEDIR/../src/oath/*.c++) \
+        $$quote($$BASEDIR/../src/oath/*.cc) \
+        $$quote($$BASEDIR/../src/oath/*.cpp) \
+        $$quote($$BASEDIR/../src/oath/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \

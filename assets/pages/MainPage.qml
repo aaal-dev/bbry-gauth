@@ -82,7 +82,7 @@ NavigationPane {
                                         }
                                     }
                                     Container {
-                                        preferredWidth: 280
+                                        preferredWidth: ui.du(36)
                                         verticalAlignment: VerticalAlignment.Center
                                         layout: StackLayout {
 
@@ -93,10 +93,16 @@ NavigationPane {
                                         }
                                         horizontalAlignment: HorizontalAlignment.Right
                                         Label {
-                                            text: ListItemData.secretKey
+                                            text: ListItemData.authCode
                                             horizontalAlignment: HorizontalAlignment.Right
                                             textStyle.fontSize: FontSize.XLarge
 
+                                        }
+                                        ProgressIndicator {
+                                            verticalAlignment: VerticalAlignment.Bottom
+                                            fromValue: 0
+                                            toValue: 300
+                                            value: ListItemData.elapsedTime
                                         }
                                         gestureHandlers: [
                                             TapHandler {

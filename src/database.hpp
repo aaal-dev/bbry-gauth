@@ -10,18 +10,13 @@
 
 #include <QObject>
 #include <QMetaType>
+#include <QtSql>
+#include <QDateTime>
+
+#include <bb/data/SqlDataAccess>
 
 class Database : public QObject {
     Q_OBJECT
-    Q_PROPERTY(int id               READ getId          WRITE setId             NOTIFY idValueChanged)
-    Q_PROPERTY(QString title        READ getTitle       WRITE setTitle          NOTIFY titleValueChanged)
-    Q_PROPERTY(QString authLogin    READ getAuthLogin   WRITE setAuthLogin      NOTIFY authLoginValueChanged)
-    Q_PROPERTY(QString secretCode   READ getSecretCode  WRITE setSecretCode     NOTIFY secretCodeValueChanged)
-    Q_PROPERTY(int keyLenght        READ getKeyLenght   WRITE setKeyLenght      NOTIFY keyLenghtValueChanged)
-    Q_PROPERTY(int authType         READ getAuthType    WRITE setAuthType       NOTIFY authTypeValueChanged)
-    Q_PROPERTY(int counter          READ getCounter     WRITE setCounter        NOTIFY counterValueChanged)
-    Q_PROPERTY(QString publishDate  READ getPublishDate WRITE setPublishDate    NOTIFY publishDateValueChanged)
-    Q_PROPERTY(QString editDate     READ getEditDate    WRITE setEditDate       NOTIFY editDateValueChanged)
 
 public:
     Database(QObject *parent);
@@ -36,66 +31,68 @@ public:
     bool createColumn(QString&, QString&, QString&);
     bool deleteColumn(QString&, QString&);
 
-    Q_INVOKABLE bool createRecord();
-    Q_INVOKABLE bool updateRecord();
-    Q_INVOKABLE bool deleteRecord();
-    Q_INVOKABLE QVariant readRecords();
+    bool createRecord();
+    bool updateRecord();
+    bool deleteRecord();
+    QVariant readRecords();
 
     bool initializeDatabase();
 
-    int getId();
-    void setId(int id);
+    // tableColumns
+    int  getId();
 
-    QString getTitle();
-    void setTitle(QString title);
+    QString getIssuerTitle();
+    void    setIssuerTitle(QString& issuerTitle);
 
-    QString getAuthLogin();
-    void setAuthLogin(QString authLogin);
+    QString getAccountName();
+    void    setAccountName(QString& accountName);
 
-    QString getSecretCode();
-    void setSecretCode(QString secretCode);
+    QString getSecretKey();
+    void    setSecretKey(QString& secretKey);
 
-    int getKeyLenght();
-    void setKeyLenght(int keyLenght);
+    int  getAuthType();
+    void setAuthType(int& authType);
 
-    int getAuthType();
-    void setAuthType(int authType);
+    int  getCounterValue();
+    void setCounterValue(int& counterValue);
 
-    int getCounter();
-    void setCounter(int counter);
+    int  getPeriodTime();
+    void setPeriodTime(int& periodTime);
 
-    QString getPublishDate();
-    void setPublishDate(QString publishDate);
+    int  getAuthCodeLenght();
+    void setAuthCodeLenght(int& authCodeLenght);
 
-    QString getEditDate();
-    void setEditDate(QString editDate);
+    int  getPublishDate();
+    void setPublishDate(int& publishDate);
 
-    Q_INVOKABLE bool getDatafromURLString(QString&);
+    int  getEditDate();
+    void setEditDate(int& editDate);
 
 signals:
-    void idValueChanged(int);
-    void titleValueChanged(QString);
-    void authLoginValueChanged(QString);
-    void secretCodeValueChanged(QString);
-    void keyLenghtValueChanged(int);
-    void authTypeValueChanged(int);
-    void counterValueChanged(int);
-    void publishDateValueChanged(QString);
-    void editDateValueChanged(QString);
+    void issuerTitleChanged(QString& m_issuerTitle);
+    void accountNameChanged(QString& m_accountName);
+    void secretKeyChanged(QString& m_secretKey);
+    void authTypeChanged(int& m_authType);
+    void algorithmTypeChanged(int& m_algorithmType);
+    void counterValueChanged(int& m_counterValue);
+    void periodTimeChanged(int& m_periodTime);
+    void authCodeLenghtChanged(int& m_authCodeLenght);
+    void publishDateChanged(int& m_publishDate);
+    void editDateChanged(int& m_editDate);
 
 private:
     QString DB_PATH;
     int m_id;
-    QString m_title;
-    QString m_authLogin;
-    QString m_secretCode;
-    int m_keyLenght;
+    QString m_issuerTitle;
+    QString m_accountName;
+    QString m_secretKey;
     int m_authType;
-    int m_counter;
-    QString m_publishDate;
-    QString m_editDate;
-
-    void alert(const QString&);
+    int m_algorithmType;
+    int m_counterValue;
+    int m_periodTime;
+    int m_authCodeLenght;
+    int m_publishDate;
+    int m_editDate;
 };
 
 #endif /* DATABASE_HPP_ */

@@ -1,5 +1,12 @@
 1
-13
+27
+images/icons/app/icon.png
+images/icons/app/icon.svg
+images/icons/app/icon_110.png
+images/icons/app/icon_144.png
+images/icons/app/icon_86.png
+images/icons/app/icon_90.png
+images/icons/app/icon_96.png
 images/icons/ic_add_code.png
 images/icons/ic_add_code.svg
 images/icons/ic_info.png
@@ -7,6 +14,13 @@ images/icons/ic_scan_barcode.png
 images/icons/ic_scan_barcode.svg
 images/icons/ic_scan_barcode.svg.2017_10_12_18_57_41.0.svg
 images/icons/ic_share.png
+images/splashscreens/splashscreen-1440x1440.png
+images/splashscreens/splashscreen-1440x1440.svg
+images/splashscreens/splashscreen-720x1280.png
+images/splashscreens/splashscreen-720x1280.svg
+images/splashscreens/splashscreen-720x720.png
+images/splashscreens/splashscreen-768x1280.png
+images/splashscreens/splashscreen-768x1280.svg
 model.xml
 pages/AddCodePage.qml
 pages/InformationPage.qml

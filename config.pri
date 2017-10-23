@@ -36,6 +36,13 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/images/icons/app/icon.png) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon.svg) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon_110.png) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon_144.png) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon_86.png) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon_90.png) \
+        $$quote($$BASEDIR/assets/images/icons/app/icon_96.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_add_code.png) \
         $$quote($$BASEDIR/assets/images/icons/ic_add_code.svg) \
         $$quote($$BASEDIR/assets/images/icons/ic_info.png) \
@@ -43,6 +50,13 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.svg) \
         $$quote($$BASEDIR/assets/images/icons/ic_scan_barcode.svg.2017_10_12_18_57_41.0.svg) \
         $$quote($$BASEDIR/assets/images/icons/ic_share.png) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-1440x1440.png) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-1440x1440.svg) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-720x1280.png) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-720x1280.svg) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-720x720.png) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-768x1280.png) \
+        $$quote($$BASEDIR/assets/images/splashscreens/splashscreen-768x1280.svg) \
         $$quote($$BASEDIR/assets/model.xml) \
         $$quote($$BASEDIR/assets/pages/AddCodePage.qml) \
         $$quote($$BASEDIR/assets/pages/InformationPage.qml) \
@@ -104,6 +118,12 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/images/icons/*.qml) \
         $$quote($$BASEDIR/../assets/images/icons/*.js) \
         $$quote($$BASEDIR/../assets/images/icons/*.qs) \
+        $$quote($$BASEDIR/../assets/images/icons/app/*.qml) \
+        $$quote($$BASEDIR/../assets/images/icons/app/*.js) \
+        $$quote($$BASEDIR/../assets/images/icons/app/*.qs) \
+        $$quote($$BASEDIR/../assets/images/splashscreens/*.qml) \
+        $$quote($$BASEDIR/../assets/images/splashscreens/*.js) \
+        $$quote($$BASEDIR/../assets/images/splashscreens/*.qs) \
         $$quote($$BASEDIR/../assets/pages/*.qml) \
         $$quote($$BASEDIR/../assets/pages/*.js) \
         $$quote($$BASEDIR/../assets/pages/*.qs)

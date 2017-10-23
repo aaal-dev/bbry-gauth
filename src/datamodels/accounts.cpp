@@ -9,22 +9,7 @@
 
 ulong timeStamp;
 
-Accounts :: Accounts(QObject *parent)
-    : QObject(parent)
-    , m_id(0)
-    , m_issuerTitle("")
-    , m_accountName("")
-    , m_secretKey(0)
-    , m_secretKeyLenght(0)
-    , m_keyLenght(0)
-    , m_algorithmType("")
-    , m_authType("")
-    , m_counterValue("")
-    , m_periodTime("")
-    , m_publishDate("")
-    , m_editDate("")
-    , m_authCode("")
-    , m_elapsedTime(0) {}
+Accounts :: Accounts(QObject *parent) : QObject(parent) {}
 
 Accounts :: Accounts(
         const sb_GlobalCtx& sbCtx,
@@ -45,11 +30,11 @@ Accounts :: Accounts(
     , m_issuerTitle(issuerTitle)
     , m_accountName(accountName)
     , m_secretKeyLenght(0)
-    , m_keyLenght(keyLenght)
-    , m_algorithmType(algorithmType)
     , m_authType(authType)
+    , m_algorithmType(algorithmType)
     , m_counterValue(counterValue)
     , m_periodTime(periodTime)
+    , m_keyLenght(keyLenght)
     , m_publishDate(publishDate)
     , m_editDate(editDate)
     , m_authCode("")
@@ -67,7 +52,7 @@ Accounts :: Accounts(
 
     m_elapsedTime = (t % 30) * 10 + QTime::currentTime().msec() / 100;
     pCountDownTimer->start(100);
-    QTimer::singleShot(30000 - m_elapsedTime * 100, pTimer, SLOT(start(30000)));
+    pTimer->start(30000);
 
 
     uint8_t* pTmp = new uint8_t[100];
@@ -251,7 +236,7 @@ int Accounts :: GetHotpCode(const uint8_t* secretKey, int secretKeyLenght, ulong
         truncatedHash |= hash[offset + i];
     }
     // memset(hash, 0, sizeof(hash));
-    int powerOf10[] = {1,10,100,1000,10000,100000,1000000,10000000,100000000};
+    int powerOf10[] = {1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000};
     truncatedHash &= 0x7FFFFFFF;
     truncatedHash %= powerOf10[keyLenght];
     return truncatedHash;

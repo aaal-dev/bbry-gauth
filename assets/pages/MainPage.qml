@@ -82,7 +82,7 @@ NavigationPane {
                                         }
                                     }
                                     Container {
-                                        preferredWidth: ui.du(36)
+                                        preferredWidth: ui.du(32)
                                         verticalAlignment: VerticalAlignment.Center
                                         layout: StackLayout {
 

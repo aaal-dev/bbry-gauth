@@ -69,6 +69,19 @@
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
+    <splashScreens>
+       <image>splashscreen-1440x1440.png</image>
+       <image>splashscreen-720x1280.png</image>
+       <image>splashscreen-720x720.png</image>
+       <image>splashscreen-768x1280.png</image>
+    </splashScreens>
+    <icon>
+       <image>icon_96.png</image>
+       <image>icon_90.png</image>
+       <image>icon_86.png</image>
+       <image>icon_144.png</image>
+       <image>icon_110.png</image>
+    </icon>
     <category>core.media</category>
     <author>Example Inc.</author>
 
@@ -81,27 +94,23 @@
     </initialWindow>
 
     <!--  The icon for the application, which should be 114x114. -->
-    <icon>
-        <image>icon_110.png</image>
-        <image>icon_96.png</image>
-        <image>icon_90.png</image>
-        <image>icon_86.png</image>
-        <image>icon_144.png</image>
-    </icon>
 
-    <asset path="icon.png">icon.png</asset>
+    <asset path="assets/images/icons/app/icon_110.png">icon_110.png</asset>
+    <asset path="assets/images/icons/app/icon_86.png">icon_86.png</asset>
+    <asset path="assets/images/icons/app/icon_90.png">icon_90.png</asset>
+    <asset path="assets/images/icons/app/icon_96.png">icon_96.png</asset>
+    <asset path="assets/images/icons/app/icon_144.png">icon_144.png</asset>
     <asset path="assets">assets</asset>
 
     <!-- Locale support -->
     <asset path="translations" dest="qm">
         <include name="*.qm"/>
     </asset>
-    <asset path="icon_144.png">icon_144.png</asset>
-    <asset path="icon_110.png">icon_110.png</asset>
-    <asset path="icon_96.png">icon_96.png</asset>
-    <asset path="icon_90.png">icon_90.png</asset>
-    <asset path="icon_86.png">icon_86.png</asset>
-
+    <asset path="assets/images/splashscreens/splashscreen-1440x1440.png">splashscreen-1440x1440.png</asset>
+    <asset path="assets/images/splashscreens/splashscreen-720x1280.png">splashscreen-720x1280.png</asset>
+    <asset path="assets/images/splashscreens/splashscreen-720x720.png">splashscreen-720x720.png</asset>
+    <asset path="assets/images/splashscreens/splashscreen-768x1280.png">splashscreen-768x1280.png</asset>
+    
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
     <permission>use_camera</permission>

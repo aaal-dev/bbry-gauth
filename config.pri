@@ -57,6 +57,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/database.cpp) \
         $$quote($$BASEDIR/src/datamodels/accounts.cpp) \
         $$quote($$BASEDIR/src/main.cpp) \
+        $$quote($$BASEDIR/src/oath/authcodegenerator.cpp) \
         $$quote($$BASEDIR/src/oath/base32.cpp) \
         $$quote($$BASEDIR/src/oath/hmac.cpp) \
         $$quote($$BASEDIR/src/oath/sha1.cpp) \
@@ -66,6 +67,7 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/database.hpp) \
         $$quote($$BASEDIR/src/datamodels/accounts.hpp) \
+        $$quote($$BASEDIR/src/oath/authcodegenerator.hpp) \
         $$quote($$BASEDIR/src/oath/base32.hpp) \
         $$quote($$BASEDIR/src/oath/hmac.hpp) \
         $$quote($$BASEDIR/src/oath/sha1.hpp) \

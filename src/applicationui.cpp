@@ -14,21 +14,7 @@
  * limitations under the License.
  */
 
-#include <bb/cascades/AbstractPane>
-#include <bb/cascades/Application>
-#include <bb/cascades/GroupDataModel>
-#include <bb/cascades/QmlDocument>
-#include <bb/cascades/Page>
-#include <bb/cascades/Sheet>
-#include <bb/cascades/LocaleHandler>
-#include <bb/data/XmlDataAccess>
-#include <bb/system/SystemDialog>
-
 #include "applicationui.hpp"
-
-#include "datamodels/accounts.hpp"
-#include "database.hpp"
-#include "settings.hpp"
 
 using namespace bb::cascades;
 using namespace bb::data;
@@ -39,6 +25,11 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     m_pLocaleHandler = new LocaleHandler(this);
     settings = new Settings(this);
     database = new Database(this);
+    int rc = SB_SUCCESS;
+    rc = hu_GlobalCtxCreateDefault(&sbCtx);
+    rc = hu_RegisterSbg56(sbCtx);
+    rc = hu_InitSbg56(sbCtx);
+    Q_UNUSED(rc);
     if (isFirstStart()) { initializeApplication(); }
     initializeTimer();
     readApplicationSettings();
@@ -51,6 +42,10 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     qml->setContextProperty("_app", this);
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     Application::instance()->setScene(root);
+}
+
+ApplicationUI :: ~ApplicationUI() {
+    hu_GlobalCtxDestroy(&sbCtx);
 }
 
 void ApplicationUI :: onSystemLanguageChanged() {
@@ -111,6 +106,7 @@ bool ApplicationUI :: readCodeList() {
         for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
             Accounts *account = new Accounts(
+                    sbCtx,
                     map["id"].toInt(),
                     map["issuerTitle"].toString(),
                     map["accountName"].toString(),

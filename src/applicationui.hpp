@@ -18,7 +18,24 @@
 #define ApplicationUI_HPP_
 
 #include <QObject>
+
+#include <bb/cascades/AbstractPane>
+#include <bb/cascades/Application>
 #include <bb/cascades/GroupDataModel>
+#include <bb/cascades/QmlDocument>
+#include <bb/cascades/Page>
+#include <bb/cascades/Sheet>
+#include <bb/cascades/LocaleHandler>
+#include <bb/data/XmlDataAccess>
+#include <bb/system/SystemDialog>
+
+#include "sbreturn.h"
+#include "huctx.h"
+#include "hugse56.h"
+
+#include "datamodels/accounts.hpp"
+#include "database.hpp"
+#include "settings.hpp"
 
 namespace bb {
     namespace cascades {
@@ -39,7 +56,7 @@ class ApplicationUI : public QObject {
 
 public:
     ApplicationUI();
-    virtual ~ApplicationUI() {}
+    virtual ~ApplicationUI();
 
     Q_INVOKABLE void parseQRData(const QString&);
 
@@ -52,6 +69,7 @@ private:
     GroupDataModel* m_dataModel;
     Settings* settings;
     Database* database;
+    sb_GlobalCtx sbCtx;
 
     bool isFirstStart();
     bool initializeApplication();

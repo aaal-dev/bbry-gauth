@@ -8,9 +8,19 @@
 #ifndef ACCOUNTS_HPP_
 #define ACCOUNTS_HPP_
 
-#include <stdint.h>
-
 #include <QObject>
+
+#include "huctx.h"
+#include <stdint.h>
+#include <time.h>
+
+
+#include <QTime>
+#include <QTimer>
+
+#include "../oath/hmac.hpp"
+#include "../oath/sha1.hpp"
+#include "../oath/authcodegenerator.hpp"
 
 class Accounts : public QObject {
     Q_OBJECT
@@ -30,6 +40,7 @@ class Accounts : public QObject {
 public:
     Accounts(QObject* parent = 0);
     Accounts(
+            const sb_GlobalCtx& sbCtx,
             const int id,
             const QString& issuerTitle,
             const QString& accountName,
@@ -107,6 +118,7 @@ private:
     QString m_editDate;
     QString m_authCode;
     int m_elapsedTime;
+    AuthCodeGenerator* authCodeGenerator;
 
     int Base32Decode(const uint8_t *encoded, uint8_t *result, int bufSize);
     int GetHotpCode(const uint8_t* secret, int secretLen, ulong step, uchar digits);

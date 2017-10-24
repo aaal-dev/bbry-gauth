@@ -50,6 +50,9 @@ public:
     QString getSecretKey();
     void    setSecretKey(QString& secretKey);
 
+    int  getAlgorithmType();
+    void setAlgorithmType(int& algorithmType);
+
     int  getAuthType();
     void setAuthType(int& authType);
 

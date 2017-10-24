@@ -4,27 +4,22 @@
 <context>
     <name>AddCodePage</name>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="63"/>
-        <source>Add code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="66"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="69"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="79"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="77"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="115"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="123"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="121"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="129"/>
         <source>Your login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34,92 +29,107 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="99"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="107"/>
         <source>Enter title, login and secret key from the 2-step authentication setup page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="125"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="133"/>
         <source>Secret key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="139"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="166"/>
         <source>Setup preferences for output key. Don&apos;t chage it, if you don&apos;t know what is for, leave it by default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="151"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="265"/>
         <source>Key Length:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="174"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="179"/>
         <source>Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="179"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="185"/>
         <source>TOTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="180"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="184"/>
         <source>Time based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="186"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="192"/>
         <source>HOTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="187"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="191"/>
         <source>Counter based OTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="218"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="66"/>
+        <source>Add Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="85"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="156"/>
+        <source>Advanced Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/pages/AddCodePage.qml" line="223"/>
         <source>Period time (30 by default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="228"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="233"/>
         <source>Counter value (0 by default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="237"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="242"/>
         <source>Algorithm:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="241"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="246"/>
         <source>SHA-1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="242"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="247"/>
         <source>Secure Hash Algorithm 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="247"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="252"/>
         <source>SHA256</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="248"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="253"/>
         <source>Secure Hash Algorithm 2, 256 bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="252"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="257"/>
         <source>SHA512</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/AddCodePage.qml" line="253"/>
+        <location filename="../assets/pages/AddCodePage.qml" line="258"/>
         <source>Secure Hash Algorithm 2, 512 bits</source>
         <translation type="unfinished"></translation>
     </message>
@@ -133,102 +143,6 @@
     </message>
     <message>
         <location filename="../src/applicationui.cpp" line="182"/>
-        <source>Alert</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Database</name>
-    <message>
-        <location filename="../src/database.cpp" line="40"/>
-        <source>Database created/registered.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="44"/>
-        <source>Error opening connection to the database: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="55"/>
-        <source>Database deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="57"/>
-        <source>Sql database might not yet created or it is already deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="83"/>
-        <source>Table creation query execute successfully</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="86"/>
-        <location filename="../src/database.cpp" line="128"/>
-        <location filename="../src/database.cpp" line="151"/>
-        <source>Create table error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="101"/>
-        <source>Table drop query execute successfully</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="104"/>
-        <source>Drop table error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="125"/>
-        <location filename="../src/database.cpp" line="148"/>
-        <source>Column creation query execute successfully</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="177"/>
-        <source>Record created</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="180"/>
-        <source>Create record error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="184"/>
-        <source>Create record error: customers table does not exist.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="217"/>
-        <source>Record updated</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="220"/>
-        <source>Update record error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="236"/>
-        <source>Record deleted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="239"/>
-        <source>Delete record error: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="378"/>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/database.cpp" line="379"/>
         <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>

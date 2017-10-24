@@ -9,19 +9,20 @@
 
 #include <QDebug>
 
-using namespace bb::system;
-
-Database :: Database(QObject *parent) : QObject(parent), DB_PATH("./data/bbauth.db") {
-    m_id = 0;
-    m_title = "";
-    m_authLogin = "";
-    m_secretCode = "";
-    m_keyLenght = 6;
-    m_authType = 0;
-    m_counter = 0;
-    m_publishDate = "";
-    m_editDate = "";
-}
+Database :: Database(QObject *parent)
+    : QObject(parent)
+    , DB_PATH("./data/bbauth.db")
+    , m_id(0)
+    , m_issuerTitle("")
+    , m_accountName("")
+    , m_secretKey("")
+    , m_authType(0)
+    , m_algorithmType(0)
+    , m_counterValue(0)
+    , m_periodTime(0)
+    , m_authCodeLenght(6)
+    , m_publishDate(0)
+    , m_editDate(0) {}
 
 Database :: ~Database() {
 
@@ -140,10 +141,10 @@ bool Database :: deleteColumn(QString& tableName, QString& columnName) {
         query.bindValue(":tableName", tableName);
         query.bindValue(":columnName", columnName);
         if (query.exec()) {
-            alert(tr("Column creation query execute successfully"));
+            qDebug() << "Column creation query execute successfully";
         } else {
             const QSqlError error = query.lastError();
-            alert(tr("Create table error: %1").arg(error.text()));
+            qDebug() << "Create table error: %1" << error.text();
             success = false;
         }
         database.close();
@@ -159,24 +160,48 @@ bool Database :: createRecord () {
             QSqlQuery query(database);
             query.prepare(
                     "INSERT INTO accounts "
-                    "(title, auth_login, secret_code, key_lenght, auth_type, publish_date) "
-                    "VALUES (:title, :auth_login, :secret_code, :key_lenght, :auth_type, :publish_date)"
+                    "   (issuer_title, "
+                    "   account_name, "
+                    "   secret_key, "
+                    "   auth_type, "
+                    "   algorithm_type, "
+                    "   counter_value, "
+                    "   period_time, "
+                    "   auth_code_lenght, "
+                    "   publish_date, "
+                    "   edit_date) "
+                    "VALUES "
+                    "   (:issuer_title, "
+                    "   :account_name, "
+                    "   :secret_key, "
+                    "   :auth_type, "
+                    "   :algorithm_type, "
+                    "   :counter_value, "
+                    "   :period_time, "
+                    "   :auth_code_lenght, "
+                    "   :publish_date, "
+                    "   :edit_date) "
                     );
-            query.bindValue(":title", m_title);
-            query.bindValue(":auth_login", m_authLogin);
-            query.bindValue(":secret_code", m_secretCode);
-            query.bindValue(":key_lenght", m_keyLenght);
+            query.bindValue(":issuer_title", m_issuerTitle);
+            query.bindValue(":account_name", m_accountName);
+            query.bindValue(":secret_key", m_secretKey);
             query.bindValue(":auth_type", m_authType);
+            query.bindValue(":algorithm_type", m_algorithmType);
+            query.bindValue(":counter_value", m_counterValue);
+            query.bindValue(":period_time", m_periodTime);
+            query.bindValue(":auth_code_lenght", m_authCodeLenght);
             query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+            query.bindValue(":edit_date", m_editDate);
+
             if (query.exec()) {
-                alert(tr("Record created"));
+                qDebug() << "Record created";
             } else {
                 const QSqlError error = query.lastError();
-                alert(tr("Create record error: %1").arg(error.text()));
+                qDebug() << "Create record error: %1" << error.text();
                 success = false;
             }
         } else {
-            alert(tr("Create record error: customers table does not exist."));
+            qDebug() << "Create record error: customers table does not exist.";
             return false;
         }
         database.close();
@@ -192,27 +217,35 @@ bool Database :: updateRecord() {
         query.prepare(
                 "UPDATE accounts "
                 "SET "
-                "   title=:title, "
-                "   auth_login=:auth_login, "
-                "   secret_code=:secret_code, "
-                "   key_lenght=:key_lenght, "
+                "   issuer_title=:issuer_title, "
+                "   account_name=:account_name, "
+                "   secret_key=:secsecret_keyret_code, "
                 "   auth_type=:auth_type, "
-                "   publish_date=:publish_date, "
+                "   algorithm_type=:algorithm_type, "
+                "   counter_value=:counter_value, "
+                "   period_time=:period_time "
+                "   algorithm_type=:algorithm_type, "
+                "   auth_code_lenght=:auth_code_lenght, "
+                "   publish_date=:publish_date "
                 "   edit_date=:edit_date "
                 "WHERE id=:id"
                 );
         query.bindValue(":id", m_id);
-        query.bindValue(":auth_login", m_authLogin);
-        query.bindValue(":secret_code", m_secretCode);
-        query.bindValue(":key_lenght", m_keyLenght);
+        query.bindValue(":issuer_title", m_issuerTitle);
+        query.bindValue(":account_name", m_accountName);
+        query.bindValue(":secret_key", m_secretKey);
         query.bindValue(":auth_type", m_authType);
+        query.bindValue(":algorithm_type", m_algorithmType);
+        query.bindValue(":counter_value", m_counterValue);
+        query.bindValue(":period_time", m_periodTime);
+        query.bindValue(":auth_code_lenght", m_authCodeLenght);
         query.bindValue(":publish_date", m_publishDate);
         query.bindValue(":edit_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
         if (query.exec()) {
-            alert(tr("Record updated"));
+            qDebug() << "Record updated";
         } else {
             const QSqlError error = query.lastError();
-            alert(tr("Update record error: %1").arg(error.text()));
+            qDebug() << "Update record error: %1" << error.text();
             success = false;
         }
         database.close();
@@ -228,10 +261,10 @@ bool Database :: deleteRecord() {
         query.prepare("DELETE FROM accounts WHERE id=:id");
         query.bindValue(":id", m_id);
         if (query.exec()) {
-            alert(tr("Record deleted"));
+            qDebug() << "Record deleted";
         } else {
             const QSqlError error = query.lastError();
-            alert(tr("Delete record error: %1").arg(error.text()));
+            qDebug() << "Delete record error: %1" << error.text();
             success = false;
         }
         database.close();
@@ -268,7 +301,7 @@ int  Database :: getId() { return m_id; }
 
 // issuerTitle
 QString Database :: getIssuerTitle() { return m_issuerTitle; }
-void    Database :: setIssuerTitle(QString issuerTitle) {
+void    Database :: setIssuerTitle(QString& issuerTitle) {
     m_issuerTitle = issuerTitle;
     emit issuerTitleChanged(m_issuerTitle);
 }
@@ -276,7 +309,7 @@ void    Database :: setIssuerTitle(QString issuerTitle) {
 
 // accountName
 QString Database :: getAccountName() { return m_accountName; }
-void    Database :: setAccountName(QString accountName) {
+void    Database :: setAccountName(QString& accountName) {
     m_accountName = accountName;
     emit accountNameChanged(m_accountName);
 }
@@ -284,7 +317,7 @@ void    Database :: setAccountName(QString accountName) {
 
 // secretKey
 QString Database :: getSecretKey() { return m_secretKey;}
-void    Database :: setSecretKey(QString secretKey) {
+void    Database :: setSecretKey(QString& secretKey) {
     m_secretKey = secretKey;
     emit secretKeyChanged(m_secretKey);
 }
@@ -292,7 +325,7 @@ void    Database :: setSecretKey(QString secretKey) {
 
 // algorithmType
 int  Database :: getAlgorithmType() { return m_algorithmType; }
-void Database :: setAlgorithmType(int algorithmType) {
+void Database :: setAlgorithmType(int& algorithmType) {
     m_algorithmType = algorithmType;
     emit algorithmTypeChanged(m_algorithmType);
 }
@@ -300,7 +333,7 @@ void Database :: setAlgorithmType(int algorithmType) {
 
 // authType
 int  Database :: getAuthType() { return m_authType; }
-void Database :: setAuthType(int authType) {
+void Database :: setAuthType(int& authType) {
     m_authType = authType;
     emit authTypeChanged(m_authType);
 }
@@ -308,7 +341,7 @@ void Database :: setAuthType(int authType) {
 
 // counterValue
 int  Database :: getCounterValue(){ return m_counterValue; }
-void Database :: setCounterValue(int counterValue) {
+void Database :: setCounterValue(int& counterValue) {
     m_counterValue = counterValue;
     emit counterValueChanged(m_counterValue);
 }
@@ -316,7 +349,7 @@ void Database :: setCounterValue(int counterValue) {
 
 // periodTime
 int  Database :: getPeriodTime() { return m_periodTime; }
-void Database :: setPeriodTime(int periodTime) {
+void Database :: setPeriodTime(int& periodTime) {
     m_periodTime = periodTime;
     emit periodTimeChanged(m_periodTime);
 }
@@ -324,7 +357,7 @@ void Database :: setPeriodTime(int periodTime) {
 
 // authCodeLenght
 int  Database :: getAuthCodeLenght() { return m_authCodeLenght; }
-void Database :: setAuthCodeLenght(int authCodeLenght) {
+void Database :: setAuthCodeLenght(int& authCodeLenght) {
     m_authCodeLenght = authCodeLenght;
     emit authCodeLenghtChanged(m_authCodeLenght);
 }
@@ -332,7 +365,7 @@ void Database :: setAuthCodeLenght(int authCodeLenght) {
 
 // publishDate
 int  Database :: getPublishDate() { return m_publishDate; }
-void Database :: setPublishDate(int publishDate) {
+void Database :: setPublishDate(int& publishDate) {
     m_publishDate = publishDate;
     emit publishDateChanged(m_publishDate);
 }
@@ -340,7 +373,7 @@ void Database :: setPublishDate(int publishDate) {
 
 // editDate
 int  Database :: getEditDate() { return m_editDate; }
-void Database :: setEditDate(int editDate) {
+void Database :: setEditDate(int& editDate) {
     m_editDate = editDate;
     emit editDateChanged(m_editDate);
 }

@@ -1,5 +1,5 @@
 # bbry-gauth
-![Image of icon](https://github.com/animeslave/bbry-gauth/tree/master/assets/images/icons/app/icon_144.png)
+![Image of icon](https://github.com/animeslave/bbry-gauth/blob/master/assets/images/icons/app/icon_144.png)
 
 Мой домашний проект для самообучения C++ и QT, а так как я очень полюблю Blackberry 10, и до сих пор пользуюсь Blackberry Passport, то решил исправить ненависную мне проблему. 
 Нативное приложение Google Authenticator для Blackberry 10. Они уже есть в Blackberry World, но работают странно. 

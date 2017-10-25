@@ -13,7 +13,7 @@ NavigationPane {
         property string secretKeyProperty
         property int authTypeProperty
         property int counterValueProperty
-        property int periodTimeValueProperty
+        property int periodTimeProperty
         property int algorithmTypeProperty
         property int authCodeLenghtProperty
         
@@ -42,7 +42,7 @@ NavigationPane {
             counterValueTextField.text = counterValueProperty
         }
         
-        onPeriodTimeValuePropertyChanged: {
+        onPeriodTimePropertyChanged: {
             periodTimeTextField.text = periodTimeValueProperty
         }
         
@@ -55,9 +55,9 @@ NavigationPane {
         }
         
         onAuthCodeLenghtPropertyChanged: {
-            for(var index = 0; index < keyLenghtDropDownMenu.count(); index++) {
-                if (keyLenghtDropDownMenu.at(index).value == authCodeLenghtProperty) {
-                    keyLenghtDropDownMenu.at(index).setSelected(true);
+            for(var index = 0; index < authCodeLenghtDropDownMenu.count(); index++) {
+                if (authCodeLenghtDropDownMenu.at(index).value == authCodeLenghtProperty) {
+                    authCodeLenghtDropDownMenu.at(index).setSelected(true);
                 }
             }
         }
@@ -245,23 +245,23 @@ NavigationPane {
                                         Option {
                                             text: qsTr("SHA-1")
                                             description: qsTr("Secure Hash Algorithm 1")
-                                            value: "SHA1"
+                                            value: 0
                                             selected: true
                                         },
                                         Option {
                                             text: qsTr("SHA256")
                                             description: qsTr("Secure Hash Algorithm 2, 256 bits")
-                                            value: "SHA256"
+                                            value: 1
                                         },
                                         Option {
                                             text: qsTr("SHA512")
                                             description: qsTr("Secure Hash Algorithm 2, 512 bits")
-                                            value: "SHA512"
+                                            value: 2
                                         }
                                     ]
                                 }
                                 DropDown {
-                                    id: keyLenghtDropDownMenu
+                                    id: authCodeLenghtDropDownMenu
                                     title: qsTr("Key Length:")
                                     options: [
                                         Option {

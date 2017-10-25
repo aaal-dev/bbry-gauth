@@ -147,7 +147,7 @@ void ApplicationUI :: parseQRData(const QString& data) {
         }
         page->setProperty("secretKeyProperty", url.queryItemValue("secret").toAscii());
         if (url.hasQueryItem("digits")) {
-            page->setProperty("keyLenghtProperty", url.queryItemValue("digits").toAscii());
+            page->setProperty("authCodeLenghtProperty", url.queryItemValue("digits").toUInt());
         }
         if (url.hasQueryItem("counter")) {
             page->setProperty("counterValueProperty", url.queryItemValue("counter").toUInt());
@@ -155,14 +155,24 @@ void ApplicationUI :: parseQRData(const QString& data) {
             page->setProperty("counterValueProperty", 0);
         }
         if (url.hasQueryItem("period")) {
-            page->setProperty("periodTimeValueProperty", url.queryItemValue("period").toUInt());
+            page->setProperty("periodTimeProperty", url.queryItemValue("period").toUInt());
         } else {
-            page->setProperty("periodTimeValueProperty", 30);
+            page->setProperty("periodTimeProperty", 30);
         }
         if (url.hasQueryItem("algorithm")) {
-            page->setProperty("algorithmTypeProperty", url.queryItemValue("algorithm").toAscii());
+            QStirng algorithm = url.queryItemValue("algorithm").toAscii();
+            if (algorithm == "SHA1") {
+                page->setProperty("algorithmTypeProperty", 0);
+            }
+            if (algorithm == "SHA256") {
+                page->setProperty("algorithmTypeProperty", 1);
+            }
+            if (algorithm == "SHA512") {
+                page->setProperty("algorithmTypeProperty", 2);
+            }
+
         } else {
-            page->setProperty("algorithmTypeProperty", "SHA1");
+            page->setProperty("algorithmTypeProperty", 0);
         }
         bool res = QObject::connect(page, SIGNAL(done()), sheet, SLOT(close()));
         Q_ASSERT(res);

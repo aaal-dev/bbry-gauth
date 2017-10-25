@@ -43,7 +43,7 @@ NavigationPane {
         }
         
         onPeriodTimePropertyChanged: {
-            periodTimeTextField.text = periodTimeValueProperty
+            periodTimeTextField.text = periodTimeProperty
         }
         
         onAlgorithmTypePropertyChanged: {
@@ -150,6 +150,25 @@ NavigationPane {
             attachedObjects: [
                 ComponentDefinition {
                     id: advancedPropertiesDefinition
+                    onCreationCompleted: {
+                        for (var index = 0; index < authTypeDropDownMenu.count(); index ++) {
+                            if (authTypeDropDownMenu.at(index).value == addCodePage.authTypeProperty) {
+                                authTypeDropDownMenu.at(index).setSelected(true);
+                            }
+                        }
+                        counterValueTextField.text = addCodePage.counterValueProperty
+                        periodTimeTextField.text = addCodePage.periodTimeProperty
+                        for(var index = 0; index < algorithmTypeDropDownMenu.count(); index++) {
+                            if (algorithmTypeDropDownMenu.at(index).value == addCodePage.algorithmTypeProperty) {
+                                algorithmTypeDropDownMenu.at(index).setSelected(true);
+                            }
+                        }
+                        for(var index = 0; index < authCodeLenghtDropDownMenu.count(); index++) {
+                            if (authCodeLenghtDropDownMenu.at(index).value == addCodePage.authCodeLenghtProperty) {
+                                authCodeLenghtDropDownMenu.at(index).setSelected(true);
+                            }
+                        }
+                    }
                     content: 
                     Page {
                         titleBar: TitleBar {
@@ -180,17 +199,17 @@ NavigationPane {
                                     horizontalAlignment: HorizontalAlignment.Center
                                     options: [
                                         Option {
-                                            id: totpOption
-                                            text: qsTr("Time based OTP")
-                                            description: qsTr("TOTP")
-                                            value: "totp"
-                                            selected: true
-                                        },
-                                        Option {
                                             id: hotpOption
                                             text: qsTr("Counter based OTP")
                                             description: qsTr("HOTP")
-                                            value: "hotp"
+                                            value: 0
+                                        },
+                                        Option {
+                                            id: totpOption
+                                            text: qsTr("Time based OTP")
+                                            description: qsTr("TOTP")
+                                            value: 1
+                                            selected: true
                                         }
                                     ]
                                     onCreationCompleted: {
@@ -200,19 +219,20 @@ NavigationPane {
                                         flipVisability(authTypeDropDownMenu.selectedValue);
                                     }
                                     function flipVisability(value){
-                                        if (value == "totp"){
-                                            algorithmTypeDropDownMenu.visible = true;
-                                            periodTimeTextField.visible = true;
-                                            counterValueTextField.visible = false;
-                                        } else {
+                                        if (value == 0) {
                                             for (var index = 0; index < algorithmTypeDropDownMenu.count(); index ++) {
-                                                if (algorithmTypeDropDownMenu.at(index).value == "SHA1") {
+                                                if (algorithmTypeDropDownMenu.at(index).value == 0) {
                                                     algorithmTypeDropDownMenu.at(index).selected = true
                                                     algorithmTypeDropDownMenu.visible = false;
                                                 }
                                             }
                                             periodTimeTextField.visible = false;
                                             counterValueTextField.visible = true;
+                                        }
+                                        if (value == 1){
+                                            algorithmTypeDropDownMenu.visible = true;
+                                            periodTimeTextField.visible = true;
+                                            counterValueTextField.visible = false;
                                         }
                                     }
                                 }

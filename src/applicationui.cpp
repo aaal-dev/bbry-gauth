@@ -134,7 +134,6 @@ void ApplicationUI :: parseQRData(const QString& data) {
         Sheet* sheet = new Sheet;
         QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
         Page* page = qml->createRootObject<Page>();
-        page->setProperty("authTypeProperty", url.host().toAscii());
         if (url.path().contains(":")) {
             if (url.hasQueryItem("issuer")) {
                 page->setProperty("issuerTitleProperty", QUrl::fromPercentEncoding(url.queryItemValue("issuer").toAscii()));
@@ -146,8 +145,11 @@ void ApplicationUI :: parseQRData(const QString& data) {
             page->setProperty("accountNameProperty", QUrl::fromPercentEncoding(url.path().mid(1).toAscii()));
         }
         page->setProperty("secretKeyProperty", url.queryItemValue("secret").toAscii());
-        if (url.hasQueryItem("digits")) {
-            page->setProperty("authCodeLenghtProperty", url.queryItemValue("digits").toUInt());
+        if (url.host().toAscii() == "hotp"){
+            page->setProperty("authTypeProperty", 0);
+        }
+        if (url.host().toAscii() == "totp"){
+            page->setProperty("authTypeProperty", 1);
         }
         if (url.hasQueryItem("counter")) {
             page->setProperty("counterValueProperty", url.queryItemValue("counter").toUInt());
@@ -160,7 +162,7 @@ void ApplicationUI :: parseQRData(const QString& data) {
             page->setProperty("periodTimeProperty", 30);
         }
         if (url.hasQueryItem("algorithm")) {
-            QStirng algorithm = url.queryItemValue("algorithm").toAscii();
+            QString algorithm = url.queryItemValue("algorithm").toAscii();
             if (algorithm == "SHA1") {
                 page->setProperty("algorithmTypeProperty", 0);
             }
@@ -170,9 +172,11 @@ void ApplicationUI :: parseQRData(const QString& data) {
             if (algorithm == "SHA512") {
                 page->setProperty("algorithmTypeProperty", 2);
             }
-
         } else {
             page->setProperty("algorithmTypeProperty", 0);
+        }
+        if (url.hasQueryItem("digits")) {
+            page->setProperty("authCodeLenghtProperty", url.queryItemValue("digits").toUInt());
         }
         bool res = QObject::connect(page, SIGNAL(done()), sheet, SLOT(close()));
         Q_ASSERT(res);

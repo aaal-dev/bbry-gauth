@@ -12,16 +12,44 @@ ulong timeStamp;
 Accounts :: Accounts(QObject *parent) : QObject(parent) {}
 
 Accounts :: Accounts(
+        const QString& issuerTitle,
+        const QString& accountName,
+        const QString& secretKey,
+        const QString& authType,
+        const QString& counterValue,
+        const QString& periodTime,
+        const QString& algorithmType,
+        const uchar& authCodeLenght,
+        QObject *parent)
+    : QObject(parent)
+    , m_id(0)
+    , m_issuerTitle(issuerTitle)
+    , m_accountName(accountName)
+    , m_secretKeyLenght(0)
+    , m_authType(authType)
+    , m_counterValue(counterValue)
+    , m_periodTime(periodTime)
+    , m_algorithmType(algorithmType)
+    , m_keyLenght(authCodeLenght)
+    , m_publishDate(0)
+    , m_editDate(0)
+    , m_authCode("")
+    , m_elapsedTime(0)
+{
+
+}
+
+Accounts :: Accounts(
         const sb_GlobalCtx& sbCtx,
         const int id,
         const QString& issuerTitle,
         const QString& accountName,
         const QString& secretKey,
-        const uchar& keyLenght,
-        const QString& algorithmType,
         const QString& authType,
         const QString& counterValue,
         const QString& periodTime,
+        const QString& algorithmType,
+        const uchar& authCodeLenght,
         const QString& publishDate,
         const QString& editDate,
         QObject *parent)
@@ -31,10 +59,10 @@ Accounts :: Accounts(
     , m_accountName(accountName)
     , m_secretKeyLenght(0)
     , m_authType(authType)
-    , m_algorithmType(algorithmType)
     , m_counterValue(counterValue)
     , m_periodTime(periodTime)
-    , m_keyLenght(keyLenght)
+    , m_algorithmType(algorithmType)
+    , m_keyLenght(authCodeLenght)
     , m_publishDate(publishDate)
     , m_editDate(editDate)
     , m_authCode("")

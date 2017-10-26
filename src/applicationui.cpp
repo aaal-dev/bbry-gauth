@@ -133,7 +133,7 @@ void ApplicationUI :: parseQRData(const QString& data) {
     if (url.scheme().toAscii() == "otpauth") {
         Sheet* sheet = new Sheet;
         QmlDocument* qml = QmlDocument::create("asset:///pages/AddCodePage.qml").parent(this);
-        Page* page = qml->createRootObject<Page>();
+        AbstractPane* page = qml->createRootObject<AbstractPane>();
         if (url.path().contains(":")) {
             if (url.hasQueryItem("issuer")) {
                 page->setProperty("issuerTitleProperty", QUrl::fromPercentEncoding(url.queryItemValue("issuer").toAscii()));
@@ -189,7 +189,29 @@ void ApplicationUI :: parseQRData(const QString& data) {
     }
 }
 
-//void ApplicationUI :: addAccount(const QMap& data) {}
+void ApplicationUI :: addAccount
+(
+        const QString& issuerTitle,
+        const QString& accountName,
+        const QString& secretKey,
+        const int& authType,
+        const int& counterValue,
+        const int& periodTime,
+        const int& algorithmType,
+        const int& authCodeLenght
+) {
+    Accounts account = new Accounts(
+            issuerTitle,
+            accountName,
+            secretKey,
+            authType,
+            counterValue,
+            periodTime,
+            algorithmType,
+            authCodeLenght,
+            this);
+    database->createRecord(account);
+}
 
 void ApplicationUI :: alert(const QString &message) {
     SystemDialog *dialog = new SystemDialog(tr("OK"), 0);

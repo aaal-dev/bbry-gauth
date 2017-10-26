@@ -207,11 +207,12 @@ NavigationPane {
         },
         Sheet {
             id: addCodeSheet
-            content: AddCodePage {
+            peekEnabled: false
+            AddCodePage {
                 onDone: {
                     addCodeSheet.close()
                 }
-            }           
+            }
         },
         SystemToast {
             id: mainPageToast

@@ -40,18 +40,28 @@ class Accounts : public QObject {
 public:
     Accounts(QObject* parent = 0);
     Accounts(
+            const QString& issuerTitle,
+            const QString& accountName,
+            const QString& secretKey,
+            const uchar& authType,
+            const uint& counterValue,
+            const uint& periodTime,
+            const uchar& algorithmType,
+            const uchar& authCodeLenght,
+            QObject *parent = 0);
+    Accounts(
             const sb_GlobalCtx& sbCtx,
             const int id,
             const QString& issuerTitle,
             const QString& accountName,
             const QString& secretKey,
-            const uchar& keyLenght,
-            const QString& algorithmType,
-            const QString& authType,
-            const QString& counterValue,
-            const QString& periodTime,
-            const QString& publishDate,
-            const QString& editDate,
+            const uchar& authType,
+            const uint& counterValue,
+            const uint& periodTime,
+            const uchar& algorithmType,
+            const uchar& authCodeLenght,
+            const ulong& publishDate,
+            const ulong& editDate,
             QObject *parent = 0);
 
     int getId() const;

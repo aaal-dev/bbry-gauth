@@ -111,6 +111,7 @@ Page {
     onDone: {
         barcodeDetector.camera = null
         camera.stopViewfinder()
+        navigationPane.pop()
     }
  
     attachedObjects: [
@@ -122,7 +123,6 @@ Page {
         backButton: ActionItem {
             onTriggered: {
                 scanQRCodePage.done()
-                navigationPane.pop()
             }
         }
     }

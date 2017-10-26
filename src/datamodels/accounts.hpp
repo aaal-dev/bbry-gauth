@@ -27,15 +27,16 @@ class Accounts : public QObject {
     Q_PROPERTY(int id READ getId CONSTANT)
     Q_PROPERTY(QString issuerTitle READ getIssuerTitle WRITE setIssuerTitle NOTIFY issuerTitleChanged FINAL)
     Q_PROPERTY(QString accountName READ getAccountName WRITE setAccountName NOTIFY accountNameChanged FINAL)
-    Q_PROPERTY(uchar keyLenght READ getKeyLenght WRITE setKeyLenght NOTIFY secretKeyChanged FINAL)
-    Q_PROPERTY(QString algorithmType READ getAlgorithmType WRITE setAlgorithmType NOTIFY algorithmTypeChanged FINAL)
-    Q_PROPERTY(QString authType READ getAuthType WRITE setAuthType NOTIFY authTypeChanged FINAL)
-    Q_PROPERTY(QString counterValue READ getCounterValue WRITE setCounterValue NOTIFY counterValueChanged FINAL)
-    Q_PROPERTY(QString periodTime READ getPeriodTime WRITE setPeriodTime NOTIFY periodTimeChanged FINAL)
-    Q_PROPERTY(QString publishDate READ getPublishDate WRITE setPublishDate NOTIFY publishDateChanged FINAL)
-    Q_PROPERTY(QString editDate READ getEditDate WRITE setEditDate NOTIFY editDateChanged FINAL)
+    Q_PROPERTY(QString secretKey READ getSecretKey WRITE setSecretKey NOTIFY secretKeyChanged FINAL)
+    Q_PROPERTY(uchar authType READ getAuthType WRITE setAuthType NOTIFY authTypeChanged FINAL)
+    Q_PROPERTY(uint counterValue READ getCounterValue WRITE setCounterValue NOTIFY counterValueChanged FINAL)
+    Q_PROPERTY(uint periodTime READ getPeriodTime WRITE setPeriodTime NOTIFY periodTimeChanged FINAL)
+    Q_PROPERTY(uchar algorithmType READ getAlgorithmType WRITE setAlgorithmType NOTIFY algorithmTypeChanged FINAL)
+    Q_PROPERTY(uchar authCodeLenght READ getAuthCodeLenght WRITE setAuthCodeLenght NOTIFY authCodeLenghtChanged FINAL)
+    Q_PROPERTY(ulong publishDate READ getPublishDate WRITE setPublishDate NOTIFY publishDateChanged FINAL)
+    Q_PROPERTY(ulong editDate READ getEditDate WRITE setEditDate NOTIFY editDateChanged FINAL)
     Q_PROPERTY(QString authCode READ getAuthCode NOTIFY authCodeChanged FINAL)
-    Q_PROPERTY(int elapsedTime READ getElapsedTime NOTIFY elapsedTimeChanged FINAL)
+    Q_PROPERTY(uint elapsedTime READ getElapsedTime NOTIFY elapsedTimeChanged FINAL)
 
 public:
     Accounts(QObject* parent = 0);
@@ -75,26 +76,26 @@ public:
     QString getSecretKey() const;
     void setSecretKey(const QString& secretKey);
 
-    uchar getKeyLenght() const;
-    void setKeyLenght(const uchar& keyLenght);
+    uchar getAuthType() const;
+    void setAuthType(const uchar& authType);
 
-    QString getAlgorithmType() const;
-    void setAlgorithmType(const QString& algorithmType);
+    uint getCounterValue() const;
+    void setCounterValue(const uint& counterValue);
 
-    QString getAuthType() const;
-    void setAuthType(const QString& authType);
+    uint getPeriodTime() const;
+    void setPeriodTime(const uint& periodTime);
 
-    QString getCounterValue() const;
-    void setCounterValue(const QString& counterValue);
+    uchar getAlgorithmType() const;
+    void setAlgorithmType(const uchar& algorithmType);
 
-    QString getPeriodTime() const;
-    void setPeriodTime(const QString& periodTime);
+    uchar getAuthCodeLenght() const;
+    void setAuthCodeLenght(const uchar& authCodeLenght);
 
-    QString getPublishDate() const;
-    void setPublishDate(const QString& publishDate);
+    ulong getPublishDate() const;
+    void setPublishDate(const ulong& publishDate);
 
-    QString getEditDate() const;
-    void setEditDate(const QString& editDate);
+    ulong getEditDate() const;
+    void setEditDate(const ulong& editDate);
 
     QString getAuthCode() const;
     int getElapsedTime();
@@ -103,13 +104,13 @@ signals:
     void issuerTitleChanged(const QString&);
     void accountNameChanged(const QString&);
     void secretKeyChanged(const QString&);
-    void keyLenghtChanged(const uchar&);
-    void algorithmTypeChanged(const QString&);
-    void authTypeChanged(const QString&);
-    void counterValueChanged(const QString&);
-    void periodTimeChanged(const QString&);
-    void publishDateChanged(const QString&);
-    void editDateChanged(const QString&);
+    void authTypeChanged(const uchar&);
+    void counterValueChanged(const uint&);
+    void periodTimeChanged(const uint&);
+    void algorithmTypeChanged(const uchar&);
+    void authCodeLenghtChanged(const uchar&);
+    void publishDateChanged(const ulong&);
+    void editDateChanged(const ulong&);
     void authCodeChanged(const QString&);
     void elapsedTimeChanged(int);
 
@@ -117,15 +118,16 @@ private:
     int m_id;
     QString m_issuerTitle;
     QString m_accountName;
-    uint8_t* m_secretKey;
+    QString m_secretKey;
+    uchar m_authType;
+    uint m_counterValue;
+    uint m_periodTime;
+    uchar m_algorithmType;
+    uchar m_authCodeLenght;
+    ulong m_publishDate;
+    ulong m_editDate;
+    uint8_t* m_secretKeyTmp;
     size_t m_secretKeyLenght;
-    uchar m_keyLenght;
-    QString m_algorithmType;
-    QString m_authType;
-    QString m_counterValue;
-    QString m_periodTime;
-    QString m_publishDate;
-    QString m_editDate;
     QString m_authCode;
     int m_elapsedTime;
     AuthCodeGenerator* authCodeGenerator;

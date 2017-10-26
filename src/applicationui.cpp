@@ -112,12 +112,12 @@ bool ApplicationUI :: readCodeList() {
                     map["accountName"].toString(),
                     map["secretKey"].toString(),
                     map["keyLenght"].toInt(),
-                    map["algorithmType"].toString(),
-                    map["authType"].toString(),
-                    map["counterValue"].toString(),
-                    map["periodTime"].toString(),
-                    map["publishDate"].toString(),
-                    map["editDate"].toString(),
+                    map["algorithmType"].toInt(),
+                    map["authType"].toInt(),
+                    map["counterValue"].toInt(),
+                    map["periodTime"].toInt(),
+                    map["publishDate"].toInt(),
+                    map["editDate"].toInt(),
                     this);
             Q_UNUSED(account);
             //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
@@ -200,7 +200,8 @@ void ApplicationUI :: addAccount
         const int& algorithmType,
         const int& authCodeLenght
 ) {
-    Accounts account = new Accounts(
+    logToConsole("Yes account Added");
+    Accounts* account = new Accounts(
             issuerTitle,
             accountName,
             secretKey,

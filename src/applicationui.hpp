@@ -60,14 +60,14 @@ public:
 
     Q_INVOKABLE void parseQRData(const QString&);
     Q_INVOKABLE void addAccount(
-            const QString& issuerTitle,
-            const QString& accountName,
-            const QString& secretKey,
-            const int& authType,
-            const int& counterValue,
-            const int& periodTime,
-            const int& algorithmType,
-            const int& authCodeLenght);
+            const QString&,
+            const QString&,
+            const QString&,
+            const int&,
+            const int&,
+            const int&,
+            const int&,
+            const int&);
 
 private slots:
     void onSystemLanguageChanged();

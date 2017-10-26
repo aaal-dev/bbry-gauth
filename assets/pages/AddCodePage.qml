@@ -69,8 +69,17 @@ NavigationPane {
                 id: acceptAction
                 title: qsTr("Create") + Retranslate.onLocaleOrLanguageChanged
                 onTriggered: {
-                    _app.addAccount(issuerTitleProperty, accountNameProperty, secretKeyProperty, authTypeProperty, counterValueProperty, periodTimeProperty, algorithmTypeProperty, authCodeLenghtProperty);
-                    done();
+                    addCodeNavigationPane.done();
+                    Qt.app.addAccount(
+                        issuerTitleProperty, 
+                        accountNameProperty, 
+                        secretKeyProperty, 
+                        authTypeProperty, 
+                        counterValueProperty, 
+                        periodTimeProperty, 
+                        algorithmTypeProperty, 
+                        authCodeLenghtProperty);
+                    
                 }
                 enabled: false
             }
@@ -110,9 +119,7 @@ NavigationPane {
                             multiline: true
                         }
                     }            
-                    Divider {
-                    
-                    }
+                    Divider {}
                     Container {
                         leftPadding: ui.du(3)
                         rightPadding: ui.du(3)
@@ -205,8 +212,7 @@ NavigationPane {
                             }
                         }
                     }
-                    Divider {
-                    }
+                    Divider {}
                     Container {
                         leftPadding: ui.du(3)
                         rightPadding: ui.du(3)
@@ -257,8 +263,7 @@ NavigationPane {
                                     multiline: true
                                 }
                             }
-                            Divider {
-                            }
+                            Divider {}
                             Container {
                                 leftPadding: ui.du(3)
                                 rightPadding: ui.du(3)
@@ -396,5 +401,8 @@ NavigationPane {
                 }
             ]
         }
+    }
+    onCreationCompleted: {
+        Qt.app = _app;
     }
 }

@@ -209,6 +209,18 @@ bool Database :: createRecord () {
     return success;
 }
 
+bool Database :: createRecord (Accounts* account) {
+    m_issuerTitle = account->getIssuerTitle();
+    m_accountName = account->getAccountName();
+    m_secretKey = account->getSecretKey();
+    m_authType = account->getAuthType();
+    m_counterValue = account->getCounterValue();
+    m_periodTime = account->getPeriodTime();
+    m_algorithmType = account->getAlgorithmType();
+    m_authCodeLenght = account->getAuthCodeLenght();
+    return createRecord();
+}
+
 bool Database :: updateRecord() {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
@@ -235,9 +247,9 @@ bool Database :: updateRecord() {
         query.bindValue(":account_name", m_accountName);
         query.bindValue(":secret_key", m_secretKey);
         query.bindValue(":auth_type", m_authType);
-        query.bindValue(":algorithm_type", m_algorithmType);
         query.bindValue(":counter_value", m_counterValue);
         query.bindValue(":period_time", m_periodTime);
+        query.bindValue(":algorithm_type", m_algorithmType);
         query.bindValue(":auth_code_lenght", m_authCodeLenght);
         query.bindValue(":publish_date", m_publishDate);
         query.bindValue(":edit_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));

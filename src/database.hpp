@@ -13,6 +13,8 @@
 #include <QtSql>
 #include <QDateTime>
 
+#include "datamodels/accounts.hpp"
+
 #include <bb/data/SqlDataAccess>
 
 class Database : public QObject {
@@ -32,6 +34,7 @@ public:
     bool deleteColumn(QString&, QString&);
 
     bool createRecord();
+    bool createRecord(Accounts* account);
     bool updateRecord();
     bool deleteRecord();
     QVariant readRecords();

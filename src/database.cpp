@@ -9,9 +9,9 @@
 
 #include <QDebug>
 
-Database :: Database(QObject *parent)
+Database :: Database(QObject *parent, const QString& db_path)
     : QObject(parent)
-    , DB_PATH("./data/bbauth.db")
+    , DB_PATH(db_path)
     , m_id(0)
     , m_issuerTitle("")
     , m_accountName("")
@@ -68,9 +68,9 @@ bool Database :: createTable() {
                 "   account_name TEXT, "
                 "   secret_key TEXT,"
                 "   auth_type INTEGER DEFAULT 0, "
-                "   algorithm_type INTEGER DEFAULT 0, "
                 "   counter_value INTEGER DEFAULT 0, "
                 "   period_time INTEGER DEFAULT 30, "
+                "   algorithm_type INTEGER DEFAULT 0, "
                 "   auth_code_lenght INTEGER DEFAULT 6, "
                 "   publish_date INTEGER, "
                 "   edit_date INTEGER)"
@@ -154,7 +154,7 @@ bool Database :: deleteColumn(QString& tableName, QString& columnName) {
 
 bool Database :: createRecord () {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
+    bool success = true;//database.open();
     if(success){
         if (database.tables().contains("accounts")) {
             QSqlQuery query(database);
@@ -204,7 +204,7 @@ bool Database :: createRecord () {
             qDebug() << "Create record error: customers table does not exist.";
             return false;
         }
-        database.close();
+        //database.close();
     }
     return success;
 }
@@ -214,9 +214,9 @@ bool Database :: createRecord (Accounts* account) {
     m_accountName = account->getAccountName();
     m_secretKey = account->getSecretKey();
     m_authType = account->getAuthType();
-    m_counterValue = account->getCounterValue();
-    m_periodTime = account->getPeriodTime();
-    m_algorithmType = account->getAlgorithmType();
+    m_algorithmType = account->getCounterValue();
+    m_counterValue = account->getPeriodTime();
+    m_periodTime = account->getAlgorithmType();
     m_authCodeLenght = account->getAuthCodeLenght();
     return createRecord();
 }
@@ -284,15 +284,15 @@ bool Database :: deleteRecord() {
     return success;
 }
 
-QVariant Database :: readRecords() {
+QVariant Database :: getAllRecords() {
     QSqlDatabase database = QSqlDatabase::database();
     QSqlQuery query(database);
     query.prepare("SELECT * FROM accounts");
-    if(query.exec()){
+    if(query.exec()) {
         return query.result();
-    }else{
-        return false;
     }
+    return false;
+
 }
 
 

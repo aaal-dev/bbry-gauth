@@ -24,7 +24,7 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
     settings = new Settings(this);
-    database = new Database(this);
+    database = new Database(this, DB_PATH);
     int rc = SB_SUCCESS;
     rc = hu_GlobalCtxCreateDefault(&sbCtx);
     rc = hu_RegisterSbg56(sbCtx);
@@ -33,7 +33,7 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     if (isFirstStart()) { initializeApplication(); }
     initializeTimer();
     readApplicationSettings();
-    readCodeList();
+    getAccountsList();
     bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
     Q_ASSERT(res);
     Q_UNUSED(res);
@@ -68,7 +68,7 @@ bool ApplicationUI :: initializeApplication() {
             success = true;
         }
     }
-    database->createRecord();
+    readCodeListXML();
     return success;
 }
 
@@ -92,7 +92,7 @@ bool ApplicationUI :: initializeTimer() {
     return success;
 }
 
-bool ApplicationUI :: readCodeList() {
+bool ApplicationUI :: readCodeListXML() {
     bool success = false;
     initializeDataModel();
     XmlDataAccess xda;
@@ -106,23 +106,51 @@ bool ApplicationUI :: readCodeList() {
         for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
             Accounts *account = new Accounts(
-                    sbCtx,
-                    map["id"].toInt(),
                     map["issuerTitle"].toString(),
                     map["accountName"].toString(),
                     map["secretKey"].toString(),
-                    map["keyLenght"].toInt(),
-                    map["algorithmType"].toInt(),
                     map["authType"].toInt(),
                     map["counterValue"].toInt(),
                     map["periodTime"].toInt(),
-                    map["publishDate"].toInt(),
-                    map["editDate"].toInt(),
+                    map["algorithmType"].toInt(),
+                    map["keyLenght"].toInt(),
+                    this);
+            Q_UNUSED(account);
+            //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
+            database->createRecord(account);
+        }
+        success = true;
+    }
+    return success;
+}
+
+bool ApplicationUI :: getAccountsList() {
+    bool success = false;
+    initializeDataModel();
+    QVariantList recordsList = database->getAllRecords().toList();
+    if (!recordsList.isEmpty()) {
+        int recordsRead = recordsList.size();
+        for(int i = 0; i < recordsRead; i++) {
+            QVariantMap map = recordsList.at(i).value<QVariantMap>();
+            Accounts *account = new Accounts(
+                    sbCtx,
+                    map["id"].toInt(),
+                    map["issuer_title"].toString(),
+                    map["account_name"].toString(),
+                    map["secret_key"].toString(),
+                    map["auth_type"].toInt(),
+                    map["counter_value"].toInt(),
+                    map["period_time"].toInt(),
+                    map["algorithm_type"].toInt(),
+                    map["auth_code_lenght"].toInt(),
+                    map["publish_date"].toInt(),
+                    map["edit_date"].toInt(),
                     this);
             Q_UNUSED(account);
             //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
             m_dataModel->insert(account);
         }
+
         success = true;
     }
     return success;
@@ -212,6 +240,8 @@ void ApplicationUI :: addAccount
             authCodeLenght,
             this);
     database->createRecord(account);
+    m_dataModel->insert(account);
+
 }
 
 void ApplicationUI :: alert(const QString &message) {

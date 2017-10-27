@@ -21,7 +21,7 @@ class Database : public QObject {
     Q_OBJECT
 
 public:
-    Database(QObject *parent);
+    Database(QObject *parent, const QString& db_path);
     virtual ~Database();
 
     bool createDatabase();
@@ -37,7 +37,7 @@ public:
     bool createRecord(Accounts* account);
     bool updateRecord();
     bool deleteRecord();
-    QVariant readRecords();
+    QVariant getAllRecords();
 
     bool initializeDatabase();
 
@@ -53,9 +53,6 @@ public:
     QString getSecretKey();
     void    setSecretKey(QString& secretKey);
 
-    int  getAlgorithmType();
-    void setAlgorithmType(int& algorithmType);
-
     int  getAuthType();
     void setAuthType(int& authType);
 
@@ -64,6 +61,9 @@ public:
 
     int  getPeriodTime();
     void setPeriodTime(int& periodTime);
+
+    int  getAlgorithmType();
+    void setAlgorithmType(int& algorithmType);
 
     int  getAuthCodeLenght();
     void setAuthCodeLenght(int& authCodeLenght);

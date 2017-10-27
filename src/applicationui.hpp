@@ -37,6 +37,8 @@
 #include "database.hpp"
 #include "settings.hpp"
 
+static const QString DB_PATH = QDir::homePath() + "/bbauth.db";
+
 namespace bb {
     namespace cascades {
         class LocaleHandler;
@@ -85,7 +87,8 @@ private:
     bool readApplicationSettings();
     void initializeDataModel();
     bool initializeTimer();
-    bool readCodeList();
+    bool readCodeListXML();
+    bool getAccountsList();
 
     bb::cascades::GroupDataModel* getDataModel() const;
     void alert(const QString&);

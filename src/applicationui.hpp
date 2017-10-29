@@ -82,6 +82,8 @@ private:
     Database* database;
     sb_GlobalCtx sbCtx;
 
+    void startApplication();
+    bool connectDatabase();
     bool isFirstStart();
     bool initializeApplication();
     bool readApplicationSettings();

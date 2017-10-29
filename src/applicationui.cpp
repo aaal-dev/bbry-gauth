@@ -23,21 +23,21 @@ using namespace bb::system;
 ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     m_pTranslator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
+    bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
+    Q_ASSERT(res);
+    Q_UNUSED(res);
+    onSystemLanguageChanged();
+
     settings = new Settings(this);
     database = new Database(this, DB_PATH);
+
     int rc = SB_SUCCESS;
     rc = hu_GlobalCtxCreateDefault(&sbCtx);
     rc = hu_RegisterSbg56(sbCtx);
     rc = hu_InitSbg56(sbCtx);
     Q_UNUSED(rc);
-    if (isFirstStart()) { initializeApplication(); }
-    initializeTimer();
-    readApplicationSettings();
-    getAccountsList();
-    bool res = QObject::connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this, SLOT(onSystemLanguageChanged()));
-    Q_ASSERT(res);
-    Q_UNUSED(res);
-    onSystemLanguageChanged();
+
+    startApplication();
     QmlDocument *qml = QmlDocument::create("asset:///pages/MainPage.qml").parent(this);
     qml->setContextProperty("_app", this);
     AbstractPane *root = qml->createRootObject<AbstractPane>();
@@ -55,6 +55,18 @@ void ApplicationUI :: onSystemLanguageChanged() {
     if (m_pTranslator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_pTranslator);
     }
+}
+
+void ApplicationUI :: startApplication(){
+    connectDatabase();
+    if (isFirstStart()) { initializeApplication(); }
+    initializeTimer();
+    readApplicationSettings();
+    getAccountsList();
+}
+
+bool ApplicationUI :: connectDatabase() {
+    return database->connectDatabase();
 }
 
 bool ApplicationUI :: isFirstStart() {
@@ -127,11 +139,12 @@ bool ApplicationUI :: readCodeListXML() {
 bool ApplicationUI :: getAccountsList() {
     bool success = false;
     initializeDataModel();
-    QVariantList recordsList = database->getAllRecords().toList();
-    if (!recordsList.isEmpty()) {
-        int recordsRead = recordsList.size();
+    QVariant recordsList = database->getAllRecords();
+    if (!recordsList.isNull()) {
+        QVariantList list = recordsList.value<QVariantList>();
+        int recordsRead = list.size();
         for(int i = 0; i < recordsRead; i++) {
-            QVariantMap map = recordsList.at(i).value<QVariantMap>();
+            QVariantMap map = list.at(i).value<QVariantMap>();
             Accounts *account = new Accounts(
                     sbCtx,
                     map["id"].toInt(),

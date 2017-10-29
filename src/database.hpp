@@ -24,8 +24,9 @@ public:
     Database(QObject *parent, const QString& db_path);
     virtual ~Database();
 
-    bool createDatabase();
+    bool connectDatabase();
     bool deleteDatabase();
+    bool initializeDatabase();
 
     bool createTable();
     bool dropTable();
@@ -39,7 +40,7 @@ public:
     bool deleteRecord();
     QVariant getAllRecords();
 
-    bool initializeDatabase();
+
 
     // tableColumns
     int  getId();

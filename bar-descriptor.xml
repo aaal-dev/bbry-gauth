@@ -47,7 +47,6 @@
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>Authenticator for BlackBerry 10</name>
 
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade.
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
@@ -81,6 +80,7 @@
        <image>icon_144.png</image>
        <image>icon_110.png</image>
     </icon>
+    <name>bbry-gauth</name>
     <category>core.media</category>
     <description>Like Google Authenticator this app generates the codes for the two-factor verification using HOTP or TOTP authentication types. This app fully native. Created by Momentics IDE with built-in cryptographic libraries.</description>
     <author>Example Inc.</author>

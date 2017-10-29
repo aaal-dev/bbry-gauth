@@ -28,7 +28,8 @@ Database :: ~Database() {
 
 }
 
-bool Database :: createDatabase() {
+
+bool Database :: connectDatabase() {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_PATH);
     bool success = database.open();
@@ -54,6 +55,10 @@ bool Database :: deleteDatabase() {
         qDebug() << "Sql database might not yet created or it is already deleted";
     }
     return success;
+}
+
+bool Database :: initializeDatabase() {
+    return createTable();
 }
 
 bool Database :: createTable() {
@@ -288,22 +293,8 @@ QVariant Database :: getAllRecords() {
     QSqlDatabase database = QSqlDatabase::database();
     QSqlQuery query(database);
     query.prepare("SELECT * FROM accounts");
-    if(query.exec()) {
-        return query.result();
-    }
-    return false;
-
-}
-
-
-bool Database :: initializeDatabase() {
-    bool success = false;
-    if (createDatabase()) {
-        if (createTable()) {
-            success = true;
-        }
-    }
-    return success;
+    query.exec();
+    return query.result();
 }
 
 

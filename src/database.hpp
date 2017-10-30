@@ -17,6 +17,8 @@
 
 #include <bb/data/SqlDataAccess>
 
+using namespace bb::data;
+
 class Database : public QObject {
     Q_OBJECT
 
@@ -25,12 +27,13 @@ public:
     virtual ~Database();
 
     bool connectDatabase();
-    bool deleteDatabase();
-    bool initializeDatabase();
+    void deleteDatabase();
+    void initializeDatabase(const QString& DB_PATH);
 
-    bool createTable();
+    void createTable(const QString& DB_PATH);
     bool dropTable();
 
+    /* ---- WIP ---- */
     bool createColumn(QString&, QString&, QString&);
     bool deleteColumn(QString&, QString&);
 
@@ -89,6 +92,7 @@ signals:
 
 private:
     QString DB_PATH;
+    QString CONN_NAME;
     int m_id;
     QString m_issuerTitle;
     QString m_accountName;

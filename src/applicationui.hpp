@@ -38,6 +38,7 @@
 #include "settings.hpp"
 
 static const QString DB_PATH = QDir::homePath() + "/bbauth.db";
+static const QString CONN_NAME = "bbauthdb";
 
 namespace bb {
     namespace cascades {

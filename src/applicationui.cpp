@@ -58,15 +58,10 @@ void ApplicationUI :: onSystemLanguageChanged() {
 }
 
 void ApplicationUI :: startApplication(){
-    connectDatabase();
     if (isFirstStart()) { initializeApplication(); }
     initializeTimer();
     readApplicationSettings();
     getAccountsList();
-}
-
-bool ApplicationUI :: connectDatabase() {
-    return database->connectDatabase();
 }
 
 bool ApplicationUI :: isFirstStart() {
@@ -74,14 +69,14 @@ bool ApplicationUI :: isFirstStart() {
 }
 
 bool ApplicationUI :: initializeApplication() {
-    bool success = false;
-    if (database->initializeDatabase()){
-        if (settings->initializeSettings()){
-            success = true;
-        }
+    QFile file(DB_PATH);
+    if (file.open(QIODevice::ReadWrite)) {
+        settings->initializeSettings();
+        database->initializeDatabase(DB_PATH);
+        readCodeListXML();
+        return true;
     }
-    readCodeListXML();
-    return success;
+    return false;
 }
 
 bool ApplicationUI :: readApplicationSettings() {

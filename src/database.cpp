@@ -25,75 +25,33 @@ Database :: Database(QObject *parent, const QString& db_path)
     , m_editDate(0) {}
 
 Database :: ~Database() {
-
+    QSqlDatabase database = QSqlDatabase::database();
+    database.close();
 }
 
 
 bool Database :: connectDatabase() {
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(DB_PATH);
-    bool success = database.open();
-    if (success) {
-        qDebug() << "Database created/registered.";
-        database.close();
-    } else {
-        const QSqlError error = database.lastError();
-        qDebug() << "\nDatabase NOT opened.";
-        qDebug() << "Error opening connection to the database: %1" << error.text();
-    }
-    return success;
+    return database.open();
 }
 
-bool Database :: deleteDatabase() {
+void Database :: deleteDatabase() {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
-    if(success){
-        database.removeDatabase(database.connectionName());
-        qDebug() << "Database deleted";
-        database.close();
-    }else{
-        qDebug() << "Sql database might not yet created or it is already deleted";
-    }
-    return success;
+    database.removeDatabase(database.connectionName());
 }
 
-bool Database :: initializeDatabase() {
-    return createTable();
+void Database :: initializeDatabase(const QString& DB_PATH) {
+    createTable(DB_PATH);
 }
 
-bool Database :: createTable() {
-    QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
-    if(success){
-        QSqlQuery query(database);
-        query.prepare(
-                "CREATE TABLE IF NOT EXISTS accounts"
-                "   (id INTEGER PRIMARY KEY, "
-                "   issuer_title TEXT, "
-                "   account_name TEXT, "
-                "   secret_key TEXT,"
-                "   auth_type INTEGER DEFAULT 0, "
-                "   counter_value INTEGER DEFAULT 0, "
-                "   period_time INTEGER DEFAULT 30, "
-                "   algorithm_type INTEGER DEFAULT 0, "
-                "   auth_code_lenght INTEGER DEFAULT 6, "
-                "   publish_date INTEGER, "
-                "   edit_date INTEGER)"
-                );
-        if (query.exec()) {
-            qDebug() << "Table creation query execute successfully";
-        } else {
-            const QSqlError error = query.lastError();
-            qDebug() << "Create table error: %1" << error.text();
-            success = false;
-        }
-        database.close();
-    }
-    return success;
+void Database :: createTable(const QString& DB_PATH) {
+    SqlDataAccess sda(DB_PATH);
+    sda.execute("CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY, issuer_title TEXT, account_name TEXT, secret_key TEXT, auth_type INTEGER DEFAULT 0, counter_value INTEGER DEFAULT 0, period_time INTEGER DEFAULT 30, algorithm_type INTEGER DEFAULT 0, auth_code_lenght INTEGER DEFAULT 6, publish_date INTEGER, edit_date INTEGER);");
 }
 
 bool Database :: dropTable() {
-    QSqlDatabase database = QSqlDatabase::database();
+    QSqlDatabase database = QSqlDatabase::database(CONN_NAME);
     bool success = database.open();
     if(success){
         QSqlQuery query(database);
@@ -110,7 +68,7 @@ bool Database :: dropTable() {
     return success;
 }
 
-// wip
+/* ---- WIP ---- */
 bool Database :: createColumn(QString& tableName, QString& columnName, QString& columnParams) {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
@@ -134,7 +92,6 @@ bool Database :: createColumn(QString& tableName, QString& columnName, QString& 
     return success;
 }
 
-// wip
 bool Database :: deleteColumn(QString& tableName, QString& columnName) {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
@@ -156,62 +113,51 @@ bool Database :: deleteColumn(QString& tableName, QString& columnName) {
     }
     return success;
 }
+/* !---- WIP ---- */
 
 bool Database :: createRecord () {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = true;//database.open();
-    if(success){
-        if (database.tables().contains("accounts")) {
-            QSqlQuery query(database);
-            query.prepare(
-                    "INSERT INTO accounts "
-                    "   (issuer_title, "
-                    "   account_name, "
-                    "   secret_key, "
-                    "   auth_type, "
-                    "   algorithm_type, "
-                    "   counter_value, "
-                    "   period_time, "
-                    "   auth_code_lenght, "
-                    "   publish_date, "
-                    "   edit_date) "
-                    "VALUES "
-                    "   (:issuer_title, "
-                    "   :account_name, "
-                    "   :secret_key, "
-                    "   :auth_type, "
-                    "   :algorithm_type, "
-                    "   :counter_value, "
-                    "   :period_time, "
-                    "   :auth_code_lenght, "
-                    "   :publish_date, "
-                    "   :edit_date) "
-                    );
-            query.bindValue(":issuer_title", m_issuerTitle);
-            query.bindValue(":account_name", m_accountName);
-            query.bindValue(":secret_key", m_secretKey);
-            query.bindValue(":auth_type", m_authType);
-            query.bindValue(":algorithm_type", m_algorithmType);
-            query.bindValue(":counter_value", m_counterValue);
-            query.bindValue(":period_time", m_periodTime);
-            query.bindValue(":auth_code_lenght", m_authCodeLenght);
-            query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-            query.bindValue(":edit_date", m_editDate);
-
-            if (query.exec()) {
-                qDebug() << "Record created";
-            } else {
-                const QSqlError error = query.lastError();
-                qDebug() << "Create record error: %1" << error.text();
-                success = false;
-            }
-        } else {
-            qDebug() << "Create record error: customers table does not exist.";
-            return false;
-        }
-        //database.close();
+    if (database.tables().contains("accounts")) {
+        QSqlQuery query(database);
+        query.prepare(
+                "INSERT INTO accounts "
+                "   (issuer_title, "
+                "   account_name, "
+                "   secret_key, "
+                "   auth_type, "
+                "   algorithm_type, "
+                "   counter_value, "
+                "   period_time, "
+                "   auth_code_lenght, "
+                "   publish_date, "
+                "   edit_date) "
+                "VALUES "
+                "   (:issuer_title, "
+                "   :account_name, "
+                "   :secret_key, "
+                "   :auth_type, "
+                "   :algorithm_type, "
+                "   :counter_value, "
+                "   :period_time, "
+                "   :auth_code_lenght, "
+                "   :publish_date, "
+                "   :edit_date) "
+                );
+        query.bindValue(":issuer_title", m_issuerTitle);
+        query.bindValue(":account_name", m_accountName);
+        query.bindValue(":secret_key", m_secretKey);
+        query.bindValue(":auth_type", m_authType);
+        query.bindValue(":algorithm_type", m_algorithmType);
+        query.bindValue(":counter_value", m_counterValue);
+        query.bindValue(":period_time", m_periodTime);
+        query.bindValue(":auth_code_lenght", m_authCodeLenght);
+        query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+        query.bindValue(":edit_date", m_editDate);
+        return query.exec();
+    } else {
+        qDebug() << "Create record error: customers table does not exist.";
+        return false;
     }
-    return success;
 }
 
 bool Database :: createRecord (Accounts* account) {
@@ -228,65 +174,43 @@ bool Database :: createRecord (Accounts* account) {
 
 bool Database :: updateRecord() {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
-    if (success) {
-        QSqlQuery query(database);
-        query.prepare(
-                "UPDATE accounts "
-                "SET "
-                "   issuer_title=:issuer_title, "
-                "   account_name=:account_name, "
-                "   secret_key=:secsecret_keyret_code, "
-                "   auth_type=:auth_type, "
-                "   algorithm_type=:algorithm_type, "
-                "   counter_value=:counter_value, "
-                "   period_time=:period_time "
-                "   algorithm_type=:algorithm_type, "
-                "   auth_code_lenght=:auth_code_lenght, "
-                "   publish_date=:publish_date "
-                "   edit_date=:edit_date "
-                "WHERE id=:id"
-                );
-        query.bindValue(":id", m_id);
-        query.bindValue(":issuer_title", m_issuerTitle);
-        query.bindValue(":account_name", m_accountName);
-        query.bindValue(":secret_key", m_secretKey);
-        query.bindValue(":auth_type", m_authType);
-        query.bindValue(":counter_value", m_counterValue);
-        query.bindValue(":period_time", m_periodTime);
-        query.bindValue(":algorithm_type", m_algorithmType);
-        query.bindValue(":auth_code_lenght", m_authCodeLenght);
-        query.bindValue(":publish_date", m_publishDate);
-        query.bindValue(":edit_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
-        if (query.exec()) {
-            qDebug() << "Record updated";
-        } else {
-            const QSqlError error = query.lastError();
-            qDebug() << "Update record error: %1" << error.text();
-            success = false;
-        }
-        database.close();
-    }
-    return success;
+    QSqlQuery query(database);
+    query.prepare(
+            "UPDATE accounts "
+            "SET "
+            "   issuer_title=:issuer_title, "
+            "   account_name=:account_name, "
+            "   secret_key=:secsecret_keyret_code, "
+            "   auth_type=:auth_type, "
+            "   algorithm_type=:algorithm_type, "
+            "   counter_value=:counter_value, "
+            "   period_time=:period_time "
+            "   algorithm_type=:algorithm_type, "
+            "   auth_code_lenght=:auth_code_lenght, "
+            "   publish_date=:publish_date "
+            "   edit_date=:edit_date "
+            "WHERE id=:id"
+            );
+    query.bindValue(":id", m_id);
+    query.bindValue(":issuer_title", m_issuerTitle);
+    query.bindValue(":account_name", m_accountName);
+    query.bindValue(":secret_key", m_secretKey);
+    query.bindValue(":auth_type", m_authType);
+    query.bindValue(":counter_value", m_counterValue);
+    query.bindValue(":period_time", m_periodTime);
+    query.bindValue(":algorithm_type", m_algorithmType);
+    query.bindValue(":auth_code_lenght", m_authCodeLenght);
+    query.bindValue(":publish_date", m_publishDate);
+    query.bindValue(":edit_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+    return query.exec();
 }
 
 bool Database :: deleteRecord() {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
-    if (success) {
-        QSqlQuery query(database);
-        query.prepare("DELETE FROM accounts WHERE id=:id");
-        query.bindValue(":id", m_id);
-        if (query.exec()) {
-            qDebug() << "Record deleted";
-        } else {
-            const QSqlError error = query.lastError();
-            qDebug() << "Delete record error: %1" << error.text();
-            success = false;
-        }
-        database.close();
-    }
-    return success;
+    QSqlQuery query(database);
+    query.prepare("DELETE FROM accounts WHERE id=:id");
+    query.bindValue(":id", m_id);
+    return query.exec();
 }
 
 QVariant Database :: getAllRecords() {

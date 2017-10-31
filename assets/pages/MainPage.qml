@@ -101,7 +101,7 @@ NavigationPane {
                                         ProgressIndicator {
                                             verticalAlignment: VerticalAlignment.Bottom
                                             fromValue: 0
-                                            toValue: 300
+                                            toValue: ListItemData.periodTime * 10
                                             value: ListItemData.elapsedTime
                                         }
                                         gestureHandlers: [

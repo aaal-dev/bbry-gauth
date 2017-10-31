@@ -206,9 +206,9 @@ bool Database :: createRecord (Accounts* account) {
     m_accountName = account->getAccountName();
     m_secretKey = account->getSecretKey();
     m_authType = account->getAuthType();
-    m_algorithmType = account->getCounterValue();
-    m_counterValue = account->getPeriodTime();
-    m_periodTime = account->getAlgorithmType();
+    m_counterValue = account->getCounterValue();
+    m_periodTime = account->getPeriodTime();
+    m_algorithmType = account->getAlgorithmType();
     m_authCodeLenght = account->getAuthCodeLenght();
     return createRecord(m_tableName);
 }

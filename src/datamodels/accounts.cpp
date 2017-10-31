@@ -77,13 +77,9 @@ Accounts :: Accounts(
     QTimer* pCountDownTimer = new QTimer(this);
     connect(pCountDownTimer, SIGNAL(timeout()), this, SLOT(UpdateTime()));
 
-    QTimer* pTimer = new QTimer(this);
-    connect(pTimer, SIGNAL(timeout()), this, SLOT(NextAuthCode()));
-
     m_elapsedTime = (t % m_periodTime) * 10 + QTime::currentTime().msec() / 100;
+    m_elapsedTimeOffset = m_elapsedTime;
     pCountDownTimer->start(100);
-    pTimer->start(m_periodTime * 1000);
-
 
     uint8_t* pTmp = new uint8_t[100];
     m_secretKeyLenght = Base32Decode((const uint8_t*) m_secretKey.toAscii().constData(), pTmp, 100);
@@ -215,6 +211,7 @@ void Accounts :: setEditDate(const ulong& editDate) {
 
 QString Accounts :: getAuthCode() const { return m_authCode; }
 int Accounts :: getElapsedTime() { return m_elapsedTime; }
+int Accounts :: getElapsedTimeOffset() { return m_elapsedTimeOffset; }
 
 int Accounts :: Base32Decode(const uint8_t *encoded, uint8_t *result, int bufSize) {
   int buffer = 0;
@@ -295,31 +292,35 @@ int Accounts :: PowerOf10(int keyLenght) {
 }
 
 void Accounts :: UpdateTime() {
-    ++m_elapsedTime;
-    elapsedTimeChanged(m_elapsedTime);
-}
-
-void Accounts :: NextAuthCode() {
-    m_elapsedTime = 0;
-    elapsedTimeChanged(0);
-    ++timeStamp;
-    int code = GetTotpCode(m_secretKeyTmp, m_secretKeyLenght, m_authCodeLenght);
-    switch (m_authCodeLenght) {
-        case 6:
-            m_authCode.sprintf("%06d", code);
-            break;
-        case 7:
-            m_authCode.sprintf("%07d", code);
-            break;
-        case 8:
-            m_authCode.sprintf("%08d", code);
-            break;
-        case 9:
-            m_authCode.sprintf("%09d", code);
-            break;
-        default:
-            m_authCode.sprintf("%06d", code);
-            break;
+    if (m_elapsedTime !=  m_periodTime * 10) {
+        ++m_elapsedTime;
+    } else {
+        m_elapsedTime = 0;
+        ++timeStamp;
+        int code = GetTotpCode(m_secretKeyTmp, m_secretKeyLenght, m_authCodeLenght);
+        switch (m_authCodeLenght) {
+            case 6: {
+                m_authCode.sprintf("%06d", code);
+                break;
+            }
+            case 7: {
+                m_authCode.sprintf("%07d", code);
+                break;
+            }
+            case 8: {
+                m_authCode.sprintf("%08d", code);
+                break;
+            }
+            case 9: {
+                m_authCode.sprintf("%09d", code);
+                break;
+            }
+            default: {
+                m_authCode.sprintf("%06d", code);
+                break;
+            }
+        }
+        authCodeChanged(m_authCode);
     }
-    authCodeChanged(m_authCode);
+    elapsedTimeChanged(m_elapsedTime);
 }

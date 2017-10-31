@@ -37,6 +37,7 @@ class Accounts : public QObject {
     Q_PROPERTY(ulong editDate READ getEditDate WRITE setEditDate NOTIFY editDateChanged FINAL)
     Q_PROPERTY(QString authCode READ getAuthCode NOTIFY authCodeChanged FINAL)
     Q_PROPERTY(uint elapsedTime READ getElapsedTime NOTIFY elapsedTimeChanged FINAL)
+    Q_PROPERTY(uint elapsedTimeOffset READ getElapsedTimeOffset NOTIFY elapsedTimeOffsetChanged FINAL)
 
 public:
     Accounts(QObject* parent = 0);
@@ -99,6 +100,7 @@ public:
 
     QString getAuthCode() const;
     int getElapsedTime();
+    int getElapsedTimeOffset();
 
 signals:
     void issuerTitleChanged(const QString&);
@@ -113,6 +115,7 @@ signals:
     void editDateChanged(const ulong&);
     void authCodeChanged(const QString&);
     void elapsedTimeChanged(int);
+    void elapsedTimeOffsetChanged(int);
 
 private:
     int m_id;
@@ -129,7 +132,8 @@ private:
     uint8_t* m_secretKeyTmp;
     size_t m_secretKeyLenght;
     QString m_authCode;
-    int m_elapsedTime;
+    uint m_elapsedTime;
+    int m_elapsedTimeOffset;
     AuthCodeGenerator* authCodeGenerator;
 
     int Base32Decode(const uint8_t *encoded, uint8_t *result, int bufSize);
@@ -139,7 +143,6 @@ private:
 
 private slots:
     void UpdateTime();
-    void NextAuthCode();
 };
 
 #endif /* ACCOUNTS_HPP_ */

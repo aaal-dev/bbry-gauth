@@ -23,25 +23,25 @@ class Database : public QObject {
     Q_OBJECT
 
 public:
-    Database(QObject *parent, const QString& db_path);
+    Database(QObject *parent, const QString& db_path, const QString& tableName);
     virtual ~Database();
 
-    bool connectDatabase();
-    void deleteDatabase();
-    void initializeDatabase(const QString& DB_PATH);
+    bool createDatabase();
+    bool deleteDatabase();
+    bool initializeDatabase();
 
-    void createTable(const QString& DB_PATH);
-    bool dropTable();
+    bool createTable(const QString& tableName);
+    bool dropTable(const QString& tableName);
 
     /* ---- WIP ---- */
-    bool createColumn(QString&, QString&, QString&);
-    bool deleteColumn(QString&, QString&);
+    bool createColumn(const QString& tableName, const QString& columnName, const QString& columnParams);
+    bool deleteColumn(const QString& tableName, const QString& columnName);
 
-    bool createRecord();
+    bool createRecord(const QString& tableName);
     bool createRecord(Accounts* account);
     bool updateRecord();
     bool deleteRecord();
-    QVariant getAllRecords();
+    QVariantList getAllRecords();
 
 
 
@@ -93,6 +93,8 @@ signals:
 private:
     QString DB_PATH;
     QString CONN_NAME;
+    QString m_tableName;
+
     int m_id;
     QString m_issuerTitle;
     QString m_accountName;

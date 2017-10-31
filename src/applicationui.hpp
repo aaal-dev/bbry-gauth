@@ -89,7 +89,6 @@ private:
     bool initializeApplication();
     bool readApplicationSettings();
     void initializeDataModel();
-    bool initializeTimer();
     bool readCodeListXML();
     bool getAccountsList();
 

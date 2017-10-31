@@ -29,7 +29,7 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
     onSystemLanguageChanged();
 
     settings = new Settings(this);
-    database = new Database(this, DB_PATH);
+    database = new Database(this, DB_PATH, "accounts");
 
     int rc = SB_SUCCESS;
     rc = hu_GlobalCtxCreateDefault(&sbCtx);
@@ -58,8 +58,8 @@ void ApplicationUI :: onSystemLanguageChanged() {
 }
 
 void ApplicationUI :: startApplication(){
+    initializeDataModel();
     if (isFirstStart()) { initializeApplication(); }
-    initializeTimer();
     readApplicationSettings();
     getAccountsList();
 }
@@ -69,14 +69,10 @@ bool ApplicationUI :: isFirstStart() {
 }
 
 bool ApplicationUI :: initializeApplication() {
-    QFile file(DB_PATH);
-    if (file.open(QIODevice::ReadWrite)) {
-        settings->initializeSettings();
-        database->initializeDatabase(DB_PATH);
-        readCodeListXML();
-        return true;
-    }
-    return false;
+    settings->initializeSettings();
+    database->initializeDatabase();
+    readCodeListXML();
+    return true;
 }
 
 bool ApplicationUI :: readApplicationSettings() {
@@ -90,18 +86,10 @@ void ApplicationUI :: initializeDataModel() {
     m_dataModel->setGrouping(ItemGrouping::None);
 }
 
-bb::cascades::GroupDataModel* ApplicationUI :: getDataModel() const { return m_dataModel; }
-
-bool ApplicationUI :: initializeTimer() {
-    bool success = false;
-    QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    return success;
-}
+GroupDataModel* ApplicationUI :: getDataModel() const { return m_dataModel; }
 
 bool ApplicationUI :: readCodeListXML() {
     bool success = false;
-    initializeDataModel();
     XmlDataAccess xda;
     QFile dataFileSpeaker(QDir::currentPath() + "/app/native/assets/model.xml");
     bool ok = dataFileSpeaker.open(QIODevice::ReadOnly);
@@ -133,10 +121,8 @@ bool ApplicationUI :: readCodeListXML() {
 
 bool ApplicationUI :: getAccountsList() {
     bool success = false;
-    initializeDataModel();
-    QVariant recordsList = database->getAllRecords();
-    if (!recordsList.isNull()) {
-        QVariantList list = recordsList.value<QVariantList>();
+    QVariantList list = database->getAllRecords();
+    if (!list.isEmpty()) {
         int recordsRead = list.size();
         for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
@@ -158,10 +144,9 @@ bool ApplicationUI :: getAccountsList() {
             //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
             m_dataModel->insert(account);
         }
-
-        success = true;
+        return true;
     }
-    return success;
+    return false;
 }
 
 void ApplicationUI :: parseQRData(const QString& data) {

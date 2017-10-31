@@ -9,9 +9,10 @@
 
 #include <QDebug>
 
-Database :: Database(QObject *parent, const QString& db_path)
+Database :: Database(QObject *parent, const QString& db_path, const QString& tableName)
     : QObject(parent)
     , DB_PATH(db_path)
+    , m_tableName(tableName)
     , m_id(0)
     , m_issuerTitle("")
     , m_accountName("")
@@ -22,77 +23,107 @@ Database :: Database(QObject *parent, const QString& db_path)
     , m_periodTime(0)
     , m_authCodeLenght(6)
     , m_publishDate(0)
-    , m_editDate(0) {}
+    , m_editDate(0)
+{
+    createDatabase();
+}
 
 Database :: ~Database() {
-    QSqlDatabase database = QSqlDatabase::database();
-    database.close();
+
 }
 
 
-bool Database :: connectDatabase() {
-    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+bool Database :: createDatabase() {
+    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE", m_tableName);
     database.setDatabaseName(DB_PATH);
-    return database.open();
+    if  (!database.open()) {
+        const QSqlError error = database.lastError();
+        qDebug() << "ERROR: DATABASE: connection false." << error.text();
+        return false;
+    } else {
+        qDebug() << "DATABASE: connection ok";
+        return true;
+    }
 }
 
-void Database :: deleteDatabase() {
+
+bool Database :: deleteDatabase() {
     QSqlDatabase database = QSqlDatabase::database();
     database.removeDatabase(database.connectionName());
-}
-
-void Database :: initializeDatabase(const QString& DB_PATH) {
-    createTable(DB_PATH);
-}
-
-void Database :: createTable(const QString& DB_PATH) {
-    SqlDataAccess sda(DB_PATH);
-    sda.execute("CREATE TABLE IF NOT EXISTS accounts(id INTEGER PRIMARY KEY, issuer_title TEXT, account_name TEXT, secret_key TEXT, auth_type INTEGER DEFAULT 0, counter_value INTEGER DEFAULT 0, period_time INTEGER DEFAULT 30, algorithm_type INTEGER DEFAULT 0, auth_code_lenght INTEGER DEFAULT 6, publish_date INTEGER, edit_date INTEGER);");
-}
-
-bool Database :: dropTable() {
-    QSqlDatabase database = QSqlDatabase::database(CONN_NAME);
-    bool success = database.open();
-    if(success){
-        QSqlQuery query(database);
-        query.prepare("DROP TABLE IF EXISTS accounts");
-        if (query.exec()) {
-            qDebug() << "Table drop query execute successfully";
-        } else {
-            const QSqlError error = query.lastError();
-            qDebug() << "Drop table error: %1" << error.text();
-            success = false;
-        }
-        database.close();
+    if (!database.open()) {
+        qDebug() << "DATABASE: deleted.";
+        return true;
+    } else {
+        const QSqlError error = database.lastError();
+        qDebug() << "ERROR: DATABASE: not deleted." << error.text();
+        return false;
     }
-    return success;
 }
 
+bool Database :: initializeDatabase() {
+    return createTable(m_tableName);
+}
+
+bool Database :: createTable(const QString& tableName) {
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
+    QSqlQuery query(database);
+    query.prepare(QString("CREATE TABLE IF NOT EXISTS %1"
+            "(id INTEGER PRIMARY KEY, "
+            "issuer_title TEXT, "
+            "account_name TEXT, "
+            "secret_key TEXT, "
+            "auth_type INTEGER DEFAULT 0, "
+            "counter_value INTEGER DEFAULT 0, "
+            "period_time INTEGER DEFAULT 30, "
+            "algorithm_type INTEGER DEFAULT 0, "
+            "auth_code_lenght INTEGER DEFAULT 6, "
+            "publish_date INTEGER, "
+            "edit_date INTEGER);").arg(tableName));
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: table creation false." << error.text();
+        return false;
+    } else {
+        qDebug() << "DATABASE: table" << tableName << "created.";
+        return true;
+    }
+}
+
+bool Database :: dropTable(const QString& tableName) {
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
+    QSqlQuery query(database);
+    query.prepare("DROP TABLE IF EXISTS :tableName");
+    query.bindValue(":tableName", tableName);
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: drop table error." << error.text();
+        return false;
+    } else {
+        qDebug() << "DATABASE: table dropped";
+        return true;
+    }
+}
+
+
+
+/* ------------- */
 /* ---- WIP ---- */
-bool Database :: createColumn(QString& tableName, QString& columnName, QString& columnParams) {
+bool Database :: createColumn(const QString& tableName, const QString& columnName, const QString& columnParams) {
     QSqlDatabase database = QSqlDatabase::database();
-    bool success = database.open();
-    if(success){
-        QSqlQuery query(database);
-        query.prepare(
-                "ALTER TABLE :tableName"
-                "   ADD :columnName :columnParams");
-        query.bindValue(":tableName", tableName);
-        query.bindValue(":columnName", columnName);
-        query.bindValue(":columnParams", columnParams);
-        if (query.exec()) {
-            qDebug() << "Column creation query execute successfully";
-        } else {
-            const QSqlError error = query.lastError();
-            qDebug() << "Create table error: %1" << error.text();
-            success = false;
-        }
-        database.close();
+    QSqlQuery query(database);
+    query.prepare(QString("ALTER TABLE %1"
+            "   ADD :columnName :columnParams").arg(tableName));
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: column not created." << error.text();
+        return false;
+    } else {
+        qDebug() << "DATABASE: column created.";
+        return true;
     }
-    return success;
 }
 
-bool Database :: deleteColumn(QString& tableName, QString& columnName) {
+bool Database :: deleteColumn(const QString& tableName, const QString& columnName) {
     QSqlDatabase database = QSqlDatabase::database();
     bool success = database.open();
     if(success){
@@ -114,13 +145,16 @@ bool Database :: deleteColumn(QString& tableName, QString& columnName) {
     return success;
 }
 /* !---- WIP ---- */
+/* ------------- */
 
-bool Database :: createRecord () {
-    QSqlDatabase database = QSqlDatabase::database();
-    if (database.tables().contains("accounts")) {
+
+
+bool Database :: createRecord(const QString& tableName) {
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
+    if (database.tables().contains(tableName)) {
         QSqlQuery query(database);
-        query.prepare(
-                "INSERT INTO accounts "
+        query.prepare(QString(
+                "INSERT INTO %1 "
                 "   (issuer_title, "
                 "   account_name, "
                 "   secret_key, "
@@ -142,7 +176,7 @@ bool Database :: createRecord () {
                 "   :auth_code_lenght, "
                 "   :publish_date, "
                 "   :edit_date) "
-                );
+                ).arg(tableName));
         query.bindValue(":issuer_title", m_issuerTitle);
         query.bindValue(":account_name", m_accountName);
         query.bindValue(":secret_key", m_secretKey);
@@ -153,9 +187,16 @@ bool Database :: createRecord () {
         query.bindValue(":auth_code_lenght", m_authCodeLenght);
         query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
         query.bindValue(":edit_date", m_editDate);
-        return query.exec();
+        if (!query.exec()) {
+            const QSqlError error = query.lastError();
+            qDebug() << "ERROR: DATABASE: record not created: %1" << error.text();
+            return false;
+        } else {
+            qDebug() << "DATABASE: record created: issuer:" << m_issuerTitle << "account" << m_accountName;
+            return true;
+        }
     } else {
-        qDebug() << "Create record error: customers table does not exist.";
+        qDebug() << "ERROR: DATABASE: create record error: table «accounts» does not exist.";
         return false;
     }
 }
@@ -169,11 +210,11 @@ bool Database :: createRecord (Accounts* account) {
     m_counterValue = account->getPeriodTime();
     m_periodTime = account->getAlgorithmType();
     m_authCodeLenght = account->getAuthCodeLenght();
-    return createRecord();
+    return createRecord(m_tableName);
 }
 
 bool Database :: updateRecord() {
-    QSqlDatabase database = QSqlDatabase::database();
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
     QSqlQuery query(database);
     query.prepare(
             "UPDATE accounts "
@@ -206,19 +247,37 @@ bool Database :: updateRecord() {
 }
 
 bool Database :: deleteRecord() {
-    QSqlDatabase database = QSqlDatabase::database();
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
     QSqlQuery query(database);
     query.prepare("DELETE FROM accounts WHERE id=:id");
     query.bindValue(":id", m_id);
     return query.exec();
 }
 
-QVariant Database :: getAllRecords() {
-    QSqlDatabase database = QSqlDatabase::database();
+QVariantList Database :: getAllRecords() {
+    QVariantList list = QVariantList();
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
     QSqlQuery query(database);
-    query.prepare("SELECT * FROM accounts");
-    query.exec();
-    return query.result();
+    query.prepare(QString("SELECT * FROM %1").arg(m_tableName));
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: record list" << error.text();
+        return list;
+    }
+    while (query.next()) {
+        QSqlRecord rec = query.record();
+        QVariantMap map = QVariantMap();
+        for( int i=0; i<rec.count(); ++i )
+            map.insert(rec.fieldName(i), query.value(i));
+        list.append(map);
+    }
+
+    if (!list.isEmpty()){
+        qDebug() << "DATABASE: got record list.";
+        return list;
+    } else {
+        qDebug() << "ERROR: DATABASE: record list empty";
+    }
 }
 
 

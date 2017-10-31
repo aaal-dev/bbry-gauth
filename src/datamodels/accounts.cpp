@@ -72,7 +72,7 @@ Accounts :: Accounts(
 {
     authCodeGenerator = new AuthCodeGenerator(sbCtx, this);
     timer_t t = time(NULL);
-    timeStamp = t / 30;
+    timeStamp = t / m_periodTime;
 
     QTimer* pCountDownTimer = new QTimer(this);
     connect(pCountDownTimer, SIGNAL(timeout()), this, SLOT(UpdateTime()));
@@ -80,9 +80,9 @@ Accounts :: Accounts(
     QTimer* pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), this, SLOT(NextAuthCode()));
 
-    m_elapsedTime = (t % 30) * 10 + QTime::currentTime().msec() / 100;
+    m_elapsedTime = (t % m_periodTime) * 10 + QTime::currentTime().msec() / 100;
     pCountDownTimer->start(100);
-    pTimer->start(30000);
+    pTimer->start(m_periodTime * 1000);
 
 
     uint8_t* pTmp = new uint8_t[100];

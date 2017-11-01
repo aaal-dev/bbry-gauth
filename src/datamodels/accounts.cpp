@@ -42,7 +42,6 @@ Accounts :: Accounts(
 
 // Для отображения
 Accounts :: Accounts(
-        const sb_GlobalCtx& sbCtx,
         const int id,
         const QString& issuerTitle,
         const QString& accountName,
@@ -70,16 +69,14 @@ Accounts :: Accounts(
     , m_authCode("")
     , m_elapsedTime(0)
 {
-    authCodeGenerator = new AuthCodeGenerator(sbCtx, this);
     timer_t t = time(NULL);
     timeStamp = t / m_periodTime;
 
-    QTimer* pCountDownTimer = new QTimer(this);
-    connect(pCountDownTimer, SIGNAL(timeout()), this, SLOT(UpdateTime()));
+    QTimer* countDownTimer = new QTimer(this);
+    connect(countDownTimer, SIGNAL(timeout()), this, SLOT(UpdateTime()));
+    countDownTimer->start(100);
 
     m_elapsedTime = (t % m_periodTime) * 10 + QTime::currentTime().msec() / 100;
-    m_elapsedTimeOffset = m_elapsedTime;
-    pCountDownTimer->start(100);
 
     uint8_t* pTmp = new uint8_t[100];
     m_secretKeyLenght = Base32Decode((const uint8_t*) m_secretKey.toAscii().constData(), pTmp, 100);
@@ -114,7 +111,7 @@ int Accounts :: getId() const { return m_id; }
 
 //issuerTitle
 QString Accounts :: getIssuerTitle() const { return m_issuerTitle; }
-void Accounts :: setIssuerTitle(const QString& issuerTitle) {
+void    Accounts :: setIssuerTitle(const QString& issuerTitle) {
     if (issuerTitle != m_issuerTitle) {
         m_issuerTitle = issuerTitle;
         emit issuerTitleChanged(issuerTitle);
@@ -124,15 +121,17 @@ void Accounts :: setIssuerTitle(const QString& issuerTitle) {
 
 //accountName
 QString Accounts :: getAccountName() const { return m_accountName; }
-void Accounts :: setAccountName(const QString& accountName) {
+void    Accounts :: setAccountName(const QString& accountName) {
     if (accountName != m_accountName) {
         m_accountName = accountName;
         emit accountNameChanged(accountName);
     }
 }
 
+
+//secretKey
 QString Accounts :: getSecretKey() const { return m_secretKey; }
-void Accounts :: setSecretKey(const QString& secretKey) {
+void    Accounts :: setSecretKey(const QString& secretKey) {
     if (secretKey != m_secretKey) {
         m_secretKey = secretKey;
         emit secretKeyChanged(secretKey);
@@ -142,7 +141,7 @@ void Accounts :: setSecretKey(const QString& secretKey) {
 
 //authType
 uchar Accounts :: getAuthType() const { return m_authType; }
-void Accounts :: setAuthType(const uchar& authType) {
+void  Accounts :: setAuthType(const uchar& authType) {
     if (authType != m_authType) {
         m_authType = authType;
         emit authTypeChanged(authType);
@@ -172,7 +171,7 @@ void Accounts :: setPeriodTime(const uint& periodTime) {
 
 //algorithmType
 uchar Accounts :: getAlgorithmType() const { return m_algorithmType; }
-void Accounts :: setAlgorithmType(const uchar& algorithmType) {
+void  Accounts :: setAlgorithmType(const uchar& algorithmType) {
     if (algorithmType != m_algorithmType) {
         m_algorithmType = algorithmType;
         emit algorithmTypeChanged(algorithmType);
@@ -182,7 +181,7 @@ void Accounts :: setAlgorithmType(const uchar& algorithmType) {
 
 //keyLenght
 uchar Accounts :: getAuthCodeLenght() const { return m_authCodeLenght; }
-void Accounts :: setAuthCodeLenght(const uchar& authCodeLenght) {
+void  Accounts :: setAuthCodeLenght(const uchar& authCodeLenght) {
     if (authCodeLenght != m_authCodeLenght) {
         m_authCodeLenght = authCodeLenght;
         emit authCodeLenghtChanged(authCodeLenght);
@@ -192,7 +191,7 @@ void Accounts :: setAuthCodeLenght(const uchar& authCodeLenght) {
 
 //publishDate
 ulong Accounts :: getPublishDate() const { return m_publishDate; }
-void Accounts :: setPublishDate(const ulong& publishDate) {
+void  Accounts :: setPublishDate(const ulong& publishDate) {
     if (publishDate != m_publishDate) {
         m_publishDate = publishDate;
         emit publishDateChanged(publishDate);
@@ -202,16 +201,17 @@ void Accounts :: setPublishDate(const ulong& publishDate) {
 
 //editDate
 ulong Accounts :: getEditDate() const { return m_editDate; }
-void Accounts :: setEditDate(const ulong& editDate) {
+void  Accounts :: setEditDate(const ulong& editDate) {
     if (editDate != m_editDate) {
         m_editDate = editDate;
         emit editDateChanged(editDate);
     }
 }
 
+
 QString Accounts :: getAuthCode() const { return m_authCode; }
-int Accounts :: getElapsedTime() { return m_elapsedTime; }
-int Accounts :: getElapsedTimeOffset() { return m_elapsedTimeOffset; }
+int     Accounts :: getElapsedTime() { return m_elapsedTime; }
+
 
 int Accounts :: Base32Decode(const uint8_t *encoded, uint8_t *result, int bufSize) {
   int buffer = 0;
@@ -279,16 +279,6 @@ int Accounts :: GetHotpCode(const uint8_t* secretKey, int secretKeyLenght, ulong
 
 int Accounts :: GetTotpCode(const uint8_t *secretKey, int secretKeyLenght, int keyLenght){
     return GetHotpCode(secretKey, secretKeyLenght, timeStamp, keyLenght);
-}
-
-int Accounts :: PowerOf10(int keyLenght) {
-    switch (keyLenght) {
-        case 6: return 1000000;
-        case 7: return 10000000;
-        case 8: return 100000000;
-        case 9: return 1000000000;
-        default: return 1000000;
-    }
 }
 
 void Accounts :: UpdateTime() {

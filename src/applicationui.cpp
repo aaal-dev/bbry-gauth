@@ -16,7 +16,6 @@
 
 #include "applicationui.hpp"
 
-using namespace bb::cascades;
 using namespace bb::data;
 using namespace bb::system;
 
@@ -59,20 +58,17 @@ void ApplicationUI :: onSystemLanguageChanged() {
 
 void ApplicationUI :: startApplication(){
     initializeDataModel();
-    if (isFirstStart()) { initializeApplication(); }
+    if (isFirstStart()) {
+        settings->initializeSettings();
+        database->initializeDatabase();
+        readCodeListXML();
+    }
     readApplicationSettings();
     getAccountsList();
 }
 
 bool ApplicationUI :: isFirstStart() {
     return settings->isFirstStart();
-}
-
-bool ApplicationUI :: initializeApplication() {
-    settings->initializeSettings();
-    database->initializeDatabase();
-    readCodeListXML();
-    return true;
 }
 
 bool ApplicationUI :: readApplicationSettings() {
@@ -120,14 +116,11 @@ bool ApplicationUI :: readCodeListXML() {
 }
 
 bool ApplicationUI :: getAccountsList() {
-    bool success = false;
     QVariantList list = database->getAllRecords();
     if (!list.isEmpty()) {
-        int recordsRead = list.size();
-        for(int i = 0; i < recordsRead; i++) {
+        for(int i = 0; i < list.size(); i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
             Accounts *account = new Accounts(
-                    sbCtx,
                     map["id"].toInt(),
                     map["issuer_title"].toString(),
                     map["account_name"].toString(),
@@ -141,7 +134,6 @@ bool ApplicationUI :: getAccountsList() {
                     map["edit_date"].toInt(),
                     this);
             Q_UNUSED(account);
-            //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
             m_dataModel->insert(account);
         }
         return true;
@@ -221,7 +213,6 @@ void ApplicationUI :: addAccount
         const int& algorithmType,
         const int& authCodeLenght
 ) {
-    logToConsole("Yes account Added");
     Accounts* account = new Accounts(
             issuerTitle,
             accountName,
@@ -246,10 +237,3 @@ void ApplicationUI :: alert(const QString &message) {
     Q_ASSERT(ok);
     dialog->show();
 }
-
-#ifdef QT_DEBUG
-void ApplicationUI :: logToConsole(const QString& msg) {
-    fprintf(stdout, "%s\n", msg.toUtf8().constData());
-    fflush(stdout);
-}
-#endif

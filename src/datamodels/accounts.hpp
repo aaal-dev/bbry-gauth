@@ -37,7 +37,6 @@ class Accounts : public QObject {
     Q_PROPERTY(ulong editDate READ getEditDate WRITE setEditDate NOTIFY editDateChanged FINAL)
     Q_PROPERTY(QString authCode READ getAuthCode NOTIFY authCodeChanged FINAL)
     Q_PROPERTY(uint elapsedTime READ getElapsedTime NOTIFY elapsedTimeChanged FINAL)
-    Q_PROPERTY(uint elapsedTimeOffset READ getElapsedTimeOffset NOTIFY elapsedTimeOffsetChanged FINAL)
 
 public:
     Accounts(QObject* parent = 0);
@@ -52,7 +51,6 @@ public:
             const uchar& authCodeLenght,
             QObject *parent = 0);
     Accounts(
-            const sb_GlobalCtx& sbCtx,
             const int id,
             const QString& issuerTitle,
             const QString& accountName,
@@ -100,7 +98,6 @@ public:
 
     QString getAuthCode() const;
     int getElapsedTime();
-    int getElapsedTimeOffset();
 
 signals:
     void issuerTitleChanged(const QString&);
@@ -115,7 +112,6 @@ signals:
     void editDateChanged(const ulong&);
     void authCodeChanged(const QString&);
     void elapsedTimeChanged(int);
-    void elapsedTimeOffsetChanged(int);
 
 private:
     int m_id;
@@ -133,13 +129,11 @@ private:
     size_t m_secretKeyLenght;
     QString m_authCode;
     uint m_elapsedTime;
-    int m_elapsedTimeOffset;
     AuthCodeGenerator* authCodeGenerator;
 
     int Base32Decode(const uint8_t *encoded, uint8_t *result, int bufSize);
     int GetHotpCode(const uint8_t* secret, int secretLen, ulong step, uchar digits);
     int GetTotpCode(const uint8_t *secret, int secretLen, int digits);
-    int PowerOf10(int digits);
 
 private slots:
     void UpdateTime();

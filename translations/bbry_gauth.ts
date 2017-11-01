@@ -157,12 +157,12 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/applicationui.cpp" line="241"/>
+        <location filename="../src/applicationui.cpp" line="232"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/applicationui.cpp" line="242"/>
+        <location filename="../src/applicationui.cpp" line="233"/>
         <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>

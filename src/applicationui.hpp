@@ -86,15 +86,13 @@ private:
     void startApplication();
     bool connectDatabase();
     bool isFirstStart();
-    bool initializeApplication();
     bool readApplicationSettings();
     void initializeDataModel();
     bool readCodeListXML();
     bool getAccountsList();
 
-    bb::cascades::GroupDataModel* getDataModel() const;
+    GroupDataModel* getDataModel() const;
     void alert(const QString&);
-    void logToConsole(const QString& msg);
 };
 
 #endif /* ApplicationUI_HPP_ */

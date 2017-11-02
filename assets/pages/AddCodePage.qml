@@ -70,7 +70,7 @@ NavigationPane {
                 title: qsTr("Create") + Retranslate.onLocaleOrLanguageChanged
                 onTriggered: {
                     addCodeNavigationPane.done();
-                    Qt.app.addAccount(
+                    Qt.app.addNewAccount(
                         issuerTitleProperty, 
                         accountNameProperty, 
                         secretKeyProperty, 
@@ -79,7 +79,6 @@ NavigationPane {
                         periodTimeProperty, 
                         algorithmTypeProperty, 
                         authCodeLenghtProperty);
-                    
                 }
                 enabled: false
             }
@@ -87,7 +86,7 @@ NavigationPane {
                 id: dismissAction
                 title: qsTr("Cancel") + Retranslate.onLocaleOrLanguageChanged
                 onTriggered: {
-                    done()
+                    addCodeNavigationPane.done()
                 }
             }
         }
@@ -403,6 +402,6 @@ NavigationPane {
         }
     }
     onCreationCompleted: {
-        Qt.app = _app;
+        Qt.app = app;
     }
 }

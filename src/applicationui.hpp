@@ -62,15 +62,16 @@ public:
     virtual ~ApplicationUI();
 
     Q_INVOKABLE void parseQRData(const QString&);
-    Q_INVOKABLE void addAccount(
-            const QString&,
-            const QString&,
-            const QString&,
-            const int&,
-            const int&,
-            const int&,
-            const int&,
-            const int&);
+    Q_INVOKABLE void addNewAccount(
+            const QString& issuerTitle,
+            const QString& accountName,
+            const QString& secretKey,
+            const int& authType,
+            const int& counterValue,
+            const int& periodTime,
+            const int& algorithmType,
+            const int& authCodeLenght);
+    Q_INVOKABLE void deleteAccount(QVariantList indexPath);
 
 private slots:
     void onSystemLanguageChanged();

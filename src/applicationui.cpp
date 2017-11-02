@@ -38,7 +38,7 @@ ApplicationUI :: ApplicationUI() : QObject(), m_dataModel(0) {
 
     startApplication();
     QmlDocument *qml = QmlDocument::create("asset:///pages/MainPage.qml").parent(this);
-    qml->setContextProperty("_app", this);
+    qml->setContextProperty("app", this);
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     Application::instance()->setScene(root);
 }
@@ -108,7 +108,7 @@ bool ApplicationUI :: readCodeListXML() {
                     this);
             Q_UNUSED(account);
             //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
-            database->createRecord(account);
+            database->addNewAccount(account);
         }
         success = true;
     }
@@ -202,7 +202,7 @@ void ApplicationUI :: parseQRData(const QString& data) {
     }
 }
 
-void ApplicationUI :: addAccount
+void ApplicationUI :: addNewAccount
 (
         const QString& issuerTitle,
         const QString& accountName,
@@ -223,9 +223,19 @@ void ApplicationUI :: addAccount
             algorithmType,
             authCodeLenght,
             this);
-    database->createRecord(account);
-    m_dataModel->insert(account);
+    Accounts * newAccount = database->addNewAccount(account);
+    m_dataModel->insert(newAccount);
 
+}
+
+void ApplicationUI :: deleteAccount(QVariantList indexPath) {
+    if (!indexPath.isEmpty()) {
+        QVariantMap map = m_dataModel->data(indexPath).toMap();
+        int id = map["id"].toInt();
+        if (database->deleteAccount(id)) {
+            m_dataModel->remove(map);
+        }
+    }
 }
 
 void ApplicationUI :: alert(const QString &message) {

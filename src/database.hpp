@@ -38,9 +38,10 @@ public:
     bool deleteColumn(const QString& tableName, const QString& columnName);
 
     bool createRecord(const QString& tableName);
-    bool createRecord(Accounts* account);
+    Accounts* addNewAccount(Accounts* account);
     bool updateRecord();
     bool deleteRecord();
+    bool deleteAccount(int& id);
     QVariantList getAllRecords();
 
 

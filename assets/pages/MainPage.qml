@@ -49,15 +49,16 @@ NavigationPane {
             layout: DockLayout {
             }
             ListView {
-                id: listView
+                id: accountListView
                 verticalAlignment: VerticalAlignment.Fill
                 horizontalAlignment: HorizontalAlignment.Fill
-                dataModel: _app.dataModel
+                dataModel: app.dataModel
                 //dataModel: XmlDataModel { source: "asset:///model.xml" }
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
                         content: Container {
+                            id: listItem
                             Container {
                                 Container {
                                     Container {
@@ -130,7 +131,7 @@ NavigationPane {
                             contextActions: [
                                 ActionSet {
                                     title: qsTr("Authenticator Code")
-                                    subtitle: ListItemData.title
+                                    subtitle: ListItemData.issuerTitle + ListItemData.accountName
                                     actions: [
                                         ActionItem {
                                             title: qsTr("Edit data")
@@ -144,8 +145,7 @@ NavigationPane {
                                     DeleteActionItem {
                                         title: qsTr("Delete This Entry")
                                         onTriggered: {
-                                            //Qt.dlg.body = qsTr("Are you sure to delete account: %0?").arg(ListItemData.email)
-                                            //Qt.dlg.show()
+                                            Qt.app.deleteAccount(listItem.ListItem.view.selected());
                                         }
                                     }
                                 }
@@ -243,5 +243,8 @@ NavigationPane {
         page.destroy();
         if (count() == 1)
             Application.menuEnabled = true;
+    }
+    onCreationCompleted: {
+        Qt.app = app;
     }
 }

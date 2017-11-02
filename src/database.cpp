@@ -181,9 +181,9 @@ bool Database :: createRecord(const QString& tableName) {
         query.bindValue(":account_name", m_accountName);
         query.bindValue(":secret_key", m_secretKey);
         query.bindValue(":auth_type", m_authType);
-        query.bindValue(":algorithm_type", m_algorithmType);
         query.bindValue(":counter_value", m_counterValue);
         query.bindValue(":period_time", m_periodTime);
+        query.bindValue(":algorithm_type", m_algorithmType);
         query.bindValue(":auth_code_lenght", m_authCodeLenght);
         query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
         query.bindValue(":edit_date", m_editDate);
@@ -201,7 +201,7 @@ bool Database :: createRecord(const QString& tableName) {
     }
 }
 
-bool Database :: createRecord (Accounts* account) {
+Accounts* Database :: addNewAccount (Accounts* account) {
     m_issuerTitle = account->getIssuerTitle();
     m_accountName = account->getAccountName();
     m_secretKey = account->getSecretKey();
@@ -210,7 +210,33 @@ bool Database :: createRecord (Accounts* account) {
     m_periodTime = account->getPeriodTime();
     m_algorithmType = account->getAlgorithmType();
     m_authCodeLenght = account->getAuthCodeLenght();
-    return createRecord(m_tableName);
+    if (createRecord(m_tableName)) {
+        QSqlDatabase database = QSqlDatabase::database(m_tableName);
+        QSqlQuery query(database);
+        query.prepare(QString("SELECT * FROM %1 WHERE secret_key = :secret_key").arg(m_tableName));
+        query.bindValue(":secret_key", m_secretKey);
+        if (!query.exec()) {
+            const QSqlError error = query.lastError();
+            qDebug() << "ERROR: DATABASE: record not exist" << error.text();
+            return false;
+        }
+        QSqlRecord rec = query.record();
+        Accounts* account = new Accounts(
+                query.value(rec.indexOf("id")).toInt(),
+                query.value(rec.indexOf("issuer_title")).toString(),
+                query.value(rec.indexOf("account_name")).toString(),
+                query.value(rec.indexOf("secret_key")).toString(),
+                query.value(rec.indexOf("auth_type")).toInt(),
+                query.value(rec.indexOf("counter_value")).toInt(),
+                query.value(rec.indexOf("period_time")).toInt(),
+                query.value(rec.indexOf("algorithm_type")).toInt(),
+                query.value(rec.indexOf("auth_code_lenght")).toInt(),
+                query.value(rec.indexOf("publish_date")).toInt(),
+                query.value(rec.indexOf("edit_date")).toInt(),
+                this);
+        return account;
+    }
+    return false;
 }
 
 bool Database :: updateRecord() {
@@ -221,7 +247,7 @@ bool Database :: updateRecord() {
             "SET "
             "   issuer_title=:issuer_title, "
             "   account_name=:account_name, "
-            "   secret_key=:secsecret_keyret_code, "
+            "   secret_key=:secret_key, "
             "   auth_type=:auth_type, "
             "   algorithm_type=:algorithm_type, "
             "   counter_value=:counter_value, "
@@ -251,7 +277,17 @@ bool Database :: deleteRecord() {
     QSqlQuery query(database);
     query.prepare("DELETE FROM accounts WHERE id=:id");
     query.bindValue(":id", m_id);
-    return query.exec();
+    if (!query.exec()){
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: deleteRecord: record id" << m_id << "not exist." << error.text();
+        return false;
+    }
+    return true;
+}
+
+bool Database :: deleteAccount(int& id) {
+    m_id=id;
+    return deleteRecord();
 }
 
 QVariantList Database :: getAllRecords() {

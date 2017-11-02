@@ -72,7 +72,7 @@ Page {
                         }
                         cameraSound.play();
                         scanQRCodePage.done();
-                        _app.parseQRData(data);
+                        Qt.app.parseQRData(data);
                     }
                 },
                 SystemSound {
@@ -125,6 +125,9 @@ Page {
                 scanQRCodePage.done()
             }
         }
+    }
+    onCreationCompleted: {
+        Qt.app = app;
     }
 }
 

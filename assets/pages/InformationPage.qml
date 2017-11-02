@@ -34,7 +34,9 @@ Page {
                 " presented on the home screen and a list of different topics is available either pressing the item" + 
                 " or going action item overflow." + "\n\nHappy feedbacking.</html>")
             }
-            
+            ListView {
+                
+            } 
         }
     }
 }

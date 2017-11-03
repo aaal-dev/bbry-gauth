@@ -90,7 +90,7 @@ private:
     bool readApplicationSettings();
     void initializeDataModel();
     bool readCodeListXML();
-    bool getAccountsList();
+    bool getAccountsList(QVariantList* list);
 
     GroupDataModel* getDataModel() const;
     void alert(const QString&);

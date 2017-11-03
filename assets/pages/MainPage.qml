@@ -146,6 +146,7 @@ NavigationPane {
                                         title: qsTr("Delete This Entry")
                                         onTriggered: {
                                             Qt.app.deleteAccount(listItem.ListItem.view.selected());
+                                            
                                         }
                                     }
                                 }

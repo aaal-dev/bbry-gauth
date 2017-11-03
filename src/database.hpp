@@ -38,11 +38,21 @@ public:
     bool deleteColumn(const QString& tableName, const QString& columnName);
 
     bool createRecord(const QString& tableName);
+    int createRecord(
+            const QString& issuerTitle,
+            const QString& accountName,
+            const QString& secretKey,
+            const uchar& authType,
+            const uint& counterValue,
+            const uint& periodTime,
+            const uchar& algorithmType,
+            const uchar& authCodeLenght);
     Accounts* addNewAccount(Accounts* account);
     bool updateRecord();
     bool deleteRecord();
     bool deleteAccount(int& id);
-    QVariantList getAllRecords();
+    QVariantList* getAllRecords();
+    QVariantList* getRecordbyId(const int& id);
 
 
 

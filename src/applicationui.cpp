@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 #include "applicationui.hpp"
 
 using namespace bb::data;
@@ -64,7 +65,7 @@ void ApplicationUI :: startApplication(){
         readCodeListXML();
     }
     readApplicationSettings();
-    getAccountsList();
+    getAccountsList(database->getAllRecords());
 }
 
 bool ApplicationUI :: isFirstStart() {
@@ -96,7 +97,7 @@ bool ApplicationUI :: readCodeListXML() {
         int recordsRead = list.size();
         for(int i = 0; i < recordsRead; i++) {
             QVariantMap map = list.at(i).value<QVariantMap>();
-            Accounts *account = new Accounts(
+            database->createRecord(
                     map["issuerTitle"].toString(),
                     map["accountName"].toString(),
                     map["secretKey"].toString(),
@@ -104,41 +105,12 @@ bool ApplicationUI :: readCodeListXML() {
                     map["counterValue"].toInt(),
                     map["periodTime"].toInt(),
                     map["algorithmType"].toInt(),
-                    map["keyLenght"].toInt(),
-                    this);
-            Q_UNUSED(account);
-            //logToConsole(QString("Id: %1, Email %2").arg(account->getId()).arg(account->getIssuerTitle()));
-            database->addNewAccount(account);
+                    map["keyLenght"].toInt()
+                    );
         }
         success = true;
     }
     return success;
-}
-
-bool ApplicationUI :: getAccountsList() {
-    QVariantList list = database->getAllRecords();
-    if (!list.isEmpty()) {
-        for(int i = 0; i < list.size(); i++) {
-            QVariantMap map = list.at(i).value<QVariantMap>();
-            Accounts *account = new Accounts(
-                    map["id"].toInt(),
-                    map["issuer_title"].toString(),
-                    map["account_name"].toString(),
-                    map["secret_key"].toString(),
-                    map["auth_type"].toInt(),
-                    map["counter_value"].toInt(),
-                    map["period_time"].toInt(),
-                    map["algorithm_type"].toInt(),
-                    map["auth_code_lenght"].toInt(),
-                    map["publish_date"].toInt(),
-                    map["edit_date"].toInt(),
-                    this);
-            Q_UNUSED(account);
-            m_dataModel->insert(account);
-        }
-        return true;
-    }
-    return false;
 }
 
 void ApplicationUI :: parseQRData(const QString& data) {
@@ -213,7 +185,7 @@ void ApplicationUI :: addNewAccount
         const int& algorithmType,
         const int& authCodeLenght
 ) {
-    Accounts* account = new Accounts(
+    int id = database->createRecord(
             issuerTitle,
             accountName,
             secretKey,
@@ -221,21 +193,45 @@ void ApplicationUI :: addNewAccount
             counterValue,
             periodTime,
             algorithmType,
-            authCodeLenght,
-            this);
-    Accounts * newAccount = database->addNewAccount(account);
-    m_dataModel->insert(newAccount);
-
+            authCodeLenght
+            );
+    getAccountsList(database->getRecordbyId(id));
 }
 
 void ApplicationUI :: deleteAccount(QVariantList indexPath) {
     if (!indexPath.isEmpty()) {
-        QVariantMap map = m_dataModel->data(indexPath).toMap();
-        int id = map["id"].toInt();
+        QObject* object = qvariant_cast<QObject*>(m_dataModel->data(indexPath));
+        Accounts* account = qobject_cast<Accounts*>(object);
+        int id = account->getId();
         if (database->deleteAccount(id)) {
-            m_dataModel->remove(map);
+            m_dataModel->remove(account);
         }
     }
+}
+
+bool ApplicationUI :: getAccountsList(QVariantList* list) {
+    if (!list->isEmpty()) {
+        for(int i = 0; i < list->size(); i++) {
+            QVariantMap map = list->at(i).value<QVariantMap>();
+            Accounts *account = new Accounts(
+                    map["id"].toInt(),
+                    map["issuer_title"].toString(),
+                    map["account_name"].toString(),
+                    map["secret_key"].toString(),
+                    map["auth_type"].toInt(),
+                    map["counter_value"].toInt(),
+                    map["period_time"].toInt(),
+                    map["algorithm_type"].toInt(),
+                    map["auth_code_lenght"].toInt(),
+                    map["publish_date"].toInt(),
+                    map["edit_date"].toInt(),
+                    this);
+            Q_UNUSED(account);
+            m_dataModel->insert(account);
+        }
+        return true;
+    }
+    return false;
 }
 
 void ApplicationUI :: alert(const QString &message) {

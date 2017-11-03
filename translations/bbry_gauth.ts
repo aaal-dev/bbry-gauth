@@ -157,12 +157,12 @@
 <context>
     <name>ApplicationUI</name>
     <message>
-        <location filename="../src/applicationui.cpp" line="242"/>
+        <location filename="../src/applicationui.cpp" line="238"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/applicationui.cpp" line="243"/>
+        <location filename="../src/applicationui.cpp" line="239"/>
         <source>Alert</source>
         <translation type="unfinished"></translation>
     </message>
@@ -224,17 +224,17 @@ Happy feedbacking.&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="170"/>
+        <location filename="../assets/pages/MainPage.qml" line="171"/>
         <source>Scan QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="182"/>
+        <location filename="../assets/pages/MainPage.qml" line="183"/>
         <source>Add manualy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/pages/MainPage.qml" line="219"/>
+        <location filename="../assets/pages/MainPage.qml" line="220"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>

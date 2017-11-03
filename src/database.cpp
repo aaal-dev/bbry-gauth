@@ -112,7 +112,7 @@ bool Database :: createColumn(const QString& tableName, const QString& columnNam
     QSqlDatabase database = QSqlDatabase::database();
     QSqlQuery query(database);
     query.prepare(QString("ALTER TABLE %1"
-            "   ADD :columnName :columnParams").arg(tableName));
+            "   ADD %2 %3").arg(tableName).arg(columnName).arg(columnParams));
     if (!query.exec()) {
         const QSqlError error = query.lastError();
         qDebug() << "ERROR: DATABASE: column not created." << error.text();
@@ -201,42 +201,60 @@ bool Database :: createRecord(const QString& tableName) {
     }
 }
 
-Accounts* Database :: addNewAccount (Accounts* account) {
-    m_issuerTitle = account->getIssuerTitle();
-    m_accountName = account->getAccountName();
-    m_secretKey = account->getSecretKey();
-    m_authType = account->getAuthType();
-    m_counterValue = account->getCounterValue();
-    m_periodTime = account->getPeriodTime();
-    m_algorithmType = account->getAlgorithmType();
-    m_authCodeLenght = account->getAuthCodeLenght();
-    if (createRecord(m_tableName)) {
-        QSqlDatabase database = QSqlDatabase::database(m_tableName);
-        QSqlQuery query(database);
-        query.prepare(QString("SELECT * FROM %1 WHERE secret_key = :secret_key").arg(m_tableName));
-        query.bindValue(":secret_key", m_secretKey);
-        if (!query.exec()) {
-            const QSqlError error = query.lastError();
-            qDebug() << "ERROR: DATABASE: record not exist" << error.text();
-            return false;
-        }
-        QSqlRecord rec = query.record();
-        Accounts* account = new Accounts(
-                query.value(rec.indexOf("id")).toInt(),
-                query.value(rec.indexOf("issuer_title")).toString(),
-                query.value(rec.indexOf("account_name")).toString(),
-                query.value(rec.indexOf("secret_key")).toString(),
-                query.value(rec.indexOf("auth_type")).toInt(),
-                query.value(rec.indexOf("counter_value")).toInt(),
-                query.value(rec.indexOf("period_time")).toInt(),
-                query.value(rec.indexOf("algorithm_type")).toInt(),
-                query.value(rec.indexOf("auth_code_lenght")).toInt(),
-                query.value(rec.indexOf("publish_date")).toInt(),
-                query.value(rec.indexOf("edit_date")).toInt(),
-                this);
-        return account;
+int Database :: createRecord(
+        const QString& issuerTitle,
+        const QString& accountName,
+        const QString& secretKey,
+        const uchar& authType,
+        const uint& counterValue,
+        const uint& periodTime,
+        const uchar& algorithmType,
+        const uchar& authCodeLenght
+        ) {
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
+    QSqlQuery query(database);
+    query.prepare(QString(
+            "INSERT INTO %1 "
+            "   (issuer_title, "
+            "   account_name, "
+            "   secret_key, "
+            "   auth_type, "
+            "   algorithm_type, "
+            "   counter_value, "
+            "   period_time, "
+            "   auth_code_lenght, "
+            "   publish_date, "
+            "   edit_date) "
+            "VALUES "
+            "   (:issuer_title, "
+            "   :account_name, "
+            "   :secret_key, "
+            "   :auth_type, "
+            "   :algorithm_type, "
+            "   :counter_value, "
+            "   :period_time, "
+            "   :auth_code_lenght, "
+            "   :publish_date, "
+            "   :edit_date) "
+            ).arg(m_tableName));
+    query.bindValue(":issuer_title", issuerTitle);
+    query.bindValue(":account_name", accountName);
+    query.bindValue(":secret_key", secretKey);
+    query.bindValue(":auth_type", authType);
+    query.bindValue(":counter_value", counterValue);
+    query.bindValue(":period_time", periodTime);
+    query.bindValue(":algorithm_type", algorithmType);
+    query.bindValue(":auth_code_lenght", authCodeLenght);
+    query.bindValue(":publish_date", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+    query.bindValue(":edit_date", 0);
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: record not created: %1" << error.text();
+        return false;
+    } else {
+        qDebug() << "DATABASE: record created: issuer:" << issuerTitle << "account" << accountName;
+        return query.lastInsertId().toInt();
     }
-    return false;
 }
 
 bool Database :: updateRecord() {
@@ -290,30 +308,57 @@ bool Database :: deleteAccount(int& id) {
     return deleteRecord();
 }
 
-QVariantList Database :: getAllRecords() {
-    QVariantList list = QVariantList();
+QVariantList* Database :: getAllRecords() {
+    QVariantList* list = new QVariantList();
     QSqlDatabase database = QSqlDatabase::database(m_tableName);
     QSqlQuery query(database);
     query.prepare(QString("SELECT * FROM %1").arg(m_tableName));
     if (!query.exec()) {
         const QSqlError error = query.lastError();
         qDebug() << "ERROR: DATABASE: record list" << error.text();
-        return list;
-    }
-    while (query.next()) {
-        QSqlRecord rec = query.record();
-        QVariantMap map = QVariantMap();
-        for( int i=0; i<rec.count(); ++i )
-            map.insert(rec.fieldName(i), query.value(i));
-        list.append(map);
-    }
-
-    if (!list.isEmpty()){
-        qDebug() << "DATABASE: got record list.";
-        return list;
     } else {
-        qDebug() << "ERROR: DATABASE: record list empty";
+        while (query.next()) {
+            QSqlRecord rec = query.record();
+            QVariantMap map = QVariantMap();
+            for( int i=0; i<rec.count(); ++i )
+                map.insert(rec.fieldName(i), query.value(i));
+            list->append(map);
+        }
+        if (!list->isEmpty()){
+            qDebug() << "DATABASE: got record list.";
+
+        } else {
+            qDebug() << "ERROR: DATABASE: record list empty";
+        }
     }
+    return list;
+}
+
+QVariantList* Database :: getRecordbyId(const int& id) {
+    QVariantList* list = new QVariantList();
+    QSqlDatabase database = QSqlDatabase::database(m_tableName);
+    QSqlQuery query(database);
+    query.prepare(QString("SELECT * FROM %1 WHERE id = :id").arg(m_tableName));
+    query.bindValue(":id", id);
+    if (!query.exec()) {
+        const QSqlError error = query.lastError();
+        qDebug() << "ERROR: DATABASE: record list" << error.text();
+    } else {
+        while (query.next()) {
+            QSqlRecord rec = query.record();
+            QVariantMap map = QVariantMap();
+            for( int i=0; i<rec.count(); ++i )
+                map.insert(rec.fieldName(i), query.value(i));
+            list->append(map);
+        }
+        if (!list->isEmpty()){
+            qDebug() << "DATABASE: got record by id" << id;
+
+        } else {
+            qDebug() << "ERROR: DATABASE: record with id" << id << "not exist";
+        }
+    }
+    return list;
 }
 
 

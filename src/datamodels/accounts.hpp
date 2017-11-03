@@ -9,6 +9,7 @@
 #define ACCOUNTS_HPP_
 
 #include <QObject>
+#include <QMetaType>
 
 #include "huctx.h"
 #include <stdint.h>
